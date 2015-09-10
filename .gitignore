@@ -55,20 +55,23 @@ Temporary Items
 !WTF/*
 WTF/Config.wtf
 
-#!WTF/Account/ACCOUNT_NAME_IN_CAPS
-#WTF/Account/ACCOUNT_NAME_IN_CAPS/cache.md5
-#WTF/Account/ACCOUNT_NAME_IN_CAPS/bindings-cache.wtf
-#WTF/Account/ACCOUNT_NAME_IN_CAPS/macros-cache.txt
-#WTF/Account/ACCOUNT_NAME_IN_CAPS/macros-local.txt
-#WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables.lua
-#WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables.lua.bak
+!WTF/Account/ACCOUNT_NAME_IN_CAPS
+WTF/Account/ACCOUNT_NAME_IN_CAPS/*
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/
+WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/*
 
-#!WTF/Account/ACCOUNT_NAME_IN_CAPS/*
-#WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/*
-#!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/LunaUnitFrames.lua
-#!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/LunaUnitFrames.lua.bak
-#!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName
-#!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName/**
+# Config files that need to be saved
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/ClosetGnome.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/EQL3.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/La_Vendetta_Boss_Mods.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/LunaUnitFrames.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/MikScrollingBattleText.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/Prat.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/SW_Stats.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/vQueue.lua
+
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName
+WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName/*
 
 !Interface
 !Interface/AddOns
