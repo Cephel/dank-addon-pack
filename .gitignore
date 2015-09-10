@@ -41,3 +41,36 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# =========================
+# WoW related files
+# =========================
+
+# Exclude everything
+*
+
+# Retroactively include files
+!README.md
+!WTF
+!WTF/*
+WTF/Config.wtf
+
+!WTF/Account/USERNAME_IN_CAPS
+WTF/Account/USERNAME_IN_CAPS/cache.md5
+WTF/Account/USERNAME_IN_CAPS/bindings-cache.wtf
+WTF/Account/USERNAME_IN_CAPS/macros-cache.txt
+WTF/Account/USERNAME_IN_CAPS/macros-local.txt
+WTF/Account/USERNAME_IN_CAPS/SavedVariables.lua
+WTF/Account/USERNAME_IN_CAPS/SavedVariables.lua.bak
+
+!WTF/Account/USERNAME_IN_CAPS/*
+WTF/Account/USERNAME_IN_CAPS/SavedVariables/*
+!WTF/Account/USERNAME_IN_CAPS/SavedVariables/LunaUnitFrames.lua
+!WTF/Account/USERNAME_IN_CAPS/SavedVariables/LunaUnitFrames.lua.bak
+!WTF/Account/USERNAME_IN_CAPS/*/CharacterName
+!WTF/Account/USERNAME_IN_CAPS/*/CharacterName/**
+
+# !Interface
+#!Interface/AddOns
+#!Interface/AddOns/**
+#Interface/AddOns/Blizzard_*
