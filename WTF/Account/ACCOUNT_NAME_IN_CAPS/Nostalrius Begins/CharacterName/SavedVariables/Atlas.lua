@@ -12,7 +12,7 @@ AtlasOptions = {
 	["AtlasButtonShown"] = true,
 	["AtlasVersion"] = "1.8.5a |cFFFF8080PRE-TBC|r",
 	["AtlasButtonPosition"] = 15,
-	["AtlasZone"] = 3,
+	["AtlasZone"] = 13,
 	["AtlasScale"] = 1,
 	["AtlasLocked"] = false,
 }

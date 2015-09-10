@@ -63,11 +63,8 @@ WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/*
 # Global config files
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/AtlasLoot.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/ClosetGnome.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/EQL3.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/La_Vendetta_Boss_Mods.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/LunaUnitFrames.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/MikScrollingBattleText.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/Prat.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/vQueue.lua
 
 # Character based config files
@@ -86,3 +83,4 @@ WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName/SavedVariables/*
 !Interface/AddOns
 !Interface/AddOns/**
 Interface/AddOns/Blizzard_*
+Interface/AddOns/VF_*
