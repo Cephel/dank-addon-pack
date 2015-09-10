@@ -55,22 +55,22 @@ Temporary Items
 !WTF/*
 WTF/Config.wtf
 
-!WTF/Account/USERNAME_IN_CAPS
-WTF/Account/USERNAME_IN_CAPS/cache.md5
-WTF/Account/USERNAME_IN_CAPS/bindings-cache.wtf
-WTF/Account/USERNAME_IN_CAPS/macros-cache.txt
-WTF/Account/USERNAME_IN_CAPS/macros-local.txt
-WTF/Account/USERNAME_IN_CAPS/SavedVariables.lua
-WTF/Account/USERNAME_IN_CAPS/SavedVariables.lua.bak
+#!WTF/Account/ACCOUNT_NAME_IN_CAPS
+#WTF/Account/ACCOUNT_NAME_IN_CAPS/cache.md5
+#WTF/Account/ACCOUNT_NAME_IN_CAPS/bindings-cache.wtf
+#WTF/Account/ACCOUNT_NAME_IN_CAPS/macros-cache.txt
+#WTF/Account/ACCOUNT_NAME_IN_CAPS/macros-local.txt
+#WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables.lua
+#WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables.lua.bak
 
-!WTF/Account/USERNAME_IN_CAPS/*
-WTF/Account/USERNAME_IN_CAPS/SavedVariables/*
-!WTF/Account/USERNAME_IN_CAPS/SavedVariables/LunaUnitFrames.lua
-!WTF/Account/USERNAME_IN_CAPS/SavedVariables/LunaUnitFrames.lua.bak
-!WTF/Account/USERNAME_IN_CAPS/*/CharacterName
-!WTF/Account/USERNAME_IN_CAPS/*/CharacterName/**
+#!WTF/Account/ACCOUNT_NAME_IN_CAPS/*
+#WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/*
+#!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/LunaUnitFrames.lua
+#!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/LunaUnitFrames.lua.bak
+#!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName
+#!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName/**
 
-# !Interface
-#!Interface/AddOns
-#!Interface/AddOns/**
-#Interface/AddOns/Blizzard_*
+!Interface
+!Interface/AddOns
+!Interface/AddOns/**
+Interface/AddOns/Blizzard_*

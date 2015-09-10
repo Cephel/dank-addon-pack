@@ -1,0 +1,5 @@
+
+#Version=1.9.9
+#Description=*Fixed compatibility with XLoot addon for the recording of looted items.
+#UpdateSubmitter=Dilatazu
+#UpdateImportance=|DefaultImportance=Good|

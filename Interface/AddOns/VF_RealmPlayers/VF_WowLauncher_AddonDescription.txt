@@ -1,0 +1,6 @@
+
+#Version=1.60
+#Description=*Added support for recording some mounts that did not work before.
+*Added support for recording mounts and pets when on FR or DE wow clients.
+#UpdateSubmitter=Dilatazu
+#UpdateImportance=|DefaultImportance=Good|
