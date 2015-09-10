@@ -60,7 +60,7 @@ WTF/Account/ACCOUNT_NAME_IN_CAPS/*
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/*/
 WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/*
 
-# Config files that need to be saved
+# Global config files
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/ClosetGnome.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/EQL3.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/La_Vendetta_Boss_Mods.lua
@@ -70,9 +70,13 @@ WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/*
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/SW_Stats.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/vQueue.lua
 
+# Character based config files
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName
 WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName/*
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName/chat-cache.txt
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName/layout-cache.txt
 
+# Addon files
 !Interface
 !Interface/AddOns
 !Interface/AddOns/**
