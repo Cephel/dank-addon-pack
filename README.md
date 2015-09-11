@@ -8,6 +8,8 @@ An addon pack designed to be functional and only have things that are actually w
 - Rename WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm Name to correct realm name
 - Rename WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm Name/Character Name to correct character name
   - You can copy this folder to account for multiple characters
+
+# Todo
 - EQL3, move to corner, lock and remove zone field
 - La Vendetta, move minimap button to 185
 - Prat, timestamp color 40c040, show reminder, chat button
