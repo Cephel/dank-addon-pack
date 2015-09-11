@@ -9,7 +9,7 @@ An addon pack designed to be functional and only have things that are actually w
 - Rename WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm Name/Character Name to correct character name
   - You can copy this folder to account for multiple characters
 
-# Todo
+# Todo for automization
 - EQL3
   - Move to default corner
   - Lock frame

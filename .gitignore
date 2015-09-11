@@ -77,6 +77,7 @@ WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/*
 
 WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/*
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/Atlas.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/KLHThreatMeter.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/SW_Stats.lua
 
 # Addon files
