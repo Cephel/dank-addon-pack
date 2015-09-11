@@ -10,8 +10,8 @@ X: 396
 Y: -68
 Frame: KLHTM_Frame
 FrameLevel: 1
-X: 1374
-Y: -551
+X: 1375
+Y: -540
 Frame: LVBM_StatusBarTimerAnchor
 FrameLevel: 1
 X: 735
@@ -30,11 +30,11 @@ X: 733
 Y: -197
 Frame: NuNMicroFrame
 FrameLevel: 1
-X: 1569
-Y: -308
+X: 1550
+Y: -310
 Frame: SW_BarFrame1
 FrameLevel: 8
-X: 1374
-Y: -362
+X: 1375
+Y: -360
 W: 189
 H: 160

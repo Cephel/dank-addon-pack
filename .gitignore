@@ -69,15 +69,15 @@ WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/*
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/vQueue.lua
 
 # Character based config files
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName
-WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName/*
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName/*/
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName/chat-cache.txt
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName/layout-cache.txt
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name
+WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/*
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/*/
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/chat-cache.txt
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/layout-cache.txt
 
-WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName/SavedVariables/*
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName/SavedVariables/Atlas.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/CharacterName/SavedVariables/SW_Stats.lua
+WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/*
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/Atlas.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/SW_Stats.lua
 
 # Addon files
 !Interface
