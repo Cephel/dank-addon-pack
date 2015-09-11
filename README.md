@@ -5,9 +5,13 @@ An addon pack designed to be functional and only have things that are actually w
 - Extract to WoW directory
 - Rename WTF/Account/ACCOUNT_NAME_IN_CAPS to correct account name
   - You can copy this folder to account for multiple accounts
-- Rename WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm Name to correct realm name
-- Rename WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm Name/Character Name to correct character name
+- Rename WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name to correct realm name
+- Rename WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name to correct character name
   - You can copy this folder to account for multiple characters
+
+# Troubleshooting
+- If you have a monitor size that is not 1920x1080
+  - delete WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/layout-cache.txt if you can't see KTM and SW_Stats on the screen
 
 # Todo for automization
 - EQL3
