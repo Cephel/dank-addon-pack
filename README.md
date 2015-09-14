@@ -19,7 +19,7 @@ then
 - If you have a monitor size that is not 1920x1080
   - delete WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/layout-cache.txt if you can't see KTM and SW_Stats on the screen
 
-# Todo for automization
+# Automization TODO:
 - EQL3
   - Move to default corner
   - Lock frame
@@ -32,6 +32,5 @@ then
   - Hide the warning display
 
 # Credits
-A list of addons used in this pack follows below, with download links:
-
+A list of addons used in this pack, with download links:
 - Soon
