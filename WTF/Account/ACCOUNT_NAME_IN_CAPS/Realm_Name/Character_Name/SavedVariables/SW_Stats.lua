@@ -1,6 +1,6 @@
 
 SW_Settings = {
-	["SW_IconPos"] = 290,
+	["SW_IconPos"] = 305,
 	["QuickOptCount"] = 2,
 	["ReportAmount"] = 10,
 	["TL_SafeMode"] = true,
