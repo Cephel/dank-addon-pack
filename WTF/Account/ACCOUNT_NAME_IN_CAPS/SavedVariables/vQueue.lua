@@ -1,5 +1,5 @@
 
-MinimapPos = -25
+MinimapPos = -20
 vQueueOptions = {
 	["onlylfg"] = true,
 	["general"] = true,

@@ -2,7 +2,7 @@
 ClosetGnomeDB = {
 	["profiles"] = {
 		["Default"] = {
-			["minimapPosition"] = 225,
+			["minimapPosition"] = 220,
 			["detachedTooltip"] = {
 			},
 		},
