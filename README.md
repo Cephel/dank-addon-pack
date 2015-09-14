@@ -24,8 +24,6 @@ then
   - Move to default corner
   - Lock frame
   - Remove zone field
-- La Vendetta
-  - Move minimap button to 185
 - Prat
   - Timestamp color 40c040
   - Show reminder
