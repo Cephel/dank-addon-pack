@@ -18,9 +18,18 @@ LVBM_SavedVars = {
 			["Announce"] = false,
 			["AltStrat"] = false,
 		},
-		["Ouro"] = {
+		["Loatheb"] = {
 			["Enabled"] = true,
+			["AnnounceHealRaid"] = true,
+			["AnnounceSporesBackward"] = false,
+			["AnnounceSpores"] = true,
+			["FrameLocked"] = false,
+			["ShowHealFrame"] = false,
+			["PotSpecialWarning"] = true,
+			["AnnounceHealWhisper"] = false,
+			["PotAnnounce"] = true,
 			["Announce"] = false,
+			["AnnounceHealRaidWarning"] = false,
 		},
 		["Ragnaros"] = {
 			["Enabled"] = true,
@@ -44,9 +53,12 @@ LVBM_SavedVars = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Kazzak"] = {
+		["Kelthuzad"] = {
 			["Enabled"] = true,
+			["Whisper"] = false,
+			["RangeCheck"] = true,
 			["Announce"] = false,
+			["SetIcon"] = true,
 		},
 		["Firemaw"] = {
 			["Enabled"] = true,
@@ -60,10 +72,8 @@ LVBM_SavedVars = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["OutdoorDragons"] = {
+		["Sartura"] = {
 			["Enabled"] = true,
-			["SetIcon"] = true,
-			["SendWhisper"] = false,
 			["Announce"] = false,
 		},
 		["Arlokk"] = {
@@ -75,13 +85,17 @@ LVBM_SavedVars = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Skeram"] = {
+		["OutdoorDragons"] = {
 			["Enabled"] = true,
+			["SetIcon"] = true,
+			["SendWhisper"] = false,
 			["Announce"] = false,
 		},
-		["Sartura"] = {
+		["Vaelastrasz"] = {
 			["Enabled"] = true,
+			["Whisper"] = false,
 			["Announce"] = false,
+			["SetIcon"] = true,
 		},
 		["Geddon"] = {
 			["Enabled"] = true,
@@ -95,35 +109,7 @@ LVBM_SavedVars = {
 			["Announce"] = false,
 			["Whisper"] = false,
 		},
-		["Noth"] = {
-			["Enabled"] = true,
-			["TimeInRoom"] = 90,
-			["TimeOnBalcony"] = 70,
-			["AnnounceSpawn"] = false,
-			["OnBalcony"] = false,
-			["Announce"] = false,
-			["AnnounceCurse"] = true,
-		},
 		["Onyxia"] = {
-			["Enabled"] = true,
-			["Announce"] = false,
-		},
-		["Ossirian"] = {
-			["Enabled"] = true,
-			["Announce"] = false,
-			["AnnounceCurse"] = false,
-		},
-		["Vaelastrasz"] = {
-			["Enabled"] = true,
-			["Whisper"] = false,
-			["Announce"] = false,
-			["SetIcon"] = true,
-		},
-		["Gothik"] = {
-			["Enabled"] = true,
-			["Announce"] = false,
-		},
-		["Majordomo"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
@@ -135,7 +121,27 @@ LVBM_SavedVars = {
 			["Announce"] = false,
 			["AnnounceCurse"] = true,
 		},
-		["Lucifron"] = {
+		["TwinEmps"] = {
+			["Enabled"] = true,
+			["Announce"] = false,
+		},
+		["Gehennas"] = {
+			["Enabled"] = true,
+			["Announce"] = false,
+		},
+		["Gothik"] = {
+			["Enabled"] = true,
+			["Announce"] = false,
+		},
+		["Majordomo"] = {
+			["Enabled"] = true,
+			["Announce"] = false,
+		},
+		["Skeram"] = {
+			["Enabled"] = true,
+			["Announce"] = false,
+		},
+		["Venoxis"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
@@ -161,13 +167,17 @@ LVBM_SavedVars = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Venoxis"] = {
+		["Lucifron"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Hakkar"] = {
-			["Enabled"] = true,
+		["Battlegrounds"] = {
+			["AVAutoTurnIn"] = true,
+			["StringHorde"] = "Horde: ",
+			["ShowWsgFrame"] = true,
+			["StringAlliance"] = "Alliance: ",
 			["Announce"] = false,
+			["Enabled"] = true,
 		},
 		["Nefarian"] = {
 			["Enabled"] = true,
@@ -192,13 +202,9 @@ LVBM_SavedVars = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Battlegrounds"] = {
-			["AVAutoTurnIn"] = true,
-			["StringHorde"] = "Horde: ",
-			["ShowWsgFrame"] = true,
-			["StringAlliance"] = "Alliance: ",
-			["Announce"] = false,
+		["Hakkar"] = {
 			["Enabled"] = true,
+			["Announce"] = false,
 		},
 		["ThreeBugs"] = {
 			["Enabled"] = true,
@@ -222,15 +228,15 @@ LVBM_SavedVars = {
 			["Announce"] = false,
 			["Yell"] = true,
 		},
-		["Sapphiron"] = {
-			["Enabled"] = true,
-			["Announce"] = false,
-			["Yell"] = true,
-		},
 		["Gluth"] = {
 			["Enabled"] = true,
 			["Frenzy"] = true,
 			["Announce"] = false,
+		},
+		["Sapphiron"] = {
+			["Enabled"] = true,
+			["Announce"] = false,
+			["Yell"] = true,
 		},
 		["Grobbulus"] = {
 			["Enabled"] = true,
@@ -244,30 +250,18 @@ LVBM_SavedVars = {
 			["Announce"] = false,
 			["Wisper"] = false,
 		},
-		["Loatheb"] = {
+		["Ouro"] = {
 			["Enabled"] = true,
-			["AnnounceHealRaid"] = true,
-			["AnnounceSporesBackward"] = false,
-			["AnnounceSpores"] = true,
-			["FrameLocked"] = false,
-			["ShowHealFrame"] = false,
-			["PotSpecialWarning"] = true,
-			["AnnounceHealWhisper"] = false,
-			["PotAnnounce"] = true,
 			["Announce"] = false,
-			["AnnounceHealRaidWarning"] = false,
 		},
 		["Magmadar"] = {
 			["Enabled"] = true,
 			["Frenzy"] = true,
 			["Announce"] = false,
 		},
-		["Kelthuzad"] = {
+		["Kazzak"] = {
 			["Enabled"] = true,
-			["Whisper"] = false,
-			["RangeCheck"] = true,
 			["Announce"] = false,
-			["SetIcon"] = true,
 		},
 		["Buru"] = {
 			["Enabled"] = true,
@@ -284,9 +278,14 @@ LVBM_SavedVars = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["TwinEmps"] = {
+		["Noth"] = {
 			["Enabled"] = true,
+			["TimeInRoom"] = 90,
+			["TimeOnBalcony"] = 70,
+			["AnnounceSpawn"] = false,
+			["OnBalcony"] = false,
 			["Announce"] = false,
+			["AnnounceCurse"] = true,
 		},
 		["Chromaggus"] = {
 			["Enabled"] = true,
@@ -294,9 +293,10 @@ LVBM_SavedVars = {
 			["Announce"] = false,
 			["Vulnerability"] = true,
 		},
-		["Gehennas"] = {
+		["Ossirian"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
+			["AnnounceCurse"] = false,
 		},
 	},
 	["LVBM"] = {
@@ -305,12 +305,12 @@ LVBM_SavedVars = {
 		["AutoRespond"] = true,
 		["SpecialWarningTextSize"] = 40,
 		["CharSettings"] = {
-			["Cephi"] = {
-				["AggroFlash"] = true,
-				["AggroShake"] = true,
-				["AggroAlert"] = true,
+			["Cephell"] = {
+				["AggroFlash"] = false,
+				["AggroShake"] = false,
+				["AggroAlert"] = false,
 				["AggroSound"] = false,
-				["AggroSpecialWarning"] = true,
+				["AggroSpecialWarning"] = false,
 				["AggroLocalWarning"] = false,
 			},
 		},
