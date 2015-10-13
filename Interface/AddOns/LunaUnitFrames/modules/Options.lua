@@ -70,7 +70,62 @@ local TagDesc = {
 	["healerhealth"]		= "Returns the same as \"smart:healmishp\" on friendly units and hp/maxhp on enemies",
 }
 
-local function ResetSettings()
+local BarTexturesPath = "\\media\\statusbar\\"
+local BarTextures = {
+	"Luna",
+	"Aluminium",
+	"Armory",
+	"BantoBar",
+	"Bars",
+	"Button",
+	"Charcoal",
+	"Cilo",
+	"Dabs",
+	"Diagonal",
+	"Fifths",
+	"Fourths",
+	"Glamour",
+	"Glamour2",
+	"Glamour3",
+	"Glamour4",
+	"Glamour5",
+	"Glamour6",
+	"Glamour7",
+	"Glaze",
+	"Gloss",
+	"Healbot",
+	"Lyfe",
+	"Otravi",
+	"Perl2",
+	"Ruben",
+	"Skewed",
+	"Smooth",
+	"Striped",
+	"Wisps"
+}
+
+local BarFontsPath = "\\media\\fonts\\"
+local BarFonts = {
+	"Luna",
+	"Aldrich",
+	"Bangers",
+	"Celestia",
+	"DorisPP",
+	"Enigmatic",
+	"FasterOne",
+	"Fitzgerald",
+	"Gentium",
+	"Iceland",
+	"Inconsolata",
+	"LiberationSans",
+	"MetalLord",
+	"Optimus",
+	"TradeWinds",
+	"VeraSerif",
+	"Yellowjacket"
+}
+
+function LunaOptionsModule:ResetSettings()
 	LunaOptions = {}
 	LunaOptions.PowerColors = {
 		["Mana"] = { 48/255, 113/255, 191/255}, -- Mana
@@ -103,18 +158,16 @@ local function ResetSettings()
 		insets = {left = -1.5, right = -1.5, top = -1.5, bottom = -1.5},
 	}
 	LunaOptions.fontHeight = 11
-	LunaOptions.font = "Interface\\AddOns\\LunaUnitFrames\\media\\barframes.ttf"
-	LunaOptions.statusbartexture = "Interface\\AddOns\\LunaUnitFrames\\media\\statusbar"
-	LunaOptions.bordertexture = "Interface\\AddOns\\LunaUnitFrames\\media\\border"
-	LunaOptions.icontexture = "Interface\\AddOns\\LunaUnitFrames\\media\\icon"
-	LunaOptions.resIcon = "Interface\\AddOns\\LunaUnitFrames\\media\\Raid-Icon-Rez"
-	LunaOptions.indicator = "Interface\\AddOns\\LunaUnitFrames\\media\\indicator"
+	LunaOptions.bordertexture = LunaUnitFrames.addonPath .. "\\media\\border"
+	LunaOptions.icontexture = LunaUnitFrames.addonPath .. "\\media\\icon"
+	LunaOptions.resIcon = LunaUnitFrames.addonPath .. "\\media\\Raid-Icon-Rez"
+	LunaOptions.indicator = LunaUnitFrames.addonPath .. "\\media\\indicator"
 		
-	LunaOptions.frames = {	["LunaPlayerFrame"] = {position = {x = 10, y = -20}, size = {x = 240, y = 40}, scale = 1, enabled = 1, ShowBuffs = 1, portrait = 2, bars = {{"Healthbar", 6}, {"Powerbar", 4}, {"Castbar", 3}, {"Druidbar", 0}, {"Totembar", 0}}},
-							["LunaTargetFrame"] = {position = {x = 280, y = -20}, size = {x = 240, y = 40}, scale = 1, enabled = 1, ShowBuffs = 3, portrait = 2, bars = {{"Healthbar", 6}, {"Powerbar", 4}, {"Castbar", 3}, {"Combo Bar", 2}}},
+	LunaOptions.frames = {	["LunaPlayerFrame"] = {position = {x = 10, y = -20}, size = {x = 240, y = 40}, scale = 1, enabled = 1, ShowBuffs = 1, portrait = 2, pvprankicon = 1, leadericon = 1, bars = {{"Healthbar", 6}, {"Powerbar", 4}, {"Castbar", 3}, {"Druidbar", 0}, {"Totembar", 0}}},
+							["LunaTargetFrame"] = {position = {x = 280, y = -20}, size = {x = 240, y = 40}, scale = 1, enabled = 1, ShowBuffs = 3, portrait = 2, pvprankicon = 1, leadericon = 1, bars = {{"Healthbar", 6}, {"Powerbar", 4}, {"Castbar", 3}, {"Combo Bar", 2}}},
 							["LunaTargetTargetFrame"] = {position = {x = 550, y = -20}, size = {x = 150, y = 40}, scale = 1, enabled = 1, ShowBuffs = 1, bars = {{"Healthbar", 6}, {"Powerbar", 4}}},
 							["LunaTargetTargetTargetFrame"] = {position = {x = 730, y = -20}, size = {x = 150, y = 40}, scale = 1, enabled = 1, ShowBuffs = 1, bars = {{"Healthbar", 6}, {"Powerbar", 4}}},
-							["LunaPartyFrames"] = {position = {x = 10, y = -140}, size = {x = 200, y = 40}, scale = 1, enabled = 1, ShowBuffs = 3, portrait = 2, bars = {{"Healthbar", 6}, {"Powerbar", 4}}},
+							["LunaPartyFrames"] = {position = {x = 10, y = -140}, size = {x = 200, y = 40}, scale = 1, enabled = 1, ShowBuffs = 3, portrait = 2, pvprankicon = 1, leadericon = 1, bars = {{"Healthbar", 6}, {"Powerbar", 4}}},
 							["LunaPartyPetFrames"] = {position = "RIGHT", size = {x = 110, y = 19}, scale = 1, enabled = 1, bars = {{"Healthbar", 6}, {"Powerbar", 4}}},
 							["LunaPartyTargetFrames"] = {position = "RIGHT", size = {x = 110, y = 19}, scale = 1, enabled = 1, bars = {{"Healthbar", 6}, {"Powerbar", 4}}},
 							["LunaPetFrame"] = {position = {x = 10, y = -70}, size = {x = 240, y = 30}, scale = 1, enabled = 1, ShowBuffs = 3, portrait = 2, bars = {{"Healthbar", 6}, {"Powerbar", 4}}},
@@ -122,8 +175,8 @@ local function ResetSettings()
 								["pBars"] = 1,
 								["scale"] = 1,
 								["padding"] = 4,
-								["height"] = 35,
-								["width"] = 80,
+								["height"] = 30,
+								["width"] = 60,
 								["positions"] = {
 									[1] = {
 										["x"] = 400,
@@ -181,18 +234,6 @@ local function ResetSettings()
 	LunaOptions.DruidBar = nil
 	LunaOptions.TotemBar = nil
 	LunaOptions.BTimers = 0
-end
-
-if LunaOptions == nil then
-	ResetSettings()
-end
-
-if not LunaBuffDB then
-	LunaBuffDB = {}
-end
-
-if not LunaOptions.frames["LunaRaidFrames"] then
-	LunaOptions.frames["LunaRaidFrames"] = {}
 end
 
 local OptionFunctions = {}
@@ -269,6 +310,24 @@ function OptionFunctions.ToggleDispelableDebuffs()
 		LunaOptions.showdispelable = 1
 	else
 		LunaOptions.showdispelable = nil
+	end
+	LunaUnitFrames.Raid_Update()
+end
+
+function OptionFunctions.ToggleTexDebuffs()
+	if not LunaOptions.frames["LunaRaidFrames"].texturedebuff then
+		LunaOptions.frames["LunaRaidFrames"].texturedebuff = 1
+	else
+		LunaOptions.frames["LunaRaidFrames"].texturedebuff = nil
+	end
+	LunaUnitFrames.Raid_Update()
+end
+
+function OptionFunctions.ToggleTexBuffs()
+	if not LunaOptions.frames["LunaRaidFrames"].texturebuff then
+		LunaOptions.frames["LunaRaidFrames"].texturebuff = 1
+	else
+		LunaOptions.frames["LunaRaidFrames"].texturebuff = nil
 	end
 	LunaUnitFrames.Raid_Update()
 end
@@ -590,6 +649,19 @@ function OptionFunctions.PartyIconSizeAdjust()
 	getglobal("PartyIconSizeSliderText"):SetText("Status Icon Size: "..(LunaOptions.frames["LunaPartyFrames"].iconscale or 1))
 	LunaUnitFrames:UpdatePartyFrames()
 end
+
+function OptionFunctions.CenterIconSizeAdjust()
+	LunaOptions.frames["LunaRaidFrames"].centericonscale = math.floor(this:GetValue()*100)/100
+	getglobal("CenterIconSizeSliderText"):SetText("Center Icon Size: "..(LunaOptions.frames["LunaRaidFrames"].centericonscale or 1))
+	LunaUnitFrames:SetRaidFrameSize()
+end
+
+function OptionFunctions.CornerIconSizeAdjust()
+	LunaOptions.frames["LunaRaidFrames"].cornericonscale = math.floor(this:GetValue()*100)/100
+	getglobal("CornerIconSizeSliderText"):SetText("Corner Icon Size: "..(LunaOptions.frames["LunaRaidFrames"].cornericonscale or 1))
+	LunaUnitFrames:SetRaidFrameSize()
+end
+
 
 function OptionFunctions.PlayerBuffPosSelectChoice()
 	UIDropDownMenu_SetSelectedID(LunaOptionsFrame.pages[1].BuffPosition, this:GetID())
@@ -1492,10 +1564,13 @@ function LunaOptionsModule:CreateMenu()
 		LunaOptionsFrame.ScrollFrames[i] = CreateFrame("ScrollFrame", nil, LunaOptionsFrame)
 		LunaOptionsFrame.ScrollFrames[i]:SetHeight(350)
 		LunaOptionsFrame.ScrollFrames[i]:SetWidth(500)
+		
 		LunaOptionsFrame.ScrollFrames[i]:SetPoint("BOTTOMRIGHT", LunaOptionsFrame, "BOTTOMRIGHT", -30, 10)
 		LunaOptionsFrame.ScrollFrames[i]:Hide()
 		LunaOptionsFrame.ScrollFrames[i]:EnableMouseWheel(true)
 		LunaOptionsFrame.ScrollFrames[i].id = i
+		LunaOptionsFrame.ScrollFrames[i]:SetBackdrop(LunaOptions.backdrop)
+		LunaOptionsFrame.ScrollFrames[i]:SetBackdropColor(0,0,0,1)
 		LunaOptionsFrame.ScrollFrames[i]:SetScript("OnMouseWheel", function()
 																		local maxScroll = this:GetVerticalScrollRange()
 																		local Scroll = this:GetVerticalScroll()
@@ -1529,12 +1604,8 @@ function LunaOptionsModule:CreateMenu()
 		LunaOptionsFrame.Sliders[i]:SetScript("OnValueChanged", function() this.ScrollFrame:SetVerticalScroll(this.ScrollFrame:GetVerticalScrollRange()*this:GetValue()) end  )
 	
 		LunaOptionsFrame.pages[i] = CreateFrame("Frame", v.title.." Page", LunaOptionsFrame.ScrollFrames[i])
-		LunaOptionsFrame.pages[i]:SetHeight(510)
+		LunaOptionsFrame.pages[i]:SetHeight(1)
 		LunaOptionsFrame.pages[i]:SetWidth(500)
-		LunaOptionsFrame.pages[i]:SetBackdrop(LunaOptions.backdrop)
-		LunaOptionsFrame.pages[i]:SetBackdropColor(0,0,0,1)
---		LunaOptionsFrame.pages[i]:SetPoint("BOTTOMRIGHT", LunaOptionsFrame, "BOTTOMRIGHT", -10, 10)
---		LunaOptionsFrame.pages[i]:Hide()
 		
 		LunaOptionsFrame.pages[i].name = LunaOptionsFrame.pages[i]:CreateFontString(nil, "OVERLAY", LunaOptionsFrame.pages[i])
 		LunaOptionsFrame.pages[i].name:SetPoint("TOP", LunaOptionsFrame.pages[i], "TOP", 0, -10)
@@ -1947,7 +2018,7 @@ function LunaOptionsModule:CreateMenu()
 	getglobal("LootIconSwitchText"):SetText("Enable Loot Icon")
 	
 	LunaOptionsFrame.pages[1].iconsize = CreateFrame("Slider", "PlayerIconSizeSlider", LunaOptionsFrame.pages[1], "OptionsSliderTemplate")
-	LunaOptionsFrame.pages[1].iconsize:SetMinMaxValues(0,2)
+	LunaOptionsFrame.pages[1].iconsize:SetMinMaxValues(0.01,2)
 	LunaOptionsFrame.pages[1].iconsize:SetValueStep(0.01)
 	LunaOptionsFrame.pages[1].iconsize:SetScript("OnValueChanged", OptionFunctions.PlayerIconSizeAdjust)
 	LunaOptionsFrame.pages[1].iconsize:SetPoint("TOPLEFT", LunaOptionsFrame.pages[1].looticon, "BOTTOMLEFT", 0, -10)
@@ -2028,7 +2099,7 @@ function LunaOptionsModule:CreateMenu()
 	getglobal("LootTargetIconSwitchText"):SetText("Enable Loot Icon")
 	
 	LunaOptionsFrame.pages[3].iconsize = CreateFrame("Slider", "TargetIconSizeSlider", LunaOptionsFrame.pages[3], "OptionsSliderTemplate")
-	LunaOptionsFrame.pages[3].iconsize:SetMinMaxValues(0,2)
+	LunaOptionsFrame.pages[3].iconsize:SetMinMaxValues(0.01,2)
 	LunaOptionsFrame.pages[3].iconsize:SetValueStep(0.01)
 	LunaOptionsFrame.pages[3].iconsize:SetScript("OnValueChanged", OptionFunctions.TargetIconSizeAdjust)
 	LunaOptionsFrame.pages[3].iconsize:SetPoint("TOPLEFT", LunaOptionsFrame.pages[3].looticon, "BOTTOMLEFT", 0, -20)
@@ -2110,7 +2181,7 @@ function LunaOptionsModule:CreateMenu()
 	getglobal("LootPartyIconSwitchText"):SetText("Enable Loot Icon")
 	
 	LunaOptionsFrame.pages[6].iconsize = CreateFrame("Slider", "PartyIconSizeSlider", LunaOptionsFrame.pages[6], "OptionsSliderTemplate")
-	LunaOptionsFrame.pages[6].iconsize:SetMinMaxValues(0,2)
+	LunaOptionsFrame.pages[6].iconsize:SetMinMaxValues(0.01,2)
 	LunaOptionsFrame.pages[6].iconsize:SetValueStep(0.01)
 	LunaOptionsFrame.pages[6].iconsize:SetScript("OnValueChanged", OptionFunctions.PartyIconSizeAdjust)
 	LunaOptionsFrame.pages[6].iconsize:SetPoint("TOPLEFT", LunaOptionsFrame.pages[6].looticon, "BOTTOMLEFT", 0, -20)
@@ -2234,7 +2305,7 @@ function LunaOptionsModule:CreateMenu()
 	LunaOptionsFrame.pages[9].BuffwatchDesc:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].paddingslider, "BOTTOMLEFT", 0, -10)
 	LunaOptionsFrame.pages[9].BuffwatchDesc:SetFont("Fonts\\FRIZQT__.TTF", 10)
 	LunaOptionsFrame.pages[9].BuffwatchDesc:SetTextColor(1,0.82,0)
-	LunaOptionsFrame.pages[9].BuffwatchDesc:SetText("Track Buff (Can be part of name):")
+	LunaOptionsFrame.pages[9].BuffwatchDesc:SetText("Track Buffs (Can be part of name):")
 	
 	LunaOptionsFrame.pages[9].Buffwatch = CreateFrame("Editbox", "BuffwatchInput", LunaOptionsFrame.pages[9], "InputBoxTemplate")
 	LunaOptionsFrame.pages[9].Buffwatch:SetHeight(20)
@@ -2247,11 +2318,35 @@ function LunaOptionsModule:CreateMenu()
 																		LunaOptions.Raidbuff = this:GetText()
 																		LunaUnitFrames.Raid_Update()
 																	end)
+																	
+	LunaOptionsFrame.pages[9].Buffwatch2 = CreateFrame("Editbox", "BuffwatchInput2", LunaOptionsFrame.pages[9], "InputBoxTemplate")
+	LunaOptionsFrame.pages[9].Buffwatch2:SetHeight(20)
+	LunaOptionsFrame.pages[9].Buffwatch2:SetWidth(205)
+	LunaOptionsFrame.pages[9].Buffwatch2:SetAutoFocus(nil)
+	LunaOptionsFrame.pages[9].Buffwatch2:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].Buffwatch, "BOTTOMLEFT", 0, 0)
+	LunaOptionsFrame.pages[9].Buffwatch2:SetText(LunaOptions.Raidbuff2 or "")
+	LunaOptionsFrame.pages[9].Buffwatch2:SetScript("OnEnterPressed", function()
+																		this:ClearFocus();
+																		LunaOptions.Raidbuff2 = this:GetText()
+																		LunaUnitFrames.Raid_Update()
+																	end)
+
+	LunaOptionsFrame.pages[9].Buffwatch3 = CreateFrame("Editbox", "BuffwatchInput3", LunaOptionsFrame.pages[9], "InputBoxTemplate")
+	LunaOptionsFrame.pages[9].Buffwatch3:SetHeight(20)
+	LunaOptionsFrame.pages[9].Buffwatch3:SetWidth(205)
+	LunaOptionsFrame.pages[9].Buffwatch3:SetAutoFocus(nil)
+	LunaOptionsFrame.pages[9].Buffwatch3:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].Buffwatch2, "BOTTOMLEFT", 0, 0)
+	LunaOptionsFrame.pages[9].Buffwatch3:SetText(LunaOptions.Raidbuff3 or "")
+	LunaOptionsFrame.pages[9].Buffwatch3:SetScript("OnEnterPressed", function()
+																		this:ClearFocus();
+																		LunaOptions.Raidbuff3 = this:GetText()
+																		LunaUnitFrames.Raid_Update()
+																	end)
 	
 	LunaOptionsFrame.pages[9].RaidGrpNameswitch = CreateFrame("CheckButton", "RaidGroupNamesSwitch", LunaOptionsFrame.pages[9], "UICheckButtonTemplate")
 	LunaOptionsFrame.pages[9].RaidGrpNameswitch:SetHeight(20)
 	LunaOptionsFrame.pages[9].RaidGrpNameswitch:SetWidth(20)
-	LunaOptionsFrame.pages[9].RaidGrpNameswitch:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].Buffwatch, "BOTTOMLEFT", 0, 0)
+	LunaOptionsFrame.pages[9].RaidGrpNameswitch:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].Buffwatch3, "BOTTOMLEFT", 0, 0)
 	LunaOptionsFrame.pages[9].RaidGrpNameswitch:SetScript("OnClick", OptionFunctions.ToggleRaidGroupNames)
 	LunaOptionsFrame.pages[9].RaidGrpNameswitch:SetChecked(LunaOptions.frames["LunaRaidFrames"].ShowRaidGroupTitles)
 	getglobal("RaidGroupNamesSwitchText"):SetText("Show Group Names")
@@ -2303,11 +2398,53 @@ function LunaOptionsModule:CreateMenu()
 	LunaOptionsFrame.pages[9].dispdebuffs:SetScript("OnClick", OptionFunctions.ToggleDispelableDebuffs)
 	LunaOptionsFrame.pages[9].dispdebuffs:SetChecked(LunaOptions.showdispelable)
 	getglobal("DispDebuffSwitchText"):SetText("Show only dispelable Debuffs")
+	
+	LunaOptionsFrame.pages[9].textdebuff = CreateFrame("CheckButton", "TextDebuffSwitch", LunaOptionsFrame.pages[9], "UICheckButtonTemplate")
+	LunaOptionsFrame.pages[9].textdebuff:SetHeight(20)
+	LunaOptionsFrame.pages[9].textdebuff:SetWidth(20)
+	LunaOptionsFrame.pages[9].textdebuff:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].dispdebuffs, "TOPLEFT", 0, -20)
+	LunaOptionsFrame.pages[9].textdebuff:SetScript("OnClick", OptionFunctions.ToggleTexDebuffs)
+	LunaOptionsFrame.pages[9].textdebuff:SetChecked(LunaOptions.frames["LunaRaidFrames"].texturedebuff)
+	getglobal("TextDebuffSwitchText"):SetText("Show pictures on Debuffs")
+	
+	LunaOptionsFrame.pages[9].textbuff = CreateFrame("CheckButton", "TextBuffSwitch", LunaOptionsFrame.pages[9], "UICheckButtonTemplate")
+	LunaOptionsFrame.pages[9].textbuff:SetHeight(20)
+	LunaOptionsFrame.pages[9].textbuff:SetWidth(20)
+	LunaOptionsFrame.pages[9].textbuff:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].textdebuff, "TOPLEFT", 0, -20)
+	LunaOptionsFrame.pages[9].textbuff:SetScript("OnClick", OptionFunctions.ToggleTexBuffs)
+	LunaOptionsFrame.pages[9].textbuff:SetChecked(LunaOptions.frames["LunaRaidFrames"].texturebuff)
+	getglobal("TextBuffSwitchText"):SetText("Show pictures on Buffs")
+	
+	LunaOptionsFrame.pages[9].cornericonsize = CreateFrame("Slider", "CornerIconSizeSlider", LunaOptionsFrame.pages[9], "OptionsSliderTemplate")
+	LunaOptionsFrame.pages[9].cornericonsize:SetMinMaxValues(0.01,2)
+	LunaOptionsFrame.pages[9].cornericonsize:SetValueStep(0.01)
+	LunaOptionsFrame.pages[9].cornericonsize:SetScript("OnValueChanged", OptionFunctions.CornerIconSizeAdjust)
+	LunaOptionsFrame.pages[9].cornericonsize:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].textbuff, "BOTTOMLEFT", 0, -10)
+	LunaOptionsFrame.pages[9].cornericonsize:SetValue(LunaOptions.frames["LunaRaidFrames"].cornericonscale or 1)
+	LunaOptionsFrame.pages[9].cornericonsize:SetWidth(180)
+	getglobal("CornerIconSizeSliderText"):SetText("Corner Icon Size")	
+	
+	LunaOptionsFrame.pages[9].centericon = CreateFrame("CheckButton", "CenterIconSwitch", LunaOptionsFrame.pages[9], "UICheckButtonTemplate")
+	LunaOptionsFrame.pages[9].centericon:SetHeight(20)
+	LunaOptionsFrame.pages[9].centericon:SetWidth(20)
+	LunaOptionsFrame.pages[9].centericon:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].cornericonsize, "TOPLEFT", 0, -25)
+	LunaOptionsFrame.pages[9].centericon:SetScript("OnClick", OptionFunctions.ToggleCenterIcon)
+	LunaOptionsFrame.pages[9].centericon:SetChecked(LunaOptions.frames["LunaRaidFrames"].centerIcon)
+	getglobal("CenterIconSwitchText"):SetText("Display Debuffs as a Center Icon")
+	
+	LunaOptionsFrame.pages[9].centericonsize = CreateFrame("Slider", "CenterIconSizeSlider", LunaOptionsFrame.pages[9], "OptionsSliderTemplate")
+	LunaOptionsFrame.pages[9].centericonsize:SetMinMaxValues(0.01,2)
+	LunaOptionsFrame.pages[9].centericonsize:SetValueStep(0.01)
+	LunaOptionsFrame.pages[9].centericonsize:SetScript("OnValueChanged", OptionFunctions.CenterIconSizeAdjust)
+	LunaOptionsFrame.pages[9].centericonsize:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].centericon, "BOTTOMLEFT", 0, -10)
+	LunaOptionsFrame.pages[9].centericonsize:SetValue(LunaOptions.frames["LunaRaidFrames"].centericonscale or 1)
+	LunaOptionsFrame.pages[9].centericonsize:SetWidth(180)
+	getglobal("CenterIconSizeSliderText"):SetText("Center Icon Size")
 
 	LunaOptionsFrame.pages[9].aggro = CreateFrame("CheckButton", "AggroSwitch", LunaOptionsFrame.pages[9], "UICheckButtonTemplate")
 	LunaOptionsFrame.pages[9].aggro:SetHeight(20)
 	LunaOptionsFrame.pages[9].aggro:SetWidth(20)
-	LunaOptionsFrame.pages[9].aggro:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].dispdebuffs, "TOPLEFT", 0, -20)
+	LunaOptionsFrame.pages[9].aggro:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].centericonsize, "TOPLEFT", 0, -25)
 	LunaOptionsFrame.pages[9].aggro:SetScript("OnClick", OptionFunctions.ToggleAggro)
 	LunaOptionsFrame.pages[9].aggro:SetChecked(LunaOptions.aggro)
 	getglobal("AggroSwitchText"):SetText("Show aggro warning")
@@ -2320,18 +2457,10 @@ function LunaOptionsModule:CreateMenu()
 	LunaOptionsFrame.pages[9].interlock:SetChecked(LunaOptions.raidinterlock)
 	getglobal("InterlockSwitchText"):SetText("Interlock Raid Frames")
 	
-	LunaOptionsFrame.pages[9].centericon = CreateFrame("CheckButton", "CenterIconSwitch", LunaOptionsFrame.pages[9], "UICheckButtonTemplate")
-	LunaOptionsFrame.pages[9].centericon:SetHeight(20)
-	LunaOptionsFrame.pages[9].centericon:SetWidth(20)
-	LunaOptionsFrame.pages[9].centericon:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].interlock, "TOPLEFT", 0, -20)
-	LunaOptionsFrame.pages[9].centericon:SetScript("OnClick", OptionFunctions.ToggleCenterIcon)
-	LunaOptionsFrame.pages[9].centericon:SetChecked(LunaOptions.frames["LunaRaidFrames"].centerIcon)
-	getglobal("CenterIconSwitchText"):SetText("Display Debuffs as a Center Icon")
-	
 	LunaOptionsFrame.pages[9].alwaysraid = CreateFrame("CheckButton", "AlwaysRaidSwitch", LunaOptionsFrame.pages[9], "UICheckButtonTemplate")
 	LunaOptionsFrame.pages[9].alwaysraid:SetHeight(20)
 	LunaOptionsFrame.pages[9].alwaysraid:SetWidth(20)
-	LunaOptionsFrame.pages[9].alwaysraid:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].centericon, "TOPLEFT", 0, -20)
+	LunaOptionsFrame.pages[9].alwaysraid:SetPoint("TOPLEFT", LunaOptionsFrame.pages[9].interlock, "TOPLEFT", 0, -20)
 	LunaOptionsFrame.pages[9].alwaysraid:SetScript("OnClick", OptionFunctions.ToggleAlwaysRaid)
 	LunaOptionsFrame.pages[9].alwaysraid:SetChecked(LunaOptions.AlwaysRaid)
 	getglobal("AlwaysRaidSwitchText"):SetText("Always display the Raid Frame")
@@ -2590,10 +2719,64 @@ function LunaOptionsModule:CreateMenu()
 	LunaOptionsFrame.pages[10].PortraitFallbackDesc:SetTextColor(1,0.82,0)
 	LunaOptionsFrame.pages[10].PortraitFallbackDesc:SetText("Portrait Fallback")
 	
+	LunaOptionsFrame.pages[10].BarTexture = CreateFrame("Button", "BarTexture", LunaOptionsFrame.pages[10], "UIDropDownMenuTemplate")
+	LunaOptionsFrame.pages[10].BarTexture:SetPoint("TOPLEFT", LunaOptionsFrame.pages[10].PortraitFallback, "BOTTOMLEFT", 0, -10)
+	UIDropDownMenu_SetWidth(120, LunaOptionsFrame.pages[10].BarTexture)
+	UIDropDownMenu_JustifyText("LEFT", LunaOptionsFrame.pages[10].BarTexture)
+		
+	UIDropDownMenu_Initialize(LunaOptionsFrame.pages[10].BarTexture, function()
+																			local info={}
+																			for k,v in BarTextures do
+																				info.text=v
+																				info.value=k
+																				info.func= function()
+																						UIDropDownMenu_SetSelectedID(LunaOptionsFrame.pages[10].BarTexture, this:GetID())
+																						LunaOptions.BarTexture = this:GetID()
+																						LunaUnitFrames:UpdateBarTextures()
+																						end
+																				info.checked = nil
+																				UIDropDownMenu_AddButton(info, 1)
+																			end
+																		end)
+	UIDropDownMenu_SetSelectedID(LunaOptionsFrame.pages[10].BarTexture, LunaOptions.BarTexture or 1)
+	
+	LunaOptionsFrame.pages[10].BarTextureDesc = LunaOptionsFrame.pages[10]:CreateFontString(nil, "OVERLAY", LunaOptionsFrame.pages[10])
+	LunaOptionsFrame.pages[10].BarTextureDesc:SetPoint("LEFT", LunaOptionsFrame.pages[10].BarTexture, "RIGHT", -5, 0)
+	LunaOptionsFrame.pages[10].BarTextureDesc:SetFont("Fonts\\FRIZQT__.TTF", 10)
+	LunaOptionsFrame.pages[10].BarTextureDesc:SetTextColor(1,0.82,0)
+	LunaOptionsFrame.pages[10].BarTextureDesc:SetText("Bar Texture")
+	
+	LunaOptionsFrame.pages[10].BarFont = CreateFrame("Button", "BarFont", LunaOptionsFrame.pages[10], "UIDropDownMenuTemplate")
+	LunaOptionsFrame.pages[10].BarFont:SetPoint("TOPLEFT", LunaOptionsFrame.pages[10].BarTexture, "BOTTOMLEFT", 0, -10)
+	UIDropDownMenu_SetWidth(120, LunaOptionsFrame.pages[10].BarFont)
+	UIDropDownMenu_JustifyText("LEFT", LunaOptionsFrame.pages[10].BarFont)
+
+	UIDropDownMenu_Initialize(LunaOptionsFrame.pages[10].BarFont, function()
+																			local info={}
+																			for k,v in BarFonts do
+																				info.text=v
+																				info.value=k
+																				info.func= function()
+																						UIDropDownMenu_SetSelectedID(LunaOptionsFrame.pages[10].BarFont, this:GetID())
+																						LunaOptions.BarFont = this:GetID()
+																						LunaUnitFrames:UpdateBarFonts()
+																						end
+																				info.checked = nil
+																				UIDropDownMenu_AddButton(info, 1)
+																			end
+																		end)
+	UIDropDownMenu_SetSelectedID(LunaOptionsFrame.pages[10].BarFont, LunaOptions.BarFont or 1)
+
+	LunaOptionsFrame.pages[10].BarFontDesc = LunaOptionsFrame.pages[10]:CreateFontString(nil, "OVERLAY", LunaOptionsFrame.pages[10])
+	LunaOptionsFrame.pages[10].BarFontDesc:SetPoint("LEFT", LunaOptionsFrame.pages[10].BarFont, "RIGHT", -5, 0)
+	LunaOptionsFrame.pages[10].BarFontDesc:SetFont("Fonts\\FRIZQT__.TTF", 10)
+	LunaOptionsFrame.pages[10].BarFontDesc:SetTextColor(1,0.82,0)
+	LunaOptionsFrame.pages[10].BarFontDesc:SetText("Bar Font")
+
 	LunaOptionsFrame.pages[10].HideBlizzCast = CreateFrame("CheckButton", "HideBlizzCast", LunaOptionsFrame.pages[10], "UICheckButtonTemplate")
 	LunaOptionsFrame.pages[10].HideBlizzCast:SetHeight(20)
 	LunaOptionsFrame.pages[10].HideBlizzCast:SetWidth(20)
-	LunaOptionsFrame.pages[10].HideBlizzCast:SetPoint("TOPLEFT", LunaOptionsFrame.pages[10].PortraitFallback, "BOTTOMLEFT", 0, -20)
+	LunaOptionsFrame.pages[10].HideBlizzCast:SetPoint("TOPLEFT", LunaOptionsFrame.pages[10].BarFont, "BOTTOMLEFT", 0, -20)
 	LunaOptionsFrame.pages[10].HideBlizzCast:SetScript("OnClick", OptionFunctions.HideBlizzardCastbarToggle)
 	LunaOptionsFrame.pages[10].HideBlizzCast:SetChecked(LunaOptions.hideBlizzCastbar)
 	getglobal("HideBlizzCastText"):SetText("Hide original Blizzard Castbar")
@@ -2968,7 +3151,7 @@ function LunaOptionsModule:CreateMenu()
 	local prevframe = LunaOptionsFrame.helpframe.title
 	for k,v in pairs(TagDesc) do
 		LunaOptionsFrame.helpframe.texts[k] = LunaOptionsFrame.helpframe:CreateFontString(nil, "OVERLAY", LunaOptionsFrame.helpframe)
-		LunaOptionsFrame.helpframe.texts[k]:SetFont(LunaOptions.font, 10)
+		LunaOptionsFrame.helpframe.texts[k]:SetFont("Fonts\\FRIZQT__.TTF", 9)
 		LunaOptionsFrame.helpframe.texts[k]:SetText("["..k.."]: "..v)
 		LunaOptionsFrame.helpframe.texts[k]:SetJustifyH("LEFT")
 		LunaOptionsFrame.helpframe.texts[k]:SetJustifyV("TOP")
@@ -2987,4 +3170,122 @@ function LunaOptionsModule:CreateMenu()
 		dist = 1
 	end
 	LunaOptionsFrame.helpframe:Hide()
+end
+
+local totemcolors = {
+					{1,0,0},
+					{0,0,1},
+					{0.78,0.61,0.43},
+					{0.41,0.80,0.94}
+				}
+
+function LunaUnitFrames:UpdateBarTextures()
+	local texture = LunaUnitFrames.addonPath .. BarTexturesPath .. BarTextures[LunaOptions.BarTexture]
+	
+	-- ExperienceBar
+	LunaUnitFrames.frames.ReputationBar.RepBar:SetStatusBarTexture(texture)
+	LunaUnitFrames.frames.ReputationBar.RepBar:SetStatusBarColor(0,1,0)
+	LunaUnitFrames.frames.ExperienceBar.RestedBar:SetStatusBarTexture(texture)
+	LunaUnitFrames.frames.ExperienceBar.RestedBar:SetStatusBarColor(0,0,1)
+	LunaUnitFrames.frames.ExperienceBar.XPBar:SetStatusBarTexture(texture)
+	LunaUnitFrames.frames.ExperienceBar.XPBar:SetStatusBarColor(0,1,0)
+
+	-- Player
+	LunaPlayerFrame.bars["Healthbar"]:SetStatusBarTexture(texture)
+	LunaPlayerFrame.incHeal:SetStatusBarTexture(texture)
+	LunaPlayerFrame.incHeal:SetStatusBarColor(0, 1, 0, 0.6)
+	LunaPlayerFrame.bars["Powerbar"]:SetStatusBarTexture(texture)
+	LunaPlayerFrame.bars["Castbar"]:SetStatusBarTexture(texture)
+	LunaPlayerFrame.bars["Castbar"]:SetStatusBarColor(1, 0.7, 0.3)
+	LunaPlayerFrame.bars["Druidbar"]:SetStatusBarTexture(texture)
+	LunaPlayerFrame.bars["Druidbar"]:SetStatusBarColor(LunaOptions.PowerColors["Mana"][1], LunaOptions.PowerColors["Mana"][2], LunaOptions.PowerColors["Mana"][3])
+
+	for i=1, 4 do
+		LunaPlayerFrame.totems[i]:SetStatusBarTexture(texture)
+		LunaPlayerFrame.totems[i]:SetStatusBarColor(unpack(totemcolors[i]))
+	end
+
+	-- Pet
+	LunaPetFrame.bars["Healthbar"]:SetStatusBarTexture(texture)
+	LunaPetFrame.bars["Powerbar"]:SetStatusBarTexture(texture)
+
+	-- Target
+	LunaTargetFrame.bars["Healthbar"]:SetStatusBarTexture(texture)
+	LunaTargetFrame.incHeal:SetStatusBarTexture(texture)
+	LunaTargetFrame.incHeal:SetStatusBarColor(0, 1, 0, 0.6)
+	LunaTargetFrame.bars["Powerbar"]:SetStatusBarTexture(texture)
+	LunaTargetFrame.bars["Castbar"]:SetStatusBarTexture(texture)
+	LunaTargetFrame.bars["Castbar"]:SetStatusBarColor(1, 0.7, 0.3)
+	for i=1, 5 do
+		LunaTargetFrame.cp[i]:SetStatusBarTexture(texture)
+		LunaTargetFrame.cp[i]:SetStatusBarColor(1, 0.80, 0)
+	end
+
+	-- TargetTarget
+	LunaTargetTargetFrame.bars["Healthbar"]:SetStatusBarTexture(texture)
+	LunaTargetTargetFrame.bars["Powerbar"]:SetStatusBarTexture(texture)
+	LunaTargetTargetTargetFrame.bars["Healthbar"]:SetStatusBarTexture(texture)
+	LunaTargetTargetTargetFrame.bars["Powerbar"]:SetStatusBarTexture(texture)
+
+	for i=1, 4 do
+		-- Party
+		LunaPartyFrames[i].bars["Healthbar"]:SetStatusBarTexture(texture)
+		LunaPartyFrames[i].incHeal:SetStatusBarTexture(texture)
+		LunaPartyFrames[i].incHeal:SetStatusBarColor(0, 1, 0, 0.6)
+		LunaPartyFrames[i].bars["Powerbar"]:SetStatusBarTexture(texture)
+		-- PartyPet
+		LunaPartyPetFrames[i].HealthBar:SetStatusBarTexture(texture)
+		LunaPartyPetFrames[i].HealthBar:SetStatusBarColor(LunaOptions.MiscColors["friendly"][1],LunaOptions.MiscColors["friendly"][2],LunaOptions.MiscColors["friendly"][3])
+		-- PartyTarget
+		LunaPartyTargetFrames[i].HealthBar:SetStatusBarTexture(texture)
+	end
+
+	-- Raid
+	for i=1, 80 do
+		LunaUnitFrames.frames.members[i].HealthBar:SetStatusBarTexture(texture)
+		LunaUnitFrames.frames.members[i].HealBar:SetStatusBarTexture(texture)
+		LunaUnitFrames.frames.members[i].HealBar:SetStatusBarColor(0, 1, 0, 0.6)
+		LunaUnitFrames.frames.members[i].bg:SetTexture(texture)
+		LunaUnitFrames.frames.members[i].PowerBar:SetStatusBarTexture(texture)
+	end
+end
+
+function LunaUnitFrames:UpdateBarFontString()
+	LunaOptions.font = LunaUnitFrames.addonPath .. BarFontsPath .. BarFonts[LunaOptions.BarFont] .. ".ttf"
+end
+function LunaUnitFrames:UpdateBarFonts()
+
+	LunaUnitFrames:UpdateBarFontString()
+
+	-- ExperienceBar
+	LunaUnitFrames.frames.ReputationBar.RepBar.xptext:SetFont(LunaOptions.font, 10)
+	LunaUnitFrames.frames.ExperienceBar.XPBar.xptext:SetFont(LunaOptions.font, 10)
+
+	-- Player
+	LunaPlayerFrame:AdjustBars()
+	
+	-- Pet
+	LunaPetFrame:AdjustBars()
+	
+	-- Target
+	LunaTargetFrame:AdjustBars()
+	
+	-- TargetTarget
+	LunaTargetTargetFrame:AdjustBars()
+	LunaTargetTargetTargetFrame:AdjustBars()
+	
+	-- Party
+	LunaUnitFrames:UpdatePartyUnitFrameSize()
+	
+	for i=1, 4 do
+		-- PartyPet
+		LunaPartyPetFrames[i].HealthBar.hpp:SetFont(LunaOptions.font, LunaOptions.fontHeight)
+		LunaPartyPetFrames[i].name:SetFont(LunaOptions.font, LunaOptions.fontHeight)
+		-- PartyTarget
+		LunaPartyTargetFrames[i].HealthBar.hpp:SetFont(LunaOptions.font, LunaOptions.fontHeight)
+		LunaPartyTargetFrames[i].name:SetFont(LunaOptions.font, LunaOptions.fontHeight)
+	end
+	
+	-- Raid
+	LunaUnitFrames:SetRaidFrameSize()
 end

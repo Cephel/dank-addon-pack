@@ -1,5 +1,5 @@
 LunaUnitFrames = CreateFrame("Frame")
-LunaUnitFrames.version = 1051
+LunaUnitFrames.version = 1083
 LunaUnitFrames.frames = {}
 LunaUnitFrames.proximity = ProximityLib:GetInstance("1")
 LunaUnitFrames:RegisterEvent("ADDON_LOADED")
@@ -133,7 +133,20 @@ function Luna_OnClick()
 end
 
 function LunaUnitFrames:OnEvent()
-	if event == "ADDON_LOADED" and arg1 == "LunaUnitFrames" then
+	if event == "ADDON_LOADED" and (string.lower(arg1) == "lunaunitframes" or string.lower(arg1) == "lunaunitframes-master") then
+
+		LunaUnitFrames.addonPath = "Interface\\AddOns\\" .. arg1
+
+		if LunaOptions == nil then
+			LunaOptionsModule:ResetSettings()
+		end
+		if not LunaBuffDB then
+			LunaBuffDB = {}
+		end
+		if not LunaOptions.frames["LunaRaidFrames"] then
+			LunaOptions.frames["LunaRaidFrames"] = {}
+		end
+		
 		-- Compatibility Code (to be removed several versions later)
 		if not LunaOptions.version or LunaOptions.version < LunaUnitFrames.version then
 			LunaOptions.version = LunaUnitFrames.version
@@ -231,9 +244,36 @@ function LunaUnitFrames:OnEvent()
 			LunaOptions.frames["LunaRaidFrames"].toptext = "[name]"
 			LunaOptions.frames["LunaRaidFrames"].bottomtext = "[healerhealth]"
 		end
+		
+		if not LunaOptions.frames["LunaRaidFrames"].maxDebuffs then
+			LunaOptions.frames["LunaRaidFrames"].maxDebuffs = 3
+		end
+		
+		if not LunaOptions.Raidbuff then
+			LunaOptions.Raidbuff = ""
+		end
+		
+		if not LunaOptions.Raidbuff2 then
+			LunaOptions.Raidbuff2 = ""
+		end
+		
+		if not LunaOptions.Raidbuff3 then
+			LunaOptions.Raidbuff3 = ""
+		end
+		
+		if not LunaOptions.BarTexture then
+			LunaOptions.BarTexture = 1
+		end
+		if not LunaOptions.BarFont then
+			LunaOptions.BarFont = 1
+		end
+
+		LunaUnitFrames:UpdateBarFontString()
+
 		-----------------------------------------------------------
 		--Load the Addon here
-		ChatFrame1:AddMessage("Luna Unit Frames loaded. Enjoy the ride!")
+		ChatFrame1:AddMessage("|cFF6583DA~ |r|cFFEFDFFFLuna Unit Frames |r|cFF6583DAloaded. Enjoy the ride!|r")
+		ChatFrame1:AddMessage("|cFF6583DA~ Type |cFFEFDFFF/luna |r|cFF6583DAfor options.|r")
 		LunaUnitFrames:CreatePlayerFrame()
 		LunaUnitFrames:CreatePetFrame()
 		LunaUnitFrames:CreateTargetFrame()
@@ -245,6 +285,7 @@ function LunaUnitFrames:OnEvent()
 		LunaUnitFrames:CreateRaidFrames()
 		LunaUnitFrames:CreateRepBar()
 		LunaUnitFrames:CreateXPBar()
+		LunaUnitFrames:UpdateBarTextures()
 		LunaOptionsModule:CreateMenu()
 		if LunaOptions.BlizzBuffs then
 			BuffFrame:Hide()
