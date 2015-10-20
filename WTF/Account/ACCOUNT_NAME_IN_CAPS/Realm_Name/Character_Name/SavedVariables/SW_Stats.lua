@@ -322,6 +322,14 @@ SW_DataCollection = {
 	["meta"] = {
 	},
 	["data"] = {
+		[1] = {
+-			["initTS"] = {
+-				["uTS"] = 9.875,
+-				["msO"] = -0.125,
+-				["epochTS"] = 1443629602,
+-			},
+-			["Name"] = "Start",
+-		},
 	},
 }
 SW_DBG_Log = {
