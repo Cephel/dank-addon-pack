@@ -68,10 +68,9 @@ LVBM_SavedVars = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Ossirian"] = {
+		["Jeklik"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
-			["AnnounceCurse"] = false,
 		},
 		["Gehennas"] = {
 			["Enabled"] = true,
@@ -120,7 +119,7 @@ LVBM_SavedVars = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Jeklik"] = {
+		["TwinEmps"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
@@ -294,9 +293,10 @@ LVBM_SavedVars = {
 			["Announce"] = false,
 			["Vulnerability"] = true,
 		},
-		["TwinEmps"] = {
+		["Ossirian"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
+			["AnnounceCurse"] = false,
 		},
 	},
 	["LVBM"] = {
@@ -316,9 +316,9 @@ LVBM_SavedVars = {
 		},
 		["EnableSync"] = true,
 		["StatusBarColor"] = {
-			["a"] = 0.8,
+			["a"] = 0.7999999523162842,
 			["r"] = 1,
-			["g"] = 0.7,
+			["g"] = 0.6980392156862745,
 			["b"] = 0,
 		},
 		["StatusBarSize"] = {
@@ -381,7 +381,7 @@ LVBM_SavedVars = {
 		["SpecialWarningTextDuration"] = 5,
 		["AllowSyncFromOldVersions"] = true,
 		["MinimapButton"] = {
-			["Enabled"] = true,
+			["Enabled"] = false,
 			["Position"] = 180,
 			["Radius"] = 78.09999999999999,
 		},
