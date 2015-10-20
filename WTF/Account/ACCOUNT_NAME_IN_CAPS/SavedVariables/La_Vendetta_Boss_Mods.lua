@@ -64,15 +64,16 @@ LVBM_SavedVars = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Azuregos"] = {
+		["Onyxia"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Jeklik"] = {
+		["Ossirian"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
+			["AnnounceCurse"] = false,
 		},
-		["Sartura"] = {
+		["Gehennas"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
@@ -85,11 +86,14 @@ LVBM_SavedVars = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["OutdoorDragons"] = {
+		["Noth"] = {
 			["Enabled"] = true,
-			["SetIcon"] = true,
-			["SendWhisper"] = false,
+			["TimeInRoom"] = 90,
+			["TimeOnBalcony"] = 70,
+			["AnnounceSpawn"] = false,
+			["OnBalcony"] = false,
 			["Announce"] = false,
+			["AnnounceCurse"] = true,
 		},
 		["Vaelastrasz"] = {
 			["Enabled"] = true,
@@ -97,35 +101,30 @@ LVBM_SavedVars = {
 			["Announce"] = false,
 			["SetIcon"] = true,
 		},
-		["Geddon"] = {
+		["Patchwerk"] = {
 			["Enabled"] = true,
-			["Whisper"] = false,
 			["Announce"] = false,
+			["HatefulStrike"] = true,
+		},
+		["OutdoorDragons"] = {
+			["Enabled"] = true,
 			["SetIcon"] = true,
-		},
-		["Viscidus"] = {
-			["Enabled"] = true,
-			["MainTank"] = "",
+			["SendWhisper"] = false,
 			["Announce"] = false,
-			["Whisper"] = false,
 		},
-		["Onyxia"] = {
+		["Azuregos"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Jindo"] = {
-			["HealTotem"] = true,
-			["MindControlTotem"] = true,
-			["Whisper"] = false,
-			["Enabled"] = true,
-			["Announce"] = false,
-			["AnnounceCurse"] = true,
-		},
-		["TwinEmps"] = {
+		["Kazzak"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Gehennas"] = {
+		["Jeklik"] = {
+			["Enabled"] = true,
+			["Announce"] = false,
+		},
+		["Sartura"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
@@ -137,19 +136,19 @@ LVBM_SavedVars = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Skeram"] = {
+		["Ayamiss"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Venoxis"] = {
+		["Ouro"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Defender"] = {
+		["Nefarian"] = {
 			["Enabled"] = true,
-			["Plague"] = true,
-			["Whisper"] = false,
+			["UnequipBow"] = true,
 			["Announce"] = false,
+			["BlockHeals"] = true,
 		},
 		["Runecloth"] = {
 			["Enabled"] = false,
@@ -159,33 +158,15 @@ LVBM_SavedVars = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Ayamiss"] = {
+		["Jindo"] = {
+			["HealTotem"] = true,
+			["MindControlTotem"] = true,
+			["Whisper"] = false,
 			["Enabled"] = true,
 			["Announce"] = false,
+			["AnnounceCurse"] = true,
 		},
 		["Razorgore"] = {
-			["Enabled"] = true,
-			["Announce"] = false,
-		},
-		["Lucifron"] = {
-			["Enabled"] = true,
-			["Announce"] = false,
-		},
-		["Battlegrounds"] = {
-			["AVAutoTurnIn"] = true,
-			["StringHorde"] = "Horde: ",
-			["ShowWsgFrame"] = true,
-			["StringAlliance"] = "Alliance: ",
-			["Announce"] = false,
-			["Enabled"] = true,
-		},
-		["Nefarian"] = {
-			["Enabled"] = true,
-			["UnequipBow"] = true,
-			["Announce"] = false,
-			["BlockHeals"] = true,
-		},
-		["GrandWidowFaerlina"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
@@ -193,7 +174,26 @@ LVBM_SavedVars = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Flamegor"] = {
+		["Sapphiron"] = {
+			["Enabled"] = true,
+			["Announce"] = false,
+			["Yell"] = true,
+		},
+		["Defender"] = {
+			["Enabled"] = true,
+			["Plague"] = true,
+			["Whisper"] = false,
+			["Announce"] = false,
+		},
+		["GrandWidowFaerlina"] = {
+			["Enabled"] = true,
+			["Announce"] = false,
+		},
+		["Venoxis"] = {
+			["Enabled"] = true,
+			["Announce"] = false,
+		},
+		["Gluth"] = {
 			["Enabled"] = true,
 			["Frenzy"] = true,
 			["Announce"] = false,
@@ -202,9 +202,10 @@ LVBM_SavedVars = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Hakkar"] = {
+		["Maexxna"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
+			["Yell"] = true,
 		},
 		["ThreeBugs"] = {
 			["Enabled"] = true,
@@ -223,20 +224,22 @@ LVBM_SavedVars = {
 			["Frenzy"] = true,
 			["Announce"] = false,
 		},
-		["Maexxna"] = {
-			["Enabled"] = true,
+		["Battlegrounds"] = {
+			["AVAutoTurnIn"] = true,
+			["StringHorde"] = "Horde: ",
+			["ShowWsgFrame"] = true,
+			["StringAlliance"] = "Alliance: ",
 			["Announce"] = false,
-			["Yell"] = true,
+			["Enabled"] = true,
 		},
-		["Gluth"] = {
+		["Flamegor"] = {
 			["Enabled"] = true,
 			["Frenzy"] = true,
 			["Announce"] = false,
 		},
-		["Sapphiron"] = {
+		["Hakkar"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
-			["Yell"] = true,
 		},
 		["Grobbulus"] = {
 			["Enabled"] = true,
@@ -250,7 +253,7 @@ LVBM_SavedVars = {
 			["Announce"] = false,
 			["Wisper"] = false,
 		},
-		["Ouro"] = {
+		["Lucifron"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
@@ -259,7 +262,7 @@ LVBM_SavedVars = {
 			["Frenzy"] = true,
 			["Announce"] = false,
 		},
-		["Kazzak"] = {
+		["Skeram"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
@@ -269,23 +272,21 @@ LVBM_SavedVars = {
 			["Announce"] = false,
 			["SetIcon"] = false,
 		},
-		["Patchwerk"] = {
+		["Geddon"] = {
 			["Enabled"] = true,
+			["Whisper"] = false,
 			["Announce"] = false,
-			["HatefulStrike"] = true,
+			["SetIcon"] = true,
 		},
 		["Fankriss"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
 		},
-		["Noth"] = {
+		["Viscidus"] = {
 			["Enabled"] = true,
-			["TimeInRoom"] = 90,
-			["TimeOnBalcony"] = 70,
-			["AnnounceSpawn"] = false,
-			["OnBalcony"] = false,
+			["MainTank"] = "",
 			["Announce"] = false,
-			["AnnounceCurse"] = true,
+			["Whisper"] = false,
 		},
 		["Chromaggus"] = {
 			["Enabled"] = true,
@@ -293,10 +294,9 @@ LVBM_SavedVars = {
 			["Announce"] = false,
 			["Vulnerability"] = true,
 		},
-		["Ossirian"] = {
+		["TwinEmps"] = {
 			["Enabled"] = true,
 			["Announce"] = false,
-			["AnnounceCurse"] = false,
 		},
 	},
 	["LVBM"] = {
@@ -308,8 +308,8 @@ LVBM_SavedVars = {
 			["Cephell"] = {
 				["AggroFlash"] = false,
 				["AggroShake"] = false,
-				["AggroAlert"] = false,
 				["AggroSound"] = false,
+				["AggroAlert"] = false,
 				["AggroSpecialWarning"] = false,
 				["AggroLocalWarning"] = false,
 			},

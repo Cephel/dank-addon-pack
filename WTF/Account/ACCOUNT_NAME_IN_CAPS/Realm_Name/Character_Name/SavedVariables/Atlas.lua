@@ -5,7 +5,7 @@ AtlasOptions = {
 	["AtlasAlpha"] = 1,
 	["AtlasButtonRadius"] = 78,
 	["AtlasAutoSelect"] = true,
-	["AtlasRightClick"] = false,
+	["AtlasScale"] = 1,
 	["AtlasClamped"] = true,
 	["AtlasAcronyms"] = true,
 	["AtlasType"] = 1,
@@ -13,6 +13,6 @@ AtlasOptions = {
 	["AtlasVersion"] = "1.8.5a |cFFFF8080PRE-TBC|r",
 	["AtlasButtonPosition"] = 20,
 	["AtlasZone"] = 1,
-	["AtlasScale"] = 1,
+	["AtlasRightClick"] = false,
 	["AtlasLocked"] = false,
 }

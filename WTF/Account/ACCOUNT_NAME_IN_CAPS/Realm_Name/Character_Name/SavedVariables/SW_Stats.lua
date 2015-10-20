@@ -307,7 +307,6 @@ SW_RPS = {
 	["currentSecs"] = 0,
 }
 SW_StrTable = {
-	[1] = "Cephell",
 }
 SW_DataCollection = {
 	["settings"] = {
@@ -321,25 +320,8 @@ SW_DataCollection = {
 		["activeOnly"] = true,
 	},
 	["meta"] = {
-		[1] = {
-			["origName"] = "Cephell",
-			["stringID"] = 1,
-			["everGroup"] = true,
-			["classE"] = "WARRIOR",
-			["level"] = 60,
-			["type"] = "PC",
-			["rank"] = 0,
-		},
 	},
 	["data"] = {
-		[1] = {
-			["initTS"] = {
-				["uTS"] = 9.875,
-				["msO"] = -0.125,
-				["epochTS"] = 1443629602,
-			},
-			["Name"] = "Start",
-		},
 	},
 }
 SW_DBG_Log = {
