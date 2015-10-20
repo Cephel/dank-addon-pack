@@ -6,10 +6,6 @@ Frame: AtlasFrame
 FrameLevel: 1
 X: 330
 Y: -62
-Frame: ElkBuffBarFrame
-FrameLevel: 1
-X: 1200
-Y: -20
 Frame: KLHTM_Frame
 FrameLevel: 1
 X: 1375
