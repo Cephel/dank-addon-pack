@@ -3,19 +3,19 @@ WIM_Data = {
 	["popCombat"] = false,
 	["aliasAsComment"] = true,
 	["windowAlpha"] = 0.8,
-	["iconPosition"] = 0,
+	["iconPosition"] = 337,
 	["miniFreeMoving"] = {
-		["enabled"] = false,
-		["left"] = 0,
 		["top"] = 0,
+		["left"] = 0,
+		["enabled"] = false,
 	},
 	["keepFocusRested"] = false,
 	["showTimeStamps"] = true,
 	["popUpdate"] = true,
 	["characterInfo"] = {
-		["classColor"] = true,
-		["details"] = true,
 		["show"] = true,
+		["details"] = true,
+		["classColor"] = true,
 		["classIcon"] = true,
 	},
 	["versionLastLoaded"] = "1.3.1",
@@ -75,14 +75,14 @@ WIM_Data = {
 		},
 		["recordEveryone"] = false,
 		["recordFriends"] = true,
+		["autoDelete"] = {
+			["enabled"] = true,
+			["days"] = 7,
+		},
 		["colorOut"] = {
 			["r"] = 0.7058823529411764,
 			["g"] = 0.7058823529411764,
 			["b"] = 0.7058823529411764,
-		},
-		["autoDelete"] = {
-			["enabled"] = true,
-			["days"] = 7,
 		},
 	},
 	["hookWispParse"] = true,
@@ -91,20 +91,20 @@ WIM_Data = {
 	["enableWIM"] = true,
 	["popOnSend"] = true,
 	["showMiniMap"] = true,
-	["keepFocus"] = false,
-	["showToolTips"] = true,
+	["useEscape"] = true,
+	["enableHistory"] = true,
 	["winLoc"] = {
 		["top"] = 775,
 		["left"] = 242,
 	},
-	["sortAlpha"] = true,
+	["enableFilter"] = true,
 	["winSize"] = {
 		["height"] = 256,
 		["width"] = 384,
 	},
-	["enableFilter"] = true,
-	["enableHistory"] = true,
-	["useEscape"] = true,
+	["sortAlpha"] = true,
+	["showToolTips"] = true,
+	["keepFocus"] = false,
 }
 WIM_Alias = {
 }
@@ -117,7 +117,6 @@ WIM_Filters = {
 	["^YOU ARE MARKED!"] = "Ignore",
 	["^<GA"] = "Ignore",
 	["^LVBM"] = "Ignore",
-	["^LVPN"] = "Ignore",
 	["^YOU HAVE THE PLAGUE!"] = "Ignore",
 }
 WIM_History = {

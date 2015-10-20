@@ -1,19 +1,19 @@
 
 AtlasLootOptions = {
 	["SelectedZone"] = 1,
-	["ItemSyncTT"] = false,
-	["SelectedType"] = 1,
+	["SelectedZoneText"] = "Blackrock Depths",
+	["MinimapButtonAngle"] = 0,
 	["ItemIDs"] = false,
 	["Opaque"] = false,
 	["SafeLinks"] = true,
-	["EquipCompare"] = true,
+	["EquipCompare"] = false,
 	["DefaultTT"] = true,
 	["AllLinks"] = false,
-	["SelectedZoneText"] = "Blackrock Depths",
+	["ItemSyncTT"] = false,
 	["SelectedBoss"] = 1,
-	["MinimapButtonAngle"] = 0,
-	["SilentMode"] = true,
-	["MinimapButton"] = false,
+	["SelectedType"] = 1,
+	["SilentMode"] = false,
+	["MinimapButton"] = true,
 	["LootlinkTT"] = false,
 }
 AtlasLootVersion = "12102"
