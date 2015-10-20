@@ -10,18 +10,24 @@ OpiumData = {
 	},
 	["config"] = {
 		["soundalert"] = false,
-		["alertsonlyonenemy"] = false,
-		["trackpvpranks"] = true,
-		["guilddisplay"] = true,
 		["chatframe"] = 1,
+		["alertsonlyonenemy"] = false,
+		["autostore"] = 2,
+		["guilddisplay"] = true,
 		["colorwho"] = true,
 		["blockallsends"] = false,
 		["dbVersion"] = 4,
-		["trackpvpstats"] = true,
-		["textalert"] = true,
 		["targetbutton"] = true,
-		["autostore"] = 2,
+		["trackpvpstats"] = true,
+		["trackpvpranks"] = true,
+		["textalert"] = true,
 		["mmbutton"] = false,
 		["mmbuttonposition"] = 320,
+	},
+	["playerLinks"] = {
+	},
+	["kosGuild"] = {
+	},
+	["kosPlayer"] = {
 	},
 }
