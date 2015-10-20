@@ -4,6 +4,7 @@ SW_Settings = {
 	["QuickOptCount"] = 5,
 	["ReportAmount"] = 5,
 	["TL_SafeMode"] = true,
+	["HideMiniMap"] = true,
 	["BarFrames"] = {
 		["SW_BarFrame1"] = {
 			["Docked"] = {
