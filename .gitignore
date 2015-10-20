@@ -70,6 +70,7 @@ WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/*
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/MikScrollingBattleText.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/Opium.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/vQueue.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/WIM.lua
 
 # Character based config files
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name
