@@ -1,5 +1,5 @@
 LunaUnitFrames = CreateFrame("Frame")
-LunaUnitFrames.version = 1083
+LunaUnitFrames.version = 1095
 LunaUnitFrames.frames = {}
 LunaUnitFrames.proximity = ProximityLib:GetInstance("1")
 LunaUnitFrames:RegisterEvent("ADDON_LOADED")
@@ -266,6 +266,14 @@ function LunaUnitFrames:OnEvent()
 		end
 		if not LunaOptions.BarFont then
 			LunaOptions.BarFont = 1
+		end
+		
+		if not LunaOptions.frames["LunaTargetTargetFrame"].portrait then
+			LunaOptions.frames["LunaTargetTargetFrame"].portrait = 2
+		end
+		
+		if not LunaOptions.frames["LunaTargetTargetTargetFrame"].portrait then
+			LunaOptions.frames["LunaTargetTargetTargetFrame"].portrait = 2
 		end
 
 		LunaUnitFrames:UpdateBarFontString()
