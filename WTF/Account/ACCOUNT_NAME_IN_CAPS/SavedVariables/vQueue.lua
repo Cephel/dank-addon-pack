@@ -1,9 +1,9 @@
 
-MinimapPos = -30
+MinimapPos = -20
 vQueueOptions = {
 	["onlylfg"] = true,
 	["general"] = true,
-	["filter"] = false,
+	["filter"] = true,
 	["trade"] = true,
 	["lfg"] = true,
 	["world"] = true,

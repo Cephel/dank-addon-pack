@@ -894,7 +894,7 @@ MikSBT_Save = {
 					},
 					["Message"] = "Parry!",
 				},
-				["MSBT_EVENTTYPE_OUTGOING_PET_SPELL_IMMUNE"] = {
+				["MSBT_EVENTTYPE_OUTGOING_SPELL_DODGE"] = {
 					["Show"] = true,
 					["FontSettings"] = {
 						["Normal"] = {
@@ -903,12 +903,12 @@ MikSBT_Save = {
 							["FontIndex"] = 0,
 						},
 						["Color"] = {
-							["b"] = 1,
-							["g"] = 0.502,
-							["r"] = 0.502,
+							["b"] = 0,
+							["g"] = 1,
+							["r"] = 1,
 						},
 					},
-					["Message"] = "Pet Immune! (%s)",
+					["Message"] = "Dodge!",
 				},
 				["MSBT_EVENTTYPE_INCOMING_PARRY"] = {
 					["Show"] = true,
@@ -942,6 +942,22 @@ MikSBT_Save = {
 					},
 					["Message"] = "Pet Immune!",
 				},
+				["MSBT_EVENTTYPE_OUTGOING_PET_SPELL_IMMUNE"] = {
+					["Show"] = true,
+					["FontSettings"] = {
+						["Normal"] = {
+							["FontSize"] = 0,
+							["OutlineIndex"] = 0,
+							["FontIndex"] = 0,
+						},
+						["Color"] = {
+							["b"] = 1,
+							["g"] = 0.502,
+							["r"] = 0.502,
+						},
+					},
+					["Message"] = "Pet Immune! (%s)",
+				},
 				["MSBT_EVENTTYPE_NOTIFICATION_COMBAT_ENTER"] = {
 					["IsSticky"] = false,
 					["FontSettings"] = {
@@ -958,22 +974,6 @@ MikSBT_Save = {
 					},
 					["Show"] = true,
 					["Message"] = "+Combat",
-				},
-				["MSBT_EVENTTYPE_OUTGOING_SPELL_DODGE"] = {
-					["Show"] = true,
-					["FontSettings"] = {
-						["Normal"] = {
-							["FontSize"] = 0,
-							["OutlineIndex"] = 0,
-							["FontIndex"] = 0,
-						},
-						["Color"] = {
-							["b"] = 0,
-							["g"] = 1,
-							["r"] = 1,
-						},
-					},
-					["Message"] = "Dodge!",
 				},
 				["MSBT_EVENTTYPE_OUTGOING_SPELL_EVADE"] = {
 					["Show"] = true,
@@ -1276,21 +1276,20 @@ MikSBT_Save = {
 			["LowHealthSound"] = true,
 			["MasterFontSettings"] = {
 				["Normal"] = {
-					["FontSize"] = 18,
+					["FontSize"] = 20,
 					["OutlineIndex"] = 2,
-					["FontIndex"] = 7,
+					["FontIndex"] = 6,
 				},
 				["Crit"] = {
-					["FontSize"] = 26,
-					["OutlineIndex"] = 2,
-					["FontIndex"] = 7,
+					["FontSize"] = 32,
+					["OutlineIndex"] = 3,
+					["FontIndex"] = 11,
 				},
 			},
 			["ShowPartialEffects"] = true,
 			["LowManaSound"] = true,
 			["CreationVersion"] = 4.11,
 			["ShowAllManaGains"] = false,
-			["ShowGameDamage"] = true,
 			["ShowOverheals"] = true,
 			["Suppressions"] = {
 				["MSBT_SUPPRESSION_WISDOM_MANA_GAINS"] = {
@@ -1298,7 +1297,8 @@ MikSBT_Save = {
 					["SearchPattern"] = "+[35][039] Mana",
 				},
 			},
-			["UseStickyCrits"] = true,
+			["ShowGameDamage"] = true,
+			["UseStickyCrits"] = false,
 			["AnimationStep"] = 1.5,
 			["DisplaySettings"] = {
 				["Notification"] = {
@@ -1317,34 +1317,34 @@ MikSBT_Save = {
 							["FontIndex"] = 0,
 						},
 					},
-					["ScrollDirection"] = 1,
+					["ScrollDirection"] = 2,
 					["AnimationStyle"] = 1,
 					["FrameOffsets"] = {
-						["y"] = -322,
-						["x"] = -300,
+						["y"] = -350,
+						["x"] = 225,
 					},
 				},
 				["Incoming"] = {
 					["Show"] = true,
-					["ScrollHeight"] = 450,
+					["ScrollHeight"] = 225,
 					["FontSettings"] = {
 						["Normal"] = {
 							["FontSize"] = 0,
 							["OutlineIndex"] = 0,
 							["FontIndex"] = 0,
 						},
-						["TextAlignIndex"] = 3,
+						["TextAlignIndex"] = 2,
 						["Crit"] = {
 							["FontSize"] = 0,
 							["OutlineIndex"] = 0,
 							["FontIndex"] = 0,
 						},
 					},
-					["ScrollDirection"] = 1,
+					["ScrollDirection"] = 2,
 					["AnimationStyle"] = 1,
 					["FrameOffsets"] = {
-						["y"] = -170,
-						["x"] = -450,
+						["y"] = -350,
+						["x"] = 0,
 					},
 				},
 				["Outgoing"] = {
@@ -1367,7 +1367,7 @@ MikSBT_Save = {
 					["AnimationStyle"] = 1,
 					["FrameOffsets"] = {
 						["y"] = -170,
-						["x"] = 450,
+						["x"] = -450,
 					},
 				},
 			},
