@@ -16,8 +16,8 @@ then
 3. Select "Simple Chat" in Advanced Options -> Chat
 
 # Troubleshooting
-- If you have a monitor size that is not 1920x1080
-  - delete `WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/layout-cache.txt` if you can't see KTM and SW_Stats on the screen
+- Delete `WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/layout-cache.txt` if you can't see KTM and SW_Stats on the screen
+- Delete `WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/VanillaGuide.lua` if you can't see VanillaGuide on the screen
 
 # Automization TODO:
 - EQL3
