@@ -15,6 +15,8 @@ SW_Settings = {
 	},
 	["lastWOWBuild"] = "1.12.15875Sep 19 2006",
 	["SW_TL_AutoDelete"] = true,
+	["SY_AutoVote"] = 1,
+	["OPT_ShowTLB"] = 1,
 	["LAST_V_RUN"] = "2.0 Beta.7",
 	["SHOWMAIN"] = true,
 	["BFLocked"] = true,
