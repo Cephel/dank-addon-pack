@@ -20,12 +20,12 @@ X: 1570
 Y: -310
 Frame: OpiumTargetKosFrame
 FrameLevel: 9
-X: 900
-Y: -760
+X: 850
+Y: -810
 Frame: OpiumTargetFrame
 FrameLevel: 8
 X: 875
-Y: -800
+Y: -810
 Frame: SW_BarFrame1
 FrameLevel: 8
 X: 1375
