@@ -955,6 +955,7 @@ end
 function MikSBTOpt.InitButtons()
  -- Initialize the edit font settings buttons for master, incoming, outgoing, and notification.
  local key = "Tab1FrameEditFontSettingsButton";	MikSBTOpt.SetupButton(OPTIONS_FRAME_NAME .. key, MikSBTOpt.BUTTONS[key].Label, MikSBTOpt.BUTTONS[key].Tooltip);
+ key = "Tab1FrameEditBlizzardFontSettingsButton";	MikSBTOpt.SetupButton(OPTIONS_FRAME_NAME .. key, MikSBTOpt.BUTTONS[key].Label, MikSBTOpt.BUTTONS[key].Tooltip);
  key = "Tab2FrameEditFontSettingsButton";		MikSBTOpt.SetupButton(OPTIONS_FRAME_NAME .. key, MikSBTOpt.BUTTONS[key].Label, MikSBTOpt.BUTTONS[key].Tooltip);
  key = "Tab3FrameEditFontSettingsButton";		MikSBTOpt.SetupButton(OPTIONS_FRAME_NAME .. key, MikSBTOpt.BUTTONS[key].Label, MikSBTOpt.BUTTONS[key].Tooltip);
  key = "Tab4FrameEditFontSettingsButton";		MikSBTOpt.SetupButton(OPTIONS_FRAME_NAME .. key, MikSBTOpt.BUTTONS[key].Label, MikSBTOpt.BUTTONS[key].Tooltip);
@@ -1022,6 +1023,14 @@ function MikSBTOpt.ButtonOnClick()
   getglobal(FONT_SETTINGS_FRAME_NAME .. "Title"):SetText(MikSBTOpt.FONT_SETTINGS_TOOLTIPS["Master"].FontSettingsTitle);
   MikSBTOpt.ShowMasterFontSettings();
   
+ -- Edit Blizzard scrolling text font.
+ elseif (this:GetName() == OPTIONS_FRAME_NAME .. "Tab1FrameEditBlizzardFontSettingsButton") then
+  local fontSettingsFrame = getglobal(FONT_SETTINGS_FRAME_NAME);
+  fontSettingsFrame:SetPoint("TOPLEFT", this, "BOTTOMLEFT");
+  fontSettingsFrame:Raise();
+  getglobal(FONT_SETTINGS_FRAME_NAME .. "Title"):SetText(MikSBTOpt.FONT_SETTINGS_TOOLTIPS["Blizzard"].FontSettingsTitle);
+  MikSBTOpt.ShowBlizzardFontSettings();
+ 
  -- Edit incoming font settings button.
  elseif (this:GetName() == OPTIONS_FRAME_NAME .. "Tab2FrameEditFontSettingsButton") then
   -- Hide the event message editbox if it's shown.
@@ -1623,6 +1632,24 @@ function MikSBTOpt.InitEvents()
  index = 18;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_HEAL";
  index = 19;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_HOT";
  index = 20;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_ENVIRONMENTAL";
+ index = 21;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_DAMAGE";
+ index = 22;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_MISS";
+ index = 23;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_DODGE";
+ index = 24;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_PARRY";
+ index = 25;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_BLOCK";
+ index = 26;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_ABSORB";
+ index = 27;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_IMMUNE";
+ index = 28;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_SPELL_DAMAGE";
+ index = 29;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_SPELL_DOT";
+ index = 30;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_SPELL_MISS";
+ index = 31;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_SPELL_DODGE";
+ index = 32;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_SPELL_PARRY";
+ index = 33;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_SPELL_BLOCK";
+ index = 34;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_SPELL_RESIST";
+ index = 35;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_SPELL_ABSORB";
+ index = 36;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_SPELL_IMMUNE";
+ index = 37;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_HEAL";
+ index = 38;	evtData[index].EventType = "MSBT_EVENTTYPE_INCOMING_PET_HOT";
 
 
  evtData = MikSBTOpt.OUTGOING_EVENTS;
@@ -2335,6 +2362,41 @@ end
 
 
 -- **********************************************************************************
+-- Show blizzard font settings.
+-- **********************************************************************************
+function MikSBTOpt.ShowBlizzardFontSettings()
+ -- Hide the crit font settings controls.
+ MikSBTOpt.HideCritFontControls()
+ 
+ local fontSettingsFrame = getglobal(FONT_SETTINGS_FRAME_NAME);
+ fontSettingsFrame.InheritedOutlineIndex = MikSBT.GetOptionFromVarPath("MasterFontSettings.Normal.OutlineIndex");
+ fontSettingsFrame.InheritedFontSize = MikSBT.GetOptionFromVarPath("MasterFontSettings.Normal.FontSize");
+ 
+ -- Setup the normal font dropdown.
+ local key = "FontDropdown";
+ MikSBTOpt.SetupDropdown(FONT_SETTINGS_FRAME_NAME .. key, MikSBTOpt.DROPDOWNS[key].Label, MikSBTOpt.FONT_SETTINGS_TOOLTIPS["Blizzard"].Font, MikSBTOpt.FontSettingsDropdownOnClick, MikSBT.AVAILABLE_FONTS, "BlizzardFontSettings.Normal.FontIndex");
+ MikSBTOpt.PopulateDropdown(FONT_SETTINGS_FRAME_NAME .. key);
+
+ -- Hide the inherit font size and crit font size checkboxes.
+ getglobal(FONT_SETTINGS_FRAME_NAME .. "InheritFontSizeCheckbox"):Hide();
+ 
+ -- Hide the dropdown button.
+ getglobal(FONT_SETTINGS_FRAME_NAME .. "FontOutlineDropdown"):Hide();
+ 
+ -- Show the font size and crit size sliders.
+ getglobal(FONT_SETTINGS_FRAME_NAME .. "FontSizeSlider"):Hide();
+
+
+ -- Show the font settings frame.
+ getglobal(FONT_SETTINGS_FRAME_NAME):Show();
+
+ -- Update the font previews.
+ MikSBTOpt.UpdateFontPreviews();
+ MikSBT.Print("Restart the game or disconnect to apply Game Damage font.", 1, 0, 0)
+end
+
+
+-- **********************************************************************************
 -- Show scroll area font settings .
 -- **********************************************************************************
 function MikSBTOpt.ShowScrollAreaFontSettings(scrollArea)
@@ -2686,13 +2748,13 @@ function MikSBTOpt.UpdateFontPreviews()
 
  -- Get the selected normal font index.
  local fontIndex = UIDropDownMenu_GetSelectedValue(getglobal(FONT_SETTINGS_FRAME_NAME .. "FontDropdown"));
- if (fontIndex == 0) then
+ if (fontIndex == 0 or fontIndex == nil) then
   fontIndex = fontSettingsFrame.InheritedFontIndex;
  end
 
  -- Get the selected normal outline index.
  local outlineIndex = UIDropDownMenu_GetSelectedValue(getglobal(FONT_SETTINGS_FRAME_NAME .. "FontOutlineDropdown"));
- if (outlineIndex == 0) then
+ if (outlineIndex == 0 or outlineIndex == nil) then
   outlineIndex = fontSettingsFrame.InheritedOutlineIndex;
  end
 

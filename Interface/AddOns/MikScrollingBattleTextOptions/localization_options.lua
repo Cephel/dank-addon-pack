@@ -109,6 +109,7 @@ MikSBTOpt.SLIDERS = {
 
 MikSBTOpt.BUTTONS = {
  ["Tab1FrameEditFontSettingsButton"]	= { Label="Edit Master Font Settings", Tooltip="Edits the master font settings.  These settings will be inherited by each scroll area and the events therein unless they are overridden."},
+ ["Tab1FrameEditBlizzardFontSettingsButton"]	= { Label="Edit Game Damage Font", Tooltip="Edits Blizzard's scrolling text font settings."},
  ["Tab2FrameEditFontSettingsButton"]	= { Label="Edit Scroll Area Fonts", Tooltip="Edits the incoming scroll area font settings.  These settings will be inherited by each event in the incoming scroll area unless they are overridden."},
  ["Tab3FrameEditFontSettingsButton"]	= { Label="Edit Scroll Area Fonts", Tooltip="Edits the outgoing scroll area font settings.  These settings will be inherited by each event in the outgoing scroll area unless they are overridden."},
  ["Tab4FrameEditFontSettingsButton"]	= { Label="Edit Scroll Area Fonts", Tooltip="Edits the notification scroll area font settings.  These settings will be inherited by each event in the notification scroll area unless they are overridden."},
@@ -176,6 +177,10 @@ MikSBTOpt.FONT_SETTINGS_TOOLTIPS = {
   Outline="Set the trigger font outline.",
   InheritFontSize="Set whether or not to inherit the font size from the notification scroll area font settings.",
   FontSize="Set the trigger font size.",
+ },
+ ["Blizzard"] = {
+  FontSettingsTitle="Blizzard",
+  Font="Set the Blizzard scrolling texts font.",
  }
 }
 
@@ -200,6 +205,24 @@ MikSBTOpt.INCOMING_EVENTS = {
  [18] = { Label="Heals", Tooltips={ShowCheckbox="Sets whether or not to show incoming heals.", Editbox="%a - Amount of healing taken.\n%n - Name of the healer.\n%s - Name of the spell."}},
  [19] = { Label="Heals Over Time", Tooltips={ShowCheckbox="Sets whether or not to show incoming heals over time.", Editbox="%a - Amount of healing taken.\n%n - Name of the healer.\n%s - Name of the spell."}},
  [20] = { Label="Environmental Damage", Tooltips={ShowCheckbox="Sets whether or not to show environmental (falling, drowning, lava, etc...) damage.", Editbox="%a - Amount of damage taken.\n%s - Name of the source of the damage (falling, drowning, lava, etc...)"}},
+ [21] = { Label="Pet Melee Damage", Tooltips={ShowCheckbox="Sets whether or not to show incoming melee damage on your pet.", Editbox="%a - Amount of damage taken.\n%n - Name of the attacker."}},
+ [22] = { Label="Pet Melee Misses", Tooltips={ShowCheckbox="Sets whether or not to show incoming melee misses on your pet.", Editbox="%n - Name of the attacker."}},
+ [23] = { Label="Pet Melee Dodges", Tooltips={ShowCheckbox="Sets whether or not to show incoming melee dodges on your pet.", Editbox="%n - Name of the attacker."}},
+ [24] = { Label="Pet Melee Parries", Tooltips={ShowCheckbox="Sets whether or not to show incoming melee parries on your pet.", Editbox="%n - Name of the attacker."}},
+ [25] = { Label="Pet Melee Blocks", Tooltips={ShowCheckbox="Sets whether or not to show incoming melee blocks on your pet.", Editbox="%n - Name of the attacker."}},
+ [26] = { Label="Pet Melee Absorbs", Tooltips={ShowCheckbox="Sets whether or not to show absorbed incoming melee damage on your pet.", Editbox="%n - Name of the attacker."}},
+ [27] = { Label="Pet Melee Immunes", Tooltips={ShowCheckbox="Sets whether or not to show incoming melee damage your pet is immune to.", Editbox="%n - Name of the attacker."}},
+ [28] = { Label="Pet Ability/Spell Damage", Tooltips={ShowCheckbox="Sets whether or not to show incoming spell and ability damage on your pet.", Editbox="%a - Amount of damage taken.\n%n - Name of the attacker.\n%s - Name of the spell or ability.\n%t - Type of damage taken."}},
+ [29] = { Label="Pet Ability/Spell DoTs", Tooltips={ShowCheckbox="Sets whether or not to show incoming spell and ability damage over time on your pet.", Editbox="%a - Amount of damage taken.\n%n - Name of the attacker.\n%s - Name of the spell or ability.\n%t - Type of damage taken."}},
+ [30] = { Label="Pet Ability Misses", Tooltips={ShowCheckbox="Sets whether or not to show incoming ability misses on your pet.", Editbox="%n - Name of the attacker.\n%s - Name of the ability."}},
+ [31] = { Label="Pet Ability Dodges", Tooltips={ShowCheckbox="Sets whether or not to show incoming ability dodges on your pet.", Editbox="%n - Name of the attacker.\n%s - Name of the ability."}},
+ [32] = { Label="Pet Ability Parries", Tooltips={ShowCheckbox="Sets whether or not to show incoming ability parries on your pet.", Editbox="%n - Name of the attacker.\n%s - Name of the ability."}},
+ [33] = { Label="Pet Ability Blocks", Tooltips={ShowCheckbox="Sets whether or not to show incoming ability blocks on your pet.", Editbox="%n - Name of the attacker.\n%s - Name of the ability."}},
+ [34] = { Label="Pet Spell Resists", Tooltips={ShowCheckbox="Sets whether or not to show incoming spell resists on your pet.", Editbox="%n - Name of the attacker.\n%s - Name of the spell."}},
+ [35] = { Label="Pet Ability/Spell Absorbs", Tooltips={ShowCheckbox="Sets whether or not to show absorbed damage from incoming spells and abilities on your pet.", Editbox="%n - Name of the attacker.\n%s - Name of the spell or ability."}},
+ [36] = { Label="Pet Ability/Spell Immunes", Tooltips={ShowCheckbox="Sets whether or not to show incoming spell and ability damage your pet is immune to.", Editbox="%n - Name of the attacker.\n%s - Name of the spell or ability."}},
+ [37] = { Label="Pet Heals", Tooltips={ShowCheckbox="Sets whether or not to show incoming heals on your pet.", Editbox="%a - Amount of healing taken.\n%n - Name of the healer.\n%s - Name of the spell."}},
+ [38] = { Label="Pet Heals Over Time", Tooltips={ShowCheckbox="Sets whether or not to show incoming heals over time on your pet.", Editbox="%a - Amount of healing taken.\n%n - Name of the healer.\n%s - Name of the spell."}},
 };
 
 MikSBTOpt.OUTGOING_EVENTS = {

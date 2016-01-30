@@ -93,14 +93,17 @@ function LunaUnitFrames:ToggleRaidFrameLock()
 	if not LunaUnitFrames.frames.headers[1]:IsMovable() and not LunaOptions.raidinterlock then
 		for i=1,9 do
 			LunaUnitFrames.frames.headers[i]:SetScript("OnDragStart", StartMoving)
+			LunaUnitFrames.frames.headers[i]:SetScript("OnDragStop", StopMovingOrSizing)
 			LunaUnitFrames.frames.headers[i]:SetMovable(1)
 		end
 	elseif LunaOptions.raidinterlock and not LunaUnitFrames.frames.headers[1]:IsMovable() then
 		LunaUnitFrames.frames.headers[1]:SetScript("OnDragStart", StartMoving)
+		LunaUnitFrames.frames.headers[i]:SetScript("OnDragStop", StopMovingOrSizing)
 		LunaUnitFrames.frames.headers[1]:SetMovable(1)
 	else
 		for i=1,9 do
 			LunaUnitFrames.frames.headers[i]:SetScript("OnDragStart", nil)
+			LunaUnitFrames.frames.headers[i]:SetScript("OnDragStop", nil)
 			LunaUnitFrames.frames.headers[i]:SetMovable(0)
 		end
 	end
@@ -222,7 +225,6 @@ function LunaUnitFrames:CreateRaidFrames()
 		LunaUnitFrames.frames.headers[i]:Hide()
 		LunaUnitFrames.frames.headers[i]:SetMovable(0)
 		LunaUnitFrames.frames.headers[i]:RegisterForDrag("LeftButton")
-		LunaUnitFrames.frames.headers[i]:SetScript("OnDragStop", StopMovingOrSizing)
 		LunaUnitFrames.frames.headers[i].id = i
 		
 		LunaUnitFrames.frames.headers[i].GrpName = LunaUnitFrames.frames.headers[i]:CreateFontString(nil, "OVERLAY", LunaUnitFrames.frames.headers[i])
@@ -242,6 +244,46 @@ function LunaUnitFrames:CreateRaidFrames()
 		LunaUnitFrames.frames.members[i]:SetScript("OnClick", Luna_Raid_OnClick)
 		LunaUnitFrames.frames.members[i]:SetScript("OnEnter", UnitFrame_OnEnter)
 		LunaUnitFrames.frames.members[i]:SetScript("OnLeave", UnitFrame_OnLeave)
+		
+		LunaUnitFrames.frames.members[i].borders = {}
+		
+		LunaUnitFrames.frames.members[i].borders["TOP"] = LunaUnitFrames.frames.members[i]:CreateTexture("PlayerTopBorder", "ARTWORK")
+		LunaUnitFrames.frames.members[i].borders["TOP"]:SetPoint("BOTTOMLEFT", LunaUnitFrames.frames.members[i], "TOPLEFT")
+		LunaUnitFrames.frames.members[i].borders["TOP"]:SetHeight(1)
+		
+		LunaUnitFrames.frames.members[i].borders["BOTTOM"] = LunaUnitFrames.frames.members[i]:CreateTexture("PlayerBottomBorder", "ARTWORK")
+		LunaUnitFrames.frames.members[i].borders["BOTTOM"]:SetPoint("TOPLEFT", LunaUnitFrames.frames.members[i], "BOTTOMLEFT")
+		LunaUnitFrames.frames.members[i].borders["BOTTOM"]:SetHeight(1)
+		
+		LunaUnitFrames.frames.members[i].borders["LEFT"] = LunaUnitFrames.frames.members[i]:CreateTexture("PlayerLeftBorder", "ARTWORK")
+		LunaUnitFrames.frames.members[i].borders["LEFT"]:SetPoint("TOPRIGHT", LunaUnitFrames.frames.members[i], "TOPLEFT", 0, 1)
+		LunaUnitFrames.frames.members[i].borders["LEFT"]:SetWidth(1)
+		
+		LunaUnitFrames.frames.members[i].borders["RIGHT"] = LunaUnitFrames.frames.members[i]:CreateTexture("PlayerBottomBorder", "ARTWORK")
+		LunaUnitFrames.frames.members[i].borders["RIGHT"]:SetPoint("TOPLEFT", LunaUnitFrames.frames.members[i], "TOPRIGHT", 0, 1)
+		LunaUnitFrames.frames.members[i].borders["RIGHT"]:SetWidth(1)
+		
+--		LunaUnitFrames.frames.members[i].highlightframe = CreateFrame("Frame")
+--		LunaUnitFrames.frames.members[i].highlightframe:SetAllPoints(LunaUnitFrames.frames.members[i])
+--		LunaUnitFrames.frames.members[i].highlightframe.texture = LunaUnitFrames.frames.members[i].highlightframe:CreateTexture("raid"..i.."highlight", "ARTWORK")
+--		LunaUnitFrames.frames.members[i].highlightframe.texture:SetBlendMode("ADD")
+--		LunaUnitFrames.frames.members[i].highlightframe.texture:SetAllPoints(LunaUnitFrames.frames.members[i])
+--		LunaUnitFrames.frames.members[i].highlightframe.texture:SetTexture(LunaOptions.highlight)
+--		LunaUnitFrames.frames.members[i].highlightframe.texture:SetVertexColor(1,1,1,0.4)
+		
+		LunaUnitFrames.frames.members[i].SetBorder = function(r,g,b,a)
+										if not r or not g or not b then
+											this.borders["TOP"]:SetTexture(0,0,0,0)
+											this.borders["BOTTOM"]:SetTexture(0,0,0,0)
+											this.borders["LEFT"]:SetTexture(0,0,0,0)
+											this.borders["RIGHT"]:SetTexture(0,0,0,0)
+										else
+											this.borders["TOP"]:SetTexture(r,g,b,a)
+											this.borders["BOTTOM"]:SetTexture(r,g,b,a)
+											this.borders["LEFT"]:SetTexture(r,g,b,a)
+											this.borders["RIGHT"]:SetTexture(r,g,b,a)
+										end
+									end
 
 		LunaUnitFrames.frames.members[i].HealthBar = CreateFrame("StatusBar", nil, LunaUnitFrames.frames.members[i])
 
@@ -620,6 +662,10 @@ function LunaUnitFrames:SetRaidFrameSize()
 		LunaUnitFrames.frames.members[i]:SetHeight(height)
 		LunaUnitFrames.frames.members[i]:SetWidth(width)
 		LunaUnitFrames.frames.members[i]:SetScale(scale)
+		LunaUnitFrames.frames.members[i].borders["TOP"]:SetWidth(width)
+		LunaUnitFrames.frames.members[i].borders["BOTTOM"]:SetWidth(width)
+		LunaUnitFrames.frames.members[i].borders["LEFT"]:SetHeight(height+2)
+		LunaUnitFrames.frames.members[i].borders["RIGHT"]:SetHeight(height+2)
 		if not pBars then
 			LunaUnitFrames.frames.members[i].HealthBar:SetHeight(height)
 			LunaUnitFrames.frames.members[i].HealthBar:SetWidth(width)
