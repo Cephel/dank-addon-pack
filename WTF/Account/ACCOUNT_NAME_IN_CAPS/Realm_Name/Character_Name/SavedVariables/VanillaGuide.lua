@@ -4,27 +4,23 @@ VanillaGuideDBPC = {
 		["UI"] = {
 			["MainFrameAnchor"] = {
 				["sTo"] = "TOPLEFT",
-				["nX"] = 975,
+				["nX"] = 970,
 				["sFrom"] = "TOPLEFT",
-				["nY"] = -475,
+				["nY"] = -450,
+			},
+			["MainFrameSize"] = {
+				["nWidth"] = 320,
+				["nHeight"] = 320,
 			},
 			["Locked"] = true,
 			["ScrollFrameVisible"] = false,
-			["MainFrameSize"] = {
-				["nWidth"] = 320.0000043767834,
-				["nHeight"] = 320.0000043767834,
-			},
+			["Layer"] = "MEDIUM",
 			["MainFrameColor"] = {
 				["nR"] = 0.1098039215686275,
 				["nA"] = 0,
 				["nB"] = 0.1098039215686275,
 				["nG"] = 0.1098039215686275,
 			},
-		},
-		["MetaMap"] = {
-			["BWPPresence"] = true,
-			["Presence"] = true,
-			["NotesPresence"] = true,
 		},
 	},
 }
