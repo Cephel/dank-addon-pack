@@ -62,7 +62,6 @@ WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/*
 
 # Global config files
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/AtlasLoot.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/La_Vendetta_Boss_Mods.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/LunaUnitFrames.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/MetaMap.lua
