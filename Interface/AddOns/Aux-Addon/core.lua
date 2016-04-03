@@ -1,271 +1,349 @@
-AuxVersion = "2.1.0"
-AuxAuthors = "shirsig; Zerf; Zirco (Auctionator); Nimeral (Auctionator backport)"
-
-local lastRightClickAction = GetTime()
-
 Aux = {
+    version = '2.10.10',
     blizzard_ui_shown = false,
-	loaded = false,
 	orig = {},
-	elements = {},
-    tabs = {
-        browse = {
-            index = 1
-        },
-        post = {
-            index = 2
-        },
-    },
-	last_picked_up = {},
 }
 
-function Aux_OnLoad()
-	Aux.log('Aux v'..AuxVersion..' loaded.')
-	Aux.loaded = true
+function Aux.on_load()
+	Aux.log('Aux v'..Aux.version..' loaded.')
     tinsert(UISpecialFrames, 'AuxFrame')
+
+    do
+        local tab_group = Aux.gui.tab_group(AuxFrame, 'BOTTOM')
+        tab_group:create_tab('Search')
+        tab_group:create_tab('Post')
+        tab_group:create_tab('Auctions')
+        tab_group:create_tab('Bids')
+        tab_group.on_select = Aux.on_tab_click
+        Aux.tab_group = tab_group
+    end
+
+    do
+        local btn = Aux.gui.button(AuxFrame, 16)
+        btn:SetPoint('BOTTOMRIGHT', -6, 6)
+        btn:SetWidth(65)
+        btn:SetHeight(24)
+        btn:SetText('Close')
+        btn:SetScript('OnClick',function()
+            HideUIPanel(this:GetParent())
+        end)
+        Aux.close_button = btn
+    end
+
+    do
+        local btn = Aux.gui.button(AuxFrame, 16)
+        btn:SetPoint('RIGHT', Aux.close_button, 'LEFT' , -5, 0)
+        btn:SetWidth(65)
+        btn:SetHeight(24)
+        btn:SetText('Default UI')
+        btn:SetScript('OnClick',function()
+            if AuctionFrame:IsVisible() then
+                Aux.blizzard_ui_shown = false
+                HideUIPanel(AuctionFrame)
+            else
+                Aux.blizzard_ui_shown = true
+                ShowUIPanel(AuctionFrame)
+            end
+        end)
+    end
+
+    Aux.cache.on_load()
+    Aux.persistence.on_load()
+    Aux.tooltip.on_load()
+    Aux.search_frame.on_load()
+    Aux.post_frame.on_load()
+    Aux.auctions_frame.on_load()
+    Aux.bids_frame.on_load()
 end
 
-function Aux_OnEvent()
+function Aux.on_event()
 	if event == 'VARIABLES_LOADED' then
-		Aux_OnLoad()
+		Aux.on_load()
 	elseif event == 'ADDON_LOADED' then
-		Aux_OnAddonLoaded()
+		Aux.on_addon_loaded()
 	elseif event == 'AUCTION_HOUSE_SHOW' then
-		Aux_OnAuctionHouseShow()
+		Aux.on_auction_house_show()
 	elseif event == 'AUCTION_HOUSE_CLOSED' then
-		Aux_OnAuctionHouseClosed()
+		Aux.on_auction_house_closed()
+        Aux.bids_loaded = false
+        Aux.current_owner_page = nil
+    elseif event == 'AUCTION_BIDDER_LIST_UPDATE' then
+        Aux.bids_loaded = true
 	elseif event == 'AUCTION_OWNED_LIST_UPDATE' then
-        Aux.current_owner_page = Aux.last_owner_page_requested
+        Aux.current_owner_page = Aux.last_owner_page_requested or 0
     end
 end
 
-function Aux_OnAddonLoaded()
-	if string.lower(arg1) == "blizzard_auctionui" then
-		Aux_SetupHookFunctions()
-	end
-end
-
-function Aux.log_frame_load()
-    this:SetFading(false)
-    this:EnableMouseWheel()
-    -- this.flashTimer = 0 TODO remove
-end
-
-function Aux.log_frame_update(elapsedSec)
-    if not this:IsVisible() then
-        return
+function Aux.on_addon_loaded()
+    if arg1 == 'Blizzard_AuctionUI' then
+        Aux.setup_hooks()
     end
 
-    local flash = getglobal(this:GetName()..'BottomButtonFlash')
-
-    if not flash then
-        return
-    end
-
-    if this:AtBottom() then
-        if flash:IsVisible() then
-            flash:Hide()
+    do
+        local function cost_label(cost)
+            local label = LIGHTYELLOW_FONT_COLOR_CODE..'(Total Cost: '..FONT_COLOR_CODE_CLOSE
+            label = label..(cost and Aux.util.format_money(cost, nil, LIGHTYELLOW_FONT_COLOR_CODE) or GRAY_FONT_COLOR_CODE..'---'..FONT_COLOR_CODE_CLOSE)
+            label = label..LIGHTYELLOW_FONT_COLOR_CODE..')'..FONT_COLOR_CODE_CLOSE
+            return label
         end
-        return
+
+        if arg1 == 'Blizzard_CraftUI' then
+            Aux.hook('CraftFrame_SetSelection', function(...)
+                local results = {Aux.orig.CraftFrame_SetSelection(unpack(arg)) }
+
+                local id = GetCraftSelectionIndex()
+                local reagent_count = GetCraftNumReagents(id)
+
+                local total_cost = 0
+                for i=1,reagent_count do
+                    local link = GetCraftReagentItemLink(id, i)
+                    if not link then
+                        total_cost = nil
+                        break
+                    end
+                    local item_id, suffix_id = Aux.info.parse_hyperlink(link)
+                    local count = ({GetCraftReagentInfo(id, i)})[3]
+                    local _, price, limited = Aux.cache.merchant_info(item_id)
+                    local value = price and not limited and price or Aux.history.value(item_id..':'..suffix_id)
+                    if not value then
+                        total_cost = nil
+                        break
+                    else
+                        total_cost = total_cost + value * count
+                    end
+                end
+
+                CraftReagentLabel:SetText(SPELL_REAGENTS..' '..cost_label(total_cost))
+
+                return unpack(results)
+            end)
+        end
+
+        if arg1 == 'Blizzard_TradeSkillUI' then
+            Aux.hook('TradeSkillFrame_SetSelection', function(...)
+                local results = {Aux.orig.TradeSkillFrame_SetSelection(unpack(arg)) }
+
+                local id = GetTradeSkillSelectionIndex()
+                local reagent_count = GetTradeSkillNumReagents(id)
+
+                local total_cost = 0
+                for i=1,reagent_count do
+                    local link = GetTradeSkillReagentItemLink(id, i)
+                    if not link then
+                        total_cost = nil
+                        break
+                    end
+                    local item_id, suffix_id = Aux.info.parse_hyperlink(link)
+                    local count = ({GetTradeSkillReagentInfo(id, i)})[3]
+                    local _, price, limited = Aux.cache.merchant_info(item_id)
+                    local value = price and not limited and price or Aux.history.value(item_id..':'..suffix_id)
+                    if not value then
+                        total_cost = nil
+                        break
+                    else
+                        total_cost = total_cost + value * count
+                    end
+                end
+
+                TradeSkillReagentLabel:SetText(SPELL_REAGENTS..' '..cost_label(total_cost))
+
+                return unpack(results)
+            end)
+        end
+    end
+end
+
+do
+    local locked
+
+    function Aux.bid_in_progress()
+        return locked
     end
 
-    local flashTimer = this.flashTimer + elapsedSec
-    if flashTimer < CHAT_BUTTON_FLASH_TIME then
-        this.flashTimer = flashTimer
-        return
-    end
+    function Aux.place_bid(type, index, amount, on_success)
 
-    while flashTimer >= CHAT_BUTTON_FLASH_TIME do
-        flashTimer = flashTimer - CHAT_BUTTON_FLASH_TIME
-    end
-    this.flashTimer = flashTimer
+        if locked then
+            return
+        end
 
-    if flash:IsVisible() then
-        flash:Hide()
-    else
-        flash:Show()
+        local money = GetMoney()
+        if money >= amount then
+            locked = true
+            local t0 = GetTime()
+            Aux.control.as_soon_as(function() return GetMoney() < money or GetTime() - t0 > 10 end, function()
+                if GetMoney() < money then
+                    on_success()
+                end
+                locked = false
+            end)
+        end
+        PlaceAuctionBid(type, index, amount)
     end
 end
 
 function Aux.log(msg)
-    local info = ChatTypeInfo['SYSTEM']
-    AuxLogFrameMessageFrame:AddMessage(msg, 1, 1, 0)
-    if not AuxLogFrameMessageFrame:IsVisible() and DEFAULT_CHAT_FRAME then
-        DEFAULT_CHAT_FRAME:AddMessage(msg, 1, 1, 0)
-    end
+    DEFAULT_CHAT_FRAME:AddMessage('[aux] '..msg, 1, 1, 0)
 end
 
-function Aux_SetupHookFunctions()
+function Aux.setup_hooks()
 
     local blizzard_ui_on_hide = function()
         Aux.blizzard_ui_shown = false
     end
     AuctionFrame:SetScript('OnHide', blizzard_ui_on_hide)
 
-    Aux.orig.AuctionFrame_OnShow = AuctionFrame_OnShow
-    AuctionFrame_OnShow = function()
+    Aux.hook('AuctionFrame_OnShow', function(...)
         if not Aux.blizzard_ui_shown then
             Aux.control.as_soon_as(function() return AuctionFrame:GetScript('OnHide') == blizzard_ui_on_hide end, function()
                 HideUIPanel(AuctionFrame)
             end)
         end
-        return Aux.orig.AuctionFrame_OnShow()
-    end
+        return Aux.orig.AuctionFrame_OnShow(unpack(arg))
+    end)
 
-    Aux.orig.GetOwnerAuctionItems = GetOwnerAuctionItems
-    GetOwnerAuctionItems = Aux.GetOwnerAuctionItems
-
-    Aux.orig.PickupContainerItem = PickupContainerItem
-	PickupContainerItem = Aux.PickupContainerItem
-	
-	Aux.orig.ContainerFrameItemButton_OnClick = ContainerFrameItemButton_OnClick
-	ContainerFrameItemButton_OnClick = Aux_ContainerFrameItemButton_OnClick
-
-    Aux.orig.AuctionFrameAuctions_OnEvent = AuctionFrameAuctions_OnEvent
-    AuctionFrameAuctions_OnEvent = Aux.AuctionFrameAuctions_OnEvent
+    Aux.hook('GetOwnerAuctionItems', Aux.GetOwnerAuctionItems)
+    Aux.hook('PickupContainerItem', Aux.PickupContainerItem)
+    Aux.hook('SetItemRef', Aux.SetItemRef)
+    Aux.hook('UseContainerItem', Aux.UseContainerItem)
+    Aux.hook('AuctionFrameAuctions_OnEvent', Aux.AuctionFrameAuctions_OnEvent)
 
 end
 
-function Aux.GetOwnerAuctionItems(page)
+function Aux.GetOwnerAuctionItems(...)
+    local page = arg[1]
     Aux.last_owner_page_requested = page
-    return Aux.orig.GetOwnerAuctionItems(page)
+    return Aux.orig.GetOwnerAuctionItems(unpack(arg))
 end
 
-function Aux.AuctionFrameAuctions_OnEvent()
+function Aux.AuctionFrameAuctions_OnEvent(...)
     if AuctionFrameAuctions:IsVisible() then
-        Aux.orig.AuctionFrameAuctions_OnEvent()
+        return Aux.orig.AuctionFrameAuctions_OnEvent(unpack(arg))
     end
 end
 
-function Aux_OnAuctionHouseShow()
-
+function Aux.on_auction_house_show()
+    if not UnitFactionGroup('target') then
+        Aux.neutral = true
+    end
     AuxFrame:Show()
-
-    Aux.on_tab_click(1)
-	if AUX_OPEN_SELL then
-        Aux.on_tab_click(2)
-	elseif AUX_OPEN_BUY then
-
-	end
-
+    Aux.tab_group:set_tab(1)
 end
 
-function Aux_OnAuctionHouseClosed()
+function Aux.on_auction_house_closed()
 	Aux.post.stop()
 	Aux.stack.stop()
 	Aux.scan.abort()
 
-    Aux.filter_search_frame.on_close()
-    Aux.sell.on_close()
-	
+    Aux.search_frame.on_close()
+    Aux.post_frame.on_close()
+    Aux.auctions_frame.on_close()
+    Aux.bids_frame.on_close()
+
 	AuxFrame:Hide()
 end
 
 function Aux.on_tab_click(index)
-    Aux.post.stop()
-    Aux.stack.stop()
-    Aux.scan.abort(function()
-        Aux.item_search_frame.on_close()
-        Aux.filter_search_frame.on_close()
-        Aux.sell.on_close()
-        Aux.manage_frame.on_close()
-        Aux.history.on_close()
+    Aux.search_frame.on_close()
+    Aux.post_frame.on_close()
+    Aux.auctions_frame.on_close()
+    Aux.bids_frame.on_close()
 
-        for i=1,4 do
-            getglobal('AuxTab'..i):SetAlpha(i == index and 1 or 0.5)
-        end
+    AuxSearchFrame:Hide()
+    AuxPostFrame:Hide()
+    AuxAuctionsFrame:Hide()
+    AuxBidsFrame:Hide()
 
-        AuxItemSearchFrame:Hide()
-        AuxFilterSearchFrame:Hide()
-        AuxSellFrame:Hide()
-        AuxManageFrame:Hide()
-        AuxHistoryFrame:Hide()
-
-        if index == 1 then
-            AuxItemSearchFrame:Show()
-            Aux.item_search_frame.on_open()
-        elseif index == 2 then
-            AuxFilterSearchFrame:Show()
-            Aux.filter_search_frame.on_open()
-        elseif index == 3 then
-            AuxSellFrame:Show()
-            Aux.sell.on_open()
-        elseif index == 4 then
-            AuxManageFrame:Show()
-            Aux.manage_frame.on_open()
-        end
-    end)
-end
-
-function Aux_Round(v)
-	return math.floor(v + 0.5)
-end
-
-function Aux_AuctionsButton_OnClick(button)
-	if arg1 == "LeftButton" then -- because we additionally registered right clicks we only let left ones pass here
-		Aux.orig.BrowseButton_OnClick(button)
-	end
-end
-
-function Aux_AuctionsButton_OnMouseDown()
-	if arg1 == "RightButton" and GetTime() - lastRightClickAction > 0.5 then
-		local index = this:GetID() + FauxScrollFrame_GetOffset(AuctionsScrollFrame)
-	
-		SetSelectedAuctionItem("owner", index)
-		
-		CancelAuction(index)
-		
-		AuctionFrameAuctions_Update()
-		lastRightClickAction = GetTime()
-	end
-end
-
-function Aux.PickupContainerItem(bag, item)
-	Aux.last_picked_up = { bag=bag, slot=item }
-	return Aux.orig.PickupContainerItem(bag, item)
-end
-
-function Aux_ContainerFrameItemButton_OnClick(button)
-	local bag, slot = this:GetParent():GetID(), this:GetID()
-	local container_item_info = Aux.info.container_item(bag, slot)
-	
-	if AuxFrame:IsVisible() and button == "LeftButton" and container_item_info then
-		if IsAltKeyDown() then
-			if not AuxItemSearchFrame:IsVisible() then
-                Aux.on_tab_click(1)
-            end
-            AuxItemSearchFrameItemItemInputBox:Hide()
-            Aux.item_search_frame.set_item(container_item_info.item_id)
-			return
-		end
+    if index == 1 then
+        AuxSearchFrame:Show()
+        Aux.search_frame.on_open()
+    elseif index == 2 then
+        AuxPostFrame:Show()
+        Aux.post_frame.on_open()
+    elseif index == 3 then
+        AuxAuctionsFrame:Show()
+        Aux.auctions_frame.on_open()
+    elseif index == 4 then
+        AuxBidsFrame:Show()
+        Aux.bids_frame.on_open()
     end
 
-	return Aux.orig.ContainerFrameItemButton_OnClick(button)
+    Aux.active_panel = index
 end
 
-function Aux_QualityColor(code)
-	if code == 0 then
-		return "ff9d9d9d" -- poor, gray
-	elseif code == 1 then
-		return "ffffffff" -- common, white
-	elseif code == 2 then
-		return "ff1eff00" -- uncommon, green
-	elseif code == 3 then -- rare, blue
-		return "ff0070dd"
-	elseif code == 4 then
-		return "ffa335ee" -- epic, purple
-	elseif code == 5 then
-		return "ffff8000" -- legendary, orange
-	end
+function Aux.round(v)
+	return floor(v + 0.5)
 end
 
-function Aux.auction_signature(hyperlink, stack_size, bid, amount)
-	return hyperlink .. (stack_size or '0') .. '_' .. (bid or '0') .. '_' .. (amount or '0')
+function Aux.price_level_color(pct)
+    if pct > 135 then
+        return 1.0,0.0,0.0 -- red
+    elseif pct > 110 then
+        return 1.0,0.6,0.1 -- orange
+    elseif pct > 80 then
+        return 1.0,1.0,0.0 -- yellow
+    elseif pct > 50 then
+        return 0.1,1.0,0.1 -- green
+    else
+        return 0.2,0.6,1.0 -- blue
+    end
+end
+
+do -- TODO make it work for other ways to pick up things
+    local last_picked_up
+    function Aux.PickupContainerItem(...)
+        local bag, slot = unpack(arg)
+        last_picked_up = { bag, slot }
+        return Aux.orig.PickupContainerItem(unpack(arg))
+    end
+    function Aux.cursor_item()
+        if last_picked_up and CursorHasItem() then
+            return Aux.info.container_item(unpack(last_picked_up))
+        end
+    end
+end
+
+function Aux.SetItemRef(...)
+    local itemstring, text, button = unpack(arg)
+    if AuxSearchFrame:IsVisible() and button == 'RightButton' then
+        local item_info = Aux.info.item(tonumber(({strfind(itemstring, '^item:(%d+)')})[3]))
+        if item_info then
+            Aux.search_frame.set_filter(item_info.name..'/exact')
+            Aux.search_frame.start_search()
+            return
+        end
+    end
+    return Aux.orig.SetItemRef(unpack(arg))
+end
+
+function Aux.UseContainerItem(...)
+    local bag, slot = unpack(arg)
+    if IsShiftKeyDown() or IsControlKeyDown() or IsAltKeyDown() then
+        return Aux.orig.UseContainerItem(unpack(arg))
+    end
+
+    if AuxSearchFrame:IsVisible() then
+        local item_info = Aux.info.container_item(bag, slot)
+        item_info = item_info and Aux.info.item(item_info.item_id)
+        if item_info then
+            Aux.search_frame.start_search(strlower(item_info.name)..'/exact')
+        end
+        return
+    end
+
+    if AuxPostFrame:IsVisible() then
+        local item_info = Aux.info.container_item(bag, slot)
+        if item_info then
+            Aux.post_frame.select_item(item_info.item_key)
+        end
+        return
+    end
+
+	return Aux.orig.UseContainerItem(unpack(arg))
 end
 
 function Aux.item_class_index(item_class)
     for i, class in ipairs({ GetAuctionItemClasses() }) do
-        if class == item_class then
+        if strupper(class) == strupper(item_class) then
             return i
         end
     end
@@ -273,8 +351,66 @@ end
 
 function Aux.item_subclass_index(class_index, item_subclass)
     for i, subclass in ipairs({ GetAuctionItemSubClasses(class_index) }) do
-        if subclass == item_subclass then
+        if strupper(subclass) == strupper(item_subclass) then
             return i
         end
     end
 end
+
+function Aux.item_slot_index(class_index, subclass_index, slot_name)
+    for i, slot in ipairs({ GetAuctionInvTypes(class_index, subclass_index) }) do
+        if strupper(getglobal(slot)) == strupper(slot_name) then
+            return i
+        end
+    end
+end
+
+function Aux.item_quality_index(item_quality)
+    for i=0,4 do
+        local quality = getglobal('ITEM_QUALITY'..i..'_DESC')
+        if strupper(item_quality) == strupper(quality) then
+            return i
+        end
+    end
+end
+
+function Aux.hide_elements(elements)
+    for _, element in pairs(elements) do
+        element:Hide()
+    end
+end
+
+function Aux.show_elements(elements)
+    for _, element in pairs(elements) do
+        element:Show()
+    end
+end
+
+function Aux.is_player(name)
+    return UnitName('player') == name -- TODO support multiple chars
+end
+
+function Aux.unmodified()
+    return not IsShiftKeyDown() and not IsControlKeyDown() and not IsAltKeyDown()
+end
+
+Aux.orig = {}
+function Aux.hook(name, handler, object)
+    local orig
+    if object then
+        Aux.orig[object] = Aux.orig[object] or {}
+        orig = Aux.orig[object]
+    else
+        object = object or getfenv(0)
+        orig = Aux.orig
+    end
+
+    if orig[name] then
+        error('Already got a hook for '..name)
+    end
+
+    orig[name] = object[name]
+    object[name] = handler
+end
+
+Aux.huge = 2^100000

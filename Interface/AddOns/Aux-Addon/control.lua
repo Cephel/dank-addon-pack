@@ -1,49 +1,59 @@
-Aux.control = {}
+local private, public = {}, {}
+Aux.control = public
 
-local event_listeners = {}
-local update_listeners = {}
+private.event_listeners = {}
+private.threads = {}
 
-function Aux.control.on_event()
-	for listener, _ in pairs(event_listeners) do
+function public.on_event()
+	for listener, _ in pairs(private.event_listeners) do
 		if event == listener.event and not listener.deleted then
 			listener.action()
 		end
 	end
 end
 
-function Aux.control.on_update()
-	event_listeners = Aux.util.set_filter(event_listeners, function(l) return not l.deleted end)
-	update_listeners = Aux.util.set_filter(update_listeners, function(l) return not l.deleted end)
-	
-	for listener, _ in pairs(update_listeners) do
-		if not listener.deleted then
-			listener.action()
+function public.on_update()
+	private.event_listeners = Aux.util.set_filter(private.event_listeners, function(l) return not l.deleted end)
+	local threads = {}
+	for thread_id, thread in pairs(private.threads) do
+		if not thread.killed then
+			threads[thread_id] = thread
+		end
+	end
+	private.threads = threads
+
+	for thread_id, thread in pairs(private.threads) do
+		if not thread.killed then
+			local k = thread.k
+			thread.k = nil
+			public.thread_id = thread_id
+			k()
+			public.thread_id = nil
+			if not thread.k then
+				thread.killed = true
+			end
 		end
 	end
 end
 
-
-
-function Aux.control.event_listener(event, action)
+function public.event_listener(event, action)
 	local self = {}
 	
 	local listener = { event=event, action=action }
 	
-	function self.set_action(action)
+	function self:set_action(action)
 		listener.action = action
 	end
 	
-	function self.start()
-		Aux.util.set_add(event_listeners, listener)
-		if not Aux.util.any(event_listeners, function(l) return l.event == event end) then
-			AuxControlFrame:RegisterEvent(event)
-		end
+	function self:start()
+		Aux.util.set_add(private.event_listeners, listener)
+		AuxControlFrame:RegisterEvent(event)
 		return self
 	end
 	
-	function self.stop()
+	function self:stop()
 		listener.deleted = true
-		if not Aux.util.any(event_listeners, function(l) return l.event == event end) then
+		if not Aux.util.any(Aux.util.set_to_array(private.event_listeners), function(l) return l.event == event end) then
 			AuxControlFrame:UnregisterEvent(event)
 		end
 		return self
@@ -52,96 +62,53 @@ function Aux.control.event_listener(event, action)
 	return self
 end
 
-function Aux.control.update_listener(action)
-	local self = {}
+function public.on_next_event(event, callback)
+	local listener = public.event_listener(event)
 	
-	local listener = { action=action }
-
-	function self.set_action(action)
-		listener.action = action
-	end
-	
-	function self.start()
-		Aux.util.set_add(update_listeners, listener)
-		return self
-	end
-	
-	function self.stop()
-		listener.deleted = true
-		return self
-	end
-	
-	return self
-end
-
-	
-
-function Aux.control.on_next_update(callback)
-	local listener = Aux.control.update_listener()
-	
-	listener.set_action(function()
+	listener:set_action(function()
 		listener:stop()
 		return callback()
 	end)
 	
-	listener.start()
+	listener:start()
 end
 
-function Aux.control.on_next_event(event, callback)
-	local listener = Aux.control.event_listener(event)
-	
-	listener.set_action(function()
-		listener:stop()
-		return callback()
-	end)
-	
-	listener.start()
+function public.on_next_update(callback)
+	return public.new_thread(callback)
 end
 
-function Aux.control.as_soon_as(p, callback)
-	local listener = Aux.control.update_listener()	
-	
-	listener.set_action(function()
-		if p() then
-			listener.stop()
-			return callback()
-		end
+function public.as_soon_as(p, callback)
+	return public.new_thread(function()
+		return public.wait_until(p, callback)
 	end)
-	
-	listener.start()
 end
 
+do
+	local next_thread_id = 1
+	function public.new_thread(k)
+		local thread_id = next_thread_id
+		next_thread_id = next_thread_id + 1
+		private.threads[thread_id] = { k = k }
+		return thread_id
+	end
+end
 
+function public.kill_thread(thread_id)
+	if thread_id and private.threads[thread_id] then
+		private.threads[thread_id].killed = true
+	end
+end
 
-function Aux.control.controller()
-	local self = {}
-	
-	local state
-	
-	local listener = Aux.control.update_listener()
-	listener.set_action(function()
-		if state and state.p() then
-			local k = state.k
-			state = nil
-			return k()
-		end
-	end)
-	listener.start()
-	
-	function self.wait(p, k)
-		state = {
-			k = k,
-			p = p,
-		}
+function public.wait(...)
+	local k = tremove(arg, 1)
+	private.threads[public.thread_id].k = function() return k(unpack(arg)) end
+end
+
+function public.wait_until(p, ...)
+	local k = tremove(arg, 1)
+	if p() then
+		return k(unpack(arg))
+	else
+		return public.wait(public.wait_until, p, function() return k(unpack(arg)) end)
 	end
-	
-	function self.reset()
-		state = nil
-	end
-	
-	function self.cleanup()
-		listener.stop()
-	end
-	
-	return self
 end

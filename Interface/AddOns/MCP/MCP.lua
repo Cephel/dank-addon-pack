@@ -1,34 +1,8 @@
--- 
--- MCP - Master Control Program
---
--- Allows you to control AddOn loading after logging in.
--- 
---  Marc aka Saien on Hyjal
---  WOWSaien@gmail.com
---  http://64.168.251.69/wow
---
--- Changes
---   2006.09.02
---     2.0-BD release
---     modifications by Bluedragon, alliance Frostwolf server
---     Added slash command /mcp to open the window
---     Added profiles for quickly changing which addons are enabled/disabled
---   2006.01.02
---     1.9 release
---     In game changes to the addon list are limited to changing the currently 
---       logged in character only. You cannot change Addons for other characters. 
---       This is a Blizzard restriction.
---   2005.10.10
---     1.8 release
-
 MCP_SelectedProfile = "NONE";
 
-ADDON_LOADED = "Loaded";
-ADDON_WILL_NOT_LOAD = "Will not load";
-ADDON_REFUSE_TO_LOAD = "Disabled in MCP";
 UIPanelWindows["MCP_AddonList"] = { area = "center", pushable = 0, whileDead = 1 };
 StaticPopupDialogs["MCP_RELOADUI"] = {
-	text = "Reload your User Interface?",
+	text = MCP_RELOAD,
 	button1 = TEXT(ACCEPT),
 	button2 = TEXT(CANCEL),
 	OnAccept = function()
@@ -40,7 +14,7 @@ StaticPopupDialogs["MCP_RELOADUI"] = {
 
 function MCP_DeleteDialog()
   StaticPopupDialogs["MCP_DELETEPROFILE"] = {
-	text = "Delete profile: "..MCP_SelectedProfile,
+	text = MCP_DELETE_PROFILE_DIALOG..MCP_SelectedProfile,
 	button1 = TEXT(ACCEPT),
 	button2 = TEXT(CANCEL),
 	OnAccept = function()
@@ -56,7 +30,7 @@ end
 
 function MCP_SaveDialog()
   StaticPopupDialogs["MCP_SAVEPROFILE"] = {
-        text = "Profile Name",
+        text = MCP_PROFILE_NAME_SAVE;
         button1 = TEXT(ACCEPT),
         button2 = TEXT(CANCEL),
         hasEditBox = 1,
@@ -78,14 +52,16 @@ function MCP_SaveDialog()
 end
 
 
-MCP_VERSION = "2006.09.02";
+MCP_VERSION = "2.3-BE";
 MCP_LINEHEIGHT = 16;
 local MCP_MAXADDONS = 20;
 local MCP_BLIZZARD_ADDONS = { 
 	"Blizzard_AuctionUI",
 	"Blizzard_BattlefieldMinimap",
 	"Blizzard_BindingUI",
+	"Blizzard_CombatText",
 	"Blizzard_CraftUI",
+	"Blizzard_GMSurveyUI",
 	"Blizzard_InspectUI",
 	"Blizzard_MacroUI",
 	"Blizzard_RaidUI",
@@ -97,7 +73,9 @@ local MCP_BLIZZARD_ADDONS_TITLES = {
 	"Blizzard: Auction",
 	"Blizzard: Battlefield Minimap",
 	"Blizzard: Binding",
+	"Blizzard: Combat Text",
 	"Blizzard: Craft",
+	"Blizzard: GM Survey",
 	"Blizzard: Inspect",
 	"Blizzard: Macro",
 	"Blizzard: Raid",
@@ -124,9 +102,16 @@ function MCP_OnLoad()
         SlashCmdList["MCPSLASHCMD"] = MCP_SlashHandler;
         SLASH_MCPSLASHCMD1 = "/mcp";
 end
--- /mcp slash command, only shows the UI
+-- /mcp slash command, only shows the UI (not anymoar)
 function MCP_SlashHandler(msg)
+	if( not msg or msg == "" )
+	then
         ShowUIPanel(MCP_AddonList);
+	else
+		MCP_LoadSlashProfile(msg);
+		ReloadUI();
+	end
+	
 end
 
 function MCP_AddonList_Enable(index,enabled)
@@ -221,7 +206,7 @@ function MCP_AddonList_OnShow()
 			else
 				titleText:SetText(name);
 			end
-			if (title == "Master Control Program") then
+			if (title == "!MCP [|cFFFF8080Basara Ed|r]") then
 				checkbox:Hide();
 			else
 				checkbox:Show();
@@ -235,11 +220,11 @@ function MCP_AddonList_OnShow()
 				setSecurity(securityIcon,3);
 			end
 			if (reason) then
-				status:SetText(TEXT(getglobal("ADDON_"..reason)));
+				status:SetText(TEXT(getglobal("MCP_ADDON_"..reason)));
 			elseif (loaded) then
-				status:SetText(TEXT(ADDON_LOADED));
+				status:SetText(TEXT(MCP_ADDON_LOADED));
 			elseif (ondemand) then
-				status:SetText("Loaded on demand.");
+				status:SetText(MCP_LOADED_ON_DEMAND);
 			else
 				status:SetText("");
 			end
@@ -252,8 +237,6 @@ function MCP_AddonList_OnShow()
 
 	end
 end
-
-
 
 function MCP_SaveProfile(profile)
   if profile == "NONE" then return end
@@ -280,7 +263,7 @@ function MCP_SaveProfile(profile)
 
 
   StaticPopupDialogs["MCP_PROFILESAVED"] = {
-    text="Profile "..profile.." saved.",
+    text=MCP_PROFILE_SAVED..profile,
     button1 = TEXT(OK),
     OnAccept = function()
     end,
@@ -302,7 +285,7 @@ function MCP_LoadProfile()
   end
 
 
-  for addons in MCP_Config.profiles[MCP_SelectedProfile] do
+  for addons in pairs(MCP_Config.profiles[MCP_SelectedProfile]) do
     if MCP_Config.profiles[MCP_SelectedProfile][addons] == 1 then
       EnableAddOn(addons);
     else
@@ -318,21 +301,35 @@ function MCP_LoadProfile()
   MCP_AddonList_OnShow()
 end
 
+function MCP_LoadSlashProfile(msg)
+  local i;
+  local addons;
+
+  for addons in pairs(MCP_Config.profiles[msg]) do
+    if MCP_Config.profiles[msg][addons] == 1 then
+      EnableAddOn(addons);
+    else
+      DisableAddOn(addons);
+    end
+  end
+
+  if not MCP_Config then MCP_Config = {}; end
+  MCP_Config.SelectedProfile = msg;
+end
 
 function MCP_DeleteProfile(profile)
   if not MCP_Config then MCP_Config = {}; end
   if not MCP_Config.profiles then MCP_Config.profiles = {}; end
-  local buttontext = "Profile "..profile.." deleted.";
+  local buttontext = MCP_PROFILE_DELETED..profile;
 
   if profile == "NONE" then
-    buttontext = "No profile deleted.";
+    buttontext = MCP_NO_PROFILE_DELETED;
   else
     MCP_Config.profiles[profile] = nil;
   end
 
   MCP_DeleteDialog();
 end
-
 
 function MCP_ResetProfiles(param)
   UIDropDownMenu_Initialize(this,  MCP_InitializeProfiles);
@@ -349,7 +346,7 @@ function MCP_InitializeProfiles()
     local info = {};
     local profile;
 
-    for profile in MCP_Config.profiles do
+    for profile in pairs(MCP_Config.profiles) do
       info = {
         ["text"] = profile,
         ["value"] = profile,
@@ -358,4 +355,51 @@ function MCP_InitializeProfiles()
       UIDropDownMenu_AddButton(info);
     end
   end
+end
+
+function MCP_EnableAll()
+  local numAddons = GetNumAddOns();
+  local i;
+
+  -- set each addon to be enabled
+  for i = 1, numAddons do
+    local name, title, notes, enabled, loadable, reason, security = GetAddOnInfo(i);
+    if not enabled then
+      EnableAddOn(name);
+    end
+  end
+  MCP_AddonList_OnShow()
+end
+
+function MCP_DisableAll()
+  local numAddons = GetNumAddOns();
+  local i;
+
+  -- set each addon to be disabled
+  for i = 1, numAddons do
+    local name, title, notes, enabled, loadable, reason, security = GetAddOnInfo(i);
+    if enabled and title ~= "!MCP [|cFFFF8080Basara Ed|r]" then
+      DisableAddOn(name);
+    end
+  end
+  MCP_AddonList_OnShow()
+end
+
+function MCP_TooltipShow(index)
+  local name, title, notes, enabled, loadable, reason, security = GetAddOnInfo(index);
+
+  GameTooltip:SetOwner(this, "ANCHOR_BOTTOMLEFT");
+  if title then
+    GameTooltip:AddLine(title);
+  else
+    GameTooltip:AddLine(name);
+  end
+
+  if notes then
+    GameTooltip:AddLine(notes);
+  else
+    GameTooltip:AddLine(MCP_NO_NOTES);
+  end
+
+  GameTooltip:Show();
 end

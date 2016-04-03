@@ -1,45 +1,103 @@
-Aux.util = {}
-
-Aux.util.LT = {}
-Aux.util.EQ = {}
-Aux.util.GT = {}
-
-local merge, copy_array
+local private, public = {}, {}
+Aux.util = public
 
 function Aux.util.pass()
 end
 
-function Aux.util.inventory_iterator()
-    local inventory = {}
-    for bag = 0, 4 do
-        if GetBagName(bag) then
-            for bag_slot = 1, GetContainerNumSlots(bag) do
-                tinsert(inventory, { bag = bag, bag_slot = bag_slot })
-            end
-        end
-    end
-
-    local i = 0
-    local n = getn(inventory)
-    return function()
-        i = i + 1
-        if i <= n then
-            return inventory[i]
-        end
-    end
+function public.id(object)
+	return object
 end
 
-function Aux.util.safe_index(chain)
-    local target = chain[1]
+function public.table_eq(t1, t2)
+	if not t1 or not t2 then
+		return false
+	end
 
-    for i=2,getn(chain) do
-        if not target then
-            return
-        end
-        target = target[chain[i]]
-    end
+	for key, value in t1 do
+		if t2[key] ~= value then
+			return false
+		end
+	end
 
-    return target
+	return true
+end
+
+function public.wipe(table)
+	while getn(table) > 0 do
+		tremove(table)
+	end
+	for k, _ in pairs(table) do
+		table[k] = nil
+	end
+end
+
+function public.copy_table(table)
+	local copy = {}
+	for k, v in pairs(table) do
+		copy[k] = v
+	end
+	return copy
+end
+
+function public.cons(element, list)
+	local new_list = public.copy_table(list)
+	tinsert(new_list, 1, element)
+	return new_list
+end
+
+function public.trim(string)
+	string = gsub(string, '^%s*', '')
+	string = gsub(string, '%s*$', '')
+	return string
+end
+
+function public.inventory()
+	local bag, slot = 0, 0
+
+	return function()
+		if not GetBagName(bag) or slot >= GetContainerNumSlots(bag) then
+			repeat
+				bag = bag + 1
+			until GetBagName(bag) or bag > 4
+			slot = 1
+		else
+			slot = slot + 1
+		end
+
+		if bag <= 4 then
+			return { bag, slot }, public.bag_type(bag)
+		end
+	end
+end
+
+do
+	local bag_types = { GetAuctionItemSubClasses(3) }
+
+	function public.bag_type(bag)
+		if bag == 0 then
+			return 1
+		end
+
+		local link = GetInventoryItemLink('player', ContainerIDToInventoryID(bag))
+		if link then
+			local item_id = Aux.info.parse_hyperlink(GetInventoryItemLink('player', ContainerIDToInventoryID(bag)))
+			local item_info = Aux.info.item(item_id)
+			return Aux.item_subclass_index(3, item_info.subclass)
+		end
+	end
+end
+
+function public.safe_index(...)
+	local target = arg[1]
+
+	for i=2,arg.n do
+		if not target then
+			return
+		end
+		target = target[arg[i]]
+	end
+
+	return target
 end
 
 function Aux_PluralizeIf(word, count)
@@ -47,20 +105,20 @@ function Aux_PluralizeIf(word, count)
     if count and count == 1 then
         return word
     else
-        return word.."s"
+        return word..'s'
     end
 end
 
-function Aux.util.without_sound(f)
+function Aux.util.without_errors(f)
     local orig = UIErrorsFrame.AddMessage
     UIErrorsFrame.AddMessage = Aux.util.pass
     f()
     UIErrorsFrame.AddMessage = orig
 end
 
-function Aux.util.without_errors(f)
+function Aux.util.without_sound(f)
     local orig = GetCVar('MasterSoundEffects')
-    SetCVar('MasterSoundEffects', false)
+    SetCVar('MasterSoundEffects', 0)
     f()
     SetCVar('MasterSoundEffects', orig)
 end
@@ -71,25 +129,6 @@ function Aux.util.iter(array)
 		local _, value = with_index
 		return value
 	end
-end
-
-function Aux.util.format_money(val)
-
-	local g = math.floor(val / 10000)
-	
-	val = val - g * 10000
-	
-	local s = math.floor(val / 100)
-	
-	val = val - s * 100
-	
-	local c = math.floor(val)
-	
-	local g_string = g ~= 0 and g .. 'g' or ''
-	local s_string = s ~= 0 and s .. 's' or ''
-	local c_string = (c ~= 0 or g == 0 and s == 0) and c .. 'c' or ''
-			
-	return g_string .. s_string .. c_string
 end
 
 function Aux.util.set_add(set, key)
@@ -174,71 +213,6 @@ function Aux.util.take(n, xs)
 	return ys
 end
 
-function Aux.util.merge_sort(A, comp)
-	local n = getn(A)
-	local B = {}
-	
-	local width = 1
-	while width <= n do
-
-		for i=1, n, 2 * width do
-			merge(A, i, min(i + width, n), min(i + 2 * width - 1, n), B, comp)
-        end
-	  
-		copy_array(B, A, n)
-  
-		width = 2 * width
-    end
-end
-
-function merge(A, start1, start2, last, B, comp)
-	local i1 = start1
-	local i2 = start2
-
-	for i=start1,last do
-		if i1 < start2 and (i2 > last or comp(A[i1], A[i2]) == Aux.util.LT or comp(A[i1], A[i2]) == Aux.util.EQ) then
-			B[i] = A[i1]
-			i1 = i1 + 1
-		else
-			B[i] = A[i2]
-			i2 = i2 + 1
-		end
-	end
-end
-
-function copy_array(A, B, n)
-    for i=1,n do
-        B[i] = A[i]
-	end
-end
-
-function Aux.util.invert_order(ordering)
-	if ordering == Aux.util.LT then
-		return Aux.util.GT
-	elseif ordering == Aux.util.GT then
-		return Aux.util.LT
-	else
-		return Aux.util.EQ
-	end
-end
-
-function Aux.util.compare(a, b, nil_ordering)
-	nil_ordering = nil_ordering or Aux.util.EQ
-	if not a and b then
-		return nil_ordering
-	elseif a and not b then
-		return Aux.util.invert_order(nil_ordering)
-	elseif not a and not b then
-		return Aux.util.EQ
-	elseif a < b then
-		return Aux.util.LT
-	elseif a > b then
-		return Aux.util.GT
-	else
-		return Aux.util.EQ
-	end
-end
-
 function Aux.util.index_of(value, array)
 	for i, item in ipairs(array) do
 		if item == value then
@@ -314,39 +288,31 @@ function Aux.util.set()
 
     local data = {}
 
-    function self.set_data(new_data)
-        data = new_data
-    end
-
-    function self.get_data()
-        return data
-    end
-
-    function self.add(value)
+    function self:add(value)
         data[value] = true
     end
 
-    function self.add_all(values)
+    function self:add_all(values)
         for _, value in ipairs(values) do
-            self.add(value)
+            self:add(value)
         end
     end
 
-    function self.remove(value)
+    function self:remove(value)
         data[value] = nil
     end
 
-    function self.remove_all(values)
+    function self:remove_all(values)
         for _, value in ipairs(values) do
-            self.remove(value)
+            self:remove(value)
         end
     end
 
-    function self.contains(value)
+    function self:contains(value)
         return data[value] ~= nil
     end
 
-    function self.values()
+    function self:values()
         local values = {}
         for value, _ in pairs(data) do
             tinsert(values, value)
@@ -355,4 +321,71 @@ function Aux.util.set()
     end
 
     return self
+end
+
+function public.join(array, separator)
+	local str = ''
+	for i, element in ipairs(array) do
+		if i > 1 then
+			str = str..separator
+		end
+		str = str..element
+	end
+	return str
+end
+
+function public.split(str, separator)
+
+	local array = {}
+	while true do
+		local start_index, _ = strfind(str, separator, 1, true)
+
+		if start_index then
+			local part = string.sub(str, 1, start_index - 1)
+			tinsert(array, part)
+			str = string.sub(str, start_index + 1, strlen(str))
+		else
+			local part = string.sub(str, 1, strlen(str))
+			tinsert(array, part)
+			return array
+		end
+	end
+end
+
+function public.format_money(money, exact, color)
+	color = color or '|r'
+
+	local TEXT_NONE = '0'
+
+	local GSC_GOLD = 'ffd100'
+	local GSC_SILVER = 'e6e6e6'
+	local GSC_COPPER = 'c8602c'
+	local GSC_START = '|cff%s%d|r'
+	local GSC_PART = color..'.|cff%s%02d|r'
+	local GSC_NONE = '|cffa0a0a0'..TEXT_NONE..'|r'
+
+	if not exact and money >= 10000 then
+		-- Round to nearest silver
+		money = math.floor(money / 100 + 0.5) * 100
+	end
+	local g, s, c = Aux.money.to_GSC(money)
+
+	local gsc = ''
+
+	local fmt = GSC_START
+	if g > 0 then
+		gsc = gsc..string.format(fmt, GSC_GOLD, g)
+		fmt = GSC_PART
+	end
+	if s > 0 or c > 0 then
+		gsc = gsc..string.format(fmt, GSC_SILVER, s)
+		fmt = GSC_PART
+	end
+	if c > 0 then
+		gsc = gsc..string.format(fmt, GSC_COPPER, c)
+	end
+	if gsc == '' then
+		gsc = GSC_NONE
+	end
+	return gsc
 end

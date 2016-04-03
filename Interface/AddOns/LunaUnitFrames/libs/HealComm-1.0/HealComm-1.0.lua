@@ -8,7 +8,7 @@ Dependencies: AceLibrary, AceEvent-2.0, RosterLib-2.0
 ]]
 
 local MAJOR_VERSION = "HealComm-1.0"
-local MINOR_VERSION = "$Revision: 11230 $"
+local MINOR_VERSION = "$Revision: 11300 $"
 
 if not AceLibrary then error(MAJOR_VERSION .. " requires AceLibrary") end
 if not AceLibrary:IsNewVersion(MAJOR_VERSION, MINOR_VERSION) then return end
@@ -73,6 +73,7 @@ if( GetLocale() == "deDE" ) then
 	L["Arathi Basin"] = "Arathibecken"
 	L["Alterac Valley"] = "Alteractal"
 	L["Blessing of Light"] = "Segen des Lichts"
+	L["Blood Fury"] = "Kochendes Blut"
 	L["Set: Increases the duration of your Rejuvenation spell by 3 sec."] = "Set: Erh\195\182ht die Dauer Eures Zaubers \'Verj\195\188ngung\' um 3 Sek."
 	L["Set: Increases the duration of your Renew spell by 3 sec."] = "Set: Erh\195\182ht die Dauer Eures Zaubers 'Erneuerung' um 3 Sek."
 elseif ( GetLocale() == "frFR" ) then
@@ -124,6 +125,7 @@ elseif ( GetLocale() == "frFR" ) then
 	L["Warsong Gulch"] = "Goulet des Warsong"
 	L["Arathi Basin"] = "Bassin d'Arathi"
 	L["Alterac Valley"] = "Vall\195\169e d'Alterac"
+	L["Blood Fury"] = "Fureur sanguinaire"
 	L["Blessing of Light"] = "B\195\169n\195\169diction de lumi\195\168re"
 	L["Set: Increases the duration of your Rejuvenation spell by 3 sec."] = "Set: Augmente la dur\195\169e de votre sort R\195\169cup\195\169ration de 3 s."
 	L["Set: Increases the duration of your Renew spell by 3 sec."] = "Set: Augmente la dur\195\169e de votre sort R\195\169novation de 3 s."
@@ -177,6 +179,7 @@ else
 	L["Arathi Basin"] = "Arathi Basin"
 	L["Alterac Valley"] = "Alterac Valley"
 	L["Blessing of Light"] = "Blessing of Light"
+	L["Blood Fury"] = "Blood Fury"
 	L["Set: Increases the duration of your Rejuvenation spell by 3 sec."] = "Set: Increases the duration of your Rejuvenation spell by 3 sec."
 	L["Set: Increases the duration of your Renew spell by 3 sec."] = "Set: Increases the duration of your Renew spell by 3 sec."
 end
@@ -258,14 +261,8 @@ end
 ------------------------------------------------
 
 function strmatch(str, pat, init)
-	local results = {}
-	pat = "("..pat..")"
-	local s,e,found = string.find(str, pat, init)
-	while found do
-		tinsert(results,found)
-		s,e,found = string.find(str, pat, e+1)
-	end
-	return unpack(results)
+	local a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a13,a14,a15,a16,a17,a18,a19,a20 = string.find(str, pat, init)
+	return a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a13,a14,a15,a16,a17,a18,a19,a20
 end
 
 HealComm.Spells = {
@@ -920,7 +917,7 @@ end
 
 local healcomm_SpellSpell = nil
 local healcomm_RankRank = nil
-local healcomm_SpellCast = nil
+local healcomm_SpellCast = {}
 
 local healcommTip = CreateFrame("GameTooltip", "healcommTip", nil, "GameTooltipTemplate")
 healcommTip:SetOwner(WorldFrame, "ANCHOR_NONE")
@@ -950,6 +947,7 @@ HealComm.Debuffs = {
 	[L["Gehennas' Curse"]] = {amount = 0, mod = 0.75, icon = "Interface\\Icons\\Spell_Shadow_GatherShadows"};
 	[L["Mortal Wound"]] = {amount = 0, mod = 0.1, icon = "Interface\\Icons\\Ability_CriticalStrike"};
 	[L["Necrotic Poison"]] = {amount = 0, mod = 0.9, icon = "Interface\\Icons\\Ability_Creature_Poison_03"};
+	[L["Blood Fury"]] = {amount = 0, mod = 0.5, icon = "Interface\\Icons\\Ability_Rogue_FeignDeath"};
 	[L["Necrotic Aura"]] = {amount = 0, mod = 1, icon = "Interface\\Icons\\Ability_Creature_Disease_05"}
 }
 	
@@ -999,7 +997,7 @@ local function GetTargetSpellPower(spell)
 		end
 		local buffName = healcommTipTextLeft1:GetText()
 		if buffName == L["Blessing of Light"] then
-			local HLBonus, FoLBonus = strmatch(healcommTipTextLeft2:GetText(),"(%d+)")
+			local HLBonus, FoLBonus = strmatch(healcommTipTextLeft2:GetText(),"(%d+).-(%d+)")
 			if (spell == L["Flash of Light"]) then
 				targetpower = FoLBonus + targetpower
 			elseif spell == L["Holy Light"] then
@@ -1067,7 +1065,7 @@ end
 
 function HealComm.delayHeal(caster, delay)
 	HealComm.SpecialEventScheduler:CancelScheduledEvent("Healcomm_"..caster)
-	if HealComm.Heals[HealComm.Lookup[caster]] then
+	if HealComm.Lookup[caster] and HealComm.Heals[HealComm.Lookup[caster]] then
 		HealComm.Heals[HealComm.Lookup[caster]][caster].ctime = HealComm.Heals[HealComm.Lookup[caster]][caster].ctime + (delay/1000)
 		HealComm.SpecialEventScheduler:ScheduleEvent("Healcomm_"..caster, HealComm.stopHeal, (HealComm.Heals[HealComm.Lookup[caster]][caster].ctime-GetTime()), caster)
 	end
@@ -1099,8 +1097,10 @@ end
 
 function HealComm.delayGrpHeal(caster, delay)
 	HealComm.SpecialEventScheduler:CancelScheduledEvent("Healcomm_"..caster)
-	HealComm.GrpHeals[caster].ctime = HealComm.GrpHeals[caster].ctime + (delay/1000)
-	HealComm.SpecialEventScheduler:ScheduleEvent("Healcomm_"..caster, HealComm.stopGrpHeal, (HealComm.GrpHeals[caster].ctime-GetTime()), caster)
+	if HealComm.GrpHeals[caster] then
+		HealComm.GrpHeals[caster].ctime = HealComm.GrpHeals[caster].ctime + (delay/1000)
+		HealComm.SpecialEventScheduler:ScheduleEvent("Healcomm_"..caster, HealComm.stopGrpHeal, (HealComm.GrpHeals[caster].ctime-GetTime()), caster)
+	end
 end
 
 function HealComm.startResurrection(caster, target)
@@ -1167,7 +1167,9 @@ HealComm.OnEvent = function()
 			healcomm_spellIsCasting = arg1
 			HealComm.startResurrection(UnitName("player"), healcomm_SpellCast[3])
 		end
-		healcomm_SpellCast =  nil
+		for _,val in pairs(healcomm_SpellCast) do
+			val = nil
+		end
 	elseif (event == "SPELLCAST_INTERRUPTED" or event == "SPELLCAST_FAILED") and HealComm.Spells[healcomm_spellIsCasting] then
 		if healcomm_spellIsCasting == L["Prayer of Healing"] then
 			HealComm.SendAddonMessage("GrpHealstop")
@@ -1177,13 +1179,17 @@ HealComm.OnEvent = function()
 			HealComm.stopHeal(UnitName("player"))
 		end
 		healcomm_spellIsCasting = nil
-		healcomm_SpellCast =  nil
+		for _,val in pairs(healcomm_SpellCast) do
+			val = nil
+		end
 		healcomm_RankRank = nil
 		healcomm_SpellSpell =  nil
 	elseif (event == "SPELLCAST_INTERRUPTED" or event == "SPELLCAST_FAILED") and HealComm.Resurrections[healcomm_spellIsCasting] then
 		HealComm.SendAddonMessage("Resurrection/stop/")
 		healcomm_spellIsCasting = nil
-		healcomm_SpellCast =  nil
+		for _,val in pairs(healcomm_SpellCast) do
+			val = nil
+		end
 		healcomm_RankRank = nil
 		healcomm_SpellSpell =  nil
 		HealComm.cancelResurrection(UnitName("player"))
@@ -1199,7 +1205,9 @@ HealComm.OnEvent = function()
 		local targetUnit = roster:GetUnitIDFromName(healcomm_SpellCast[3])
 		if not targetUnit then
 			healcomm_spellIsCasting = nil
-			healcomm_SpellCast =  nil
+			for _,val in pairs(healcomm_SpellCast) do
+				val = nil
+			end
 			healcomm_RankRank = nil
 			healcomm_SpellSpell =  nil
 			return
@@ -1217,7 +1225,9 @@ HealComm.OnEvent = function()
 			HealComm.Hots[healcomm_SpellCast[3]]["Renew"].dur = dur
 			HealComm.SpecialEventScheduler:TriggerEvent("HealComm_Hotupdate", targetUnit, "Renew")
 			healcomm_spellIsCasting = nil
-			healcomm_SpellCast =  nil
+			for _,val in pairs(healcomm_SpellCast) do
+				val = nil
+			end
 			healcomm_RankRank = nil
 			healcomm_SpellSpell =  nil
 		elseif healcomm_SpellCast and healcomm_SpellCast[1] == L["Rejuvenation"] then
@@ -1233,7 +1243,9 @@ HealComm.OnEvent = function()
 			HealComm.Hots[healcomm_SpellCast[3]]["Reju"].dur = dur
 			HealComm.SpecialEventScheduler:TriggerEvent("HealComm_Hotupdate", targetUnit, "Rejuvenation")
 			healcomm_spellIsCasting = nil
-			healcomm_SpellCast =  nil
+			for _,val in pairs(healcomm_SpellCast) do
+				val = nil
+			end
 			healcomm_RankRank = nil
 			healcomm_SpellSpell =  nil
 		elseif healcomm_SpellCast and healcomm_SpellCast[1] == L["Regrowth"] then
@@ -1249,7 +1261,9 @@ HealComm.OnEvent = function()
 			HealComm.Hots[healcomm_SpellCast[3]]["Regr"].dur = dur
 			HealComm.SpecialEventScheduler:TriggerEvent("HealComm_Hotupdate", targetUnit, "Regrowth")
 			healcomm_spellIsCasting = nil
-			healcomm_SpellCast =  nil
+			for _,val in pairs(healcomm_SpellCast) do
+				val = nil
+			end
 			healcomm_RankRank = nil
 			healcomm_SpellSpell =  nil
 		end
@@ -1311,6 +1325,9 @@ HealComm.OnEvent = function()
 end
 
 function HealComm:getRegrTime(unit)
+	if unit == UNKNOWNOBJECT or unit == UKNOWNBEING then
+		return
+ 	end
 	local dbUnit = HealComm.Hots[UnitName(unit)]
 	if dbUnit and dbUnit["Regr"] and (dbUnit["Regr"].start + dbUnit["Regr"].dur) > GetTime() then
 		return dbUnit["Regr"].start, dbUnit["Regr"].dur
@@ -1320,6 +1337,9 @@ function HealComm:getRegrTime(unit)
 end
 	
 function HealComm:getRejuTime(unit)
+	if unit == UNKNOWNOBJECT or unit == UKNOWNBEING then
+		return
+ 	end
 	local dbUnit = HealComm.Hots[UnitName(unit)]
 	if dbUnit and dbUnit["Reju"] and (dbUnit["Reju"].start + dbUnit["Reju"].dur) > GetTime() then
 		return dbUnit["Reju"].start, dbUnit["Reju"].dur
@@ -1329,6 +1349,9 @@ function HealComm:getRejuTime(unit)
 end
 
 function HealComm:getRenewTime(unit)
+	if unit == UNKNOWNOBJECT or unit == UKNOWNBEING then
+		return
+ 	end
 	local dbUnit = HealComm.Hots[UnitName(unit)]
 	if dbUnit and dbUnit["Renew"] and (dbUnit["Renew"].start + dbUnit["Renew"].dur) > GetTime() then
 		return dbUnit["Renew"].start, dbUnit["Renew"].dur
@@ -1338,6 +1361,9 @@ function HealComm:getRenewTime(unit)
 end
 
 function HealComm:getHeal(unit)
+	if unit == UNKNOWNOBJECT or unit == UKNOWNBEING then
+		return 0
+ 	end
 	local healamount = 0
 	if HealComm.Heals[unit] then
 		for k,v in HealComm.Heals[unit] do
@@ -1384,7 +1410,9 @@ function healcomm_newCastSpell(spellId, spellbookTabNum)
 		if UnitIsPlayer("target") then
 			healcomm_ProcessSpellCast(spellName, rank, UnitName("target"))
 		else
-			healcomm_SpellCast = nil
+			for _,val in pairs(healcomm_SpellCast) do
+				val = nil
+			end
 		end
 	else
 		healcomm_ProcessSpellCast(spellName, rank, UnitName("player"))
@@ -1420,7 +1448,9 @@ function healcomm_newCastSpellByName(spellName, onSelf)
 				if UnitIsPlayer("target") then
 					healcomm_ProcessSpellCast(spellName, rank, UnitName("target"))
 				else
-					healcomm_SpellCast = nil
+					for _,val in pairs(healcomm_SpellCast) do
+						val = nil
+					end
 				end
 			else
 				healcomm_ProcessSpellCast(spellName, rank, UnitName("player"))
@@ -1480,7 +1510,9 @@ function healcomm_newUseAction(slot, checkCursor, onSelf)
 		if UnitIsPlayer("target") then
 			healcomm_ProcessSpellCast(spellName, rank, UnitName("target"))
 		else
-			healcomm_SpellCast = nil
+			for _,val in pairs(healcomm_SpellCast) do
+				val = nil
+			end
 		end
 	else
 		-- Spell is being cast on the player
@@ -1501,7 +1533,9 @@ function healcomm_newSpellTargetUnit(unit)
 		if UnitIsPlayer(unit) then
 			healcomm_ProcessSpellCast(healcomm_SpellSpell, healcomm_RankRank, UnitName(unit))
 		else
-			healcomm_SpellCast = nil
+			for _,val in pairs(healcomm_SpellCast) do
+				val = nil
+			end
 		end
 		healcomm_SpellSpell = nil
 		healcomm_RankRank = nil
@@ -1524,7 +1558,9 @@ function healcomm_newTargetUnit(unit)
 	if ( healcomm_SpellSpell and UnitExists(unit) ) and UnitIsPlayer(unit) then
 		healcomm_ProcessSpellCast(healcomm_SpellSpell, healcomm_RankRank, UnitName(unit))
 	else
-		healcomm_SpellCast = nil
+		for _,val in pairs(healcomm_SpellCast) do
+			val = nil
+		end
 	end
 	-- Call the original function
 	healcomm_oldTargetUnit(unit)
@@ -1535,7 +1571,11 @@ function healcomm_ProcessSpellCast(spellName, rank, targetName)
 	local unit = roster:GetUnitIDFromName(targetName)
 	if ( spellName and rank and targetName and unit ) then
 		local power, mod = GetTargetSpellPower(spellName)
-		healcomm_SpellCast = { spellName, rank, targetName, power, mod }
+		healcomm_SpellCast[1] = spellName
+		healcomm_SpellCast[2] = rank
+		healcomm_SpellCast[3] = targetName
+		healcomm_SpellCast[4] = power
+		healcomm_SpellCast[5] = mod
 	end
 end
 

@@ -1,5 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+  <Script file="localization.lua" />
+  <Script file="MCP.lua" />
+
 	<Frame name="MCP" enableMouse="false" parent="UIParent" >
        		<Scripts>
         		<OnLoad>
@@ -53,7 +56,7 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
 				</Anchors>
 				<NormalTexture name="$parentIcon" file="Interface\Glues\CharacterSelect\Glues-AddOn-Icons"/>
 			</Button>
-			<Button name="$parentLoadNow" inherits="UIPanelButtonTemplate" text="Load">
+			<Button name="$parentLoadNow" inherits="UIPanelButtonTemplate" text="MCP_LOAD">
 				<Size>
 					<AbsDimension x="80" y="16"/>
 				</Size>
@@ -93,8 +96,16 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
 				<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
 			</CheckButton>
 		</Frames>
-	</Button>
-	<Button name="GameMenuButtonAddOns" inherits="GameMenuButtonTemplate" text="AddOns" parent="GameMenuFrame">
+                <Scripts>
+                  <OnEnter>
+                    MCP_TooltipShow(this.addon);
+                  </OnEnter>
+                  <OnLeave>
+                    GameTooltip:Hide();
+                  </OnLeave>
+                </Scripts>
+        </Button>
+	<Button name="GameMenuButtonAddOns" inherits="GameMenuButtonTemplate" text="MCP_ADDONS" parent="GameMenuFrame">
 		<Anchors>
 			<Anchor point="TOP" relativeTo="GameMenuButtonMacros" relativePoint="BOTTOM">
 				<Offset>
@@ -459,20 +470,54 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
 					</OnVerticalScroll>
 				</Scripts>
 			</ScrollFrame>
-			<Button name="$parent_ReloadUI" inherits="UIPanelButtonTemplate" text="ReloadUI">
+			<Button name="$parent_ReloadUI" inherits="UIPanelButtonTemplate" text="MCP_RELOADUI">
 				<Size>
 					<AbsDimension x="160" y="25"/>
 				</Size>
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="14" y="-18"/>
+							<AbsDimension x="14" y="-25"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 				<Scripts>
 					<OnClick>
 						StaticPopup_Show("MCP_RELOADUI");
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parent_EnableAll" inherits="UIPanelButtonTemplate" text="MCP_ENABLE_ALL">
+				<Size>
+					<AbsDimension x="160" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-70" y="-25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						MCP_EnableAll();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parent_DisableAll" inherits="UIPanelButtonTemplate" text="MCP_DISABLE_ALL">
+				<Size>
+					<AbsDimension x="160" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-225" y="-25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						MCP_DisableAll();
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -493,7 +538,7 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
                             </OnShow>
                           </Scripts>
                         </Frame>
-			<Button name="$parent_SaveProfile" inherits="UIPanelButtonTemplate" text="Save Profile">
+			<Button name="$parent_SaveProfile" inherits="UIPanelButtonTemplate" text="MCP_SAVE_PROFILE">
 				<Size>
 					<AbsDimension x="160" y="25"/>
 				</Size>
@@ -510,7 +555,7 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
 					</OnClick>
 				</Scripts>
 			</Button>
-      			<Button name="$parent_DeleteProfile" inherits="UIPanelButtonTemplate" text="Delete Profile">
+      			<Button name="$parent_DeleteProfile" inherits="UIPanelButtonTemplate" text="MCP_DELETE_PROFILE">
 				<Size>
 					<AbsDimension x="160" y="25"/>
 				</Size>

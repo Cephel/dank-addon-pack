@@ -3,191 +3,245 @@ Aux.scan = public
 
 local PAGE_SIZE = 50
 
-local controller = (function()
-	local controller
-	return function()
-		controller = controller or Aux.control.controller()
-		return controller
-	end
-end)()
+local state
+local threads = {}
 
-local state, abort, new_job
-
-local scan, scan_auctions, scan_auctions_helper, submit_query, wait_for_callback, wait_for_results, wait_for_owner_data, abort
-
-function Aux.scan.start(job)
-	Aux.control.on_next_update(function()
-		abort()
-        job.type = job.type or 'list'
-        state = {
-			job = job,
-			page = job.page
-        }
-
-		return scan()
-	end)
+function private.default_next_page(page, total_pages)
+    local last_page = max(total_pages - 1, 0)
+    if page < last_page then
+        return page + 1
+    end
 end
 
-function Aux.scan.abort(k)
-	Aux.control.on_next_update(function()
-		abort()
-		
-		if k then
-			return k()
-		end
-	end)
+function private.current_query()
+    return private.current_thread().params.queries[private.current_thread().query_index]
 end
 
-function abort()
-	controller().reset()
-	if state and state.job and state.job.on_abort then
-		state.job.on_abort()
-	end
-	state = nil
-end
-
-function wait_for_results(k)
-	local ok
-    if state.job.type == 'bidder' then
-		ok = true
-    elseif state.job.type == 'owner' then
-        if state.page == Aux.current_owner_page then
-            ok = true
-        else
-            Aux.control.on_next_event('AUCTION_OWNED_LIST_UPDATE', function()
-                ok = true
-            end)
+function private.current_thread()
+    for _, thread in threads do
+        if thread.id == Aux.control.thread_id then
+            return thread
         end
+    end
+end
+
+function public.start(params)
+    if threads[params.type] then
+        public.abort(threads[params.type].id)
+    end
+
+    local thread_id = Aux.control.new_thread(function()
+        return private.wait_for_callback(private.current_thread().params.on_scan_start, private.scan)
+    end)
+    threads[params.type] = {
+        id = thread_id,
+        params = params,
+    }
+    return thread_id
+end
+
+function public.abort(scan_id)
+    local aborted_threads = {}
+    for t, thread in pairs(threads) do
+        if not scan_id or thread.id == scan_id then
+            Aux.control.kill_thread(thread.id)
+            threads[t] = nil
+            tinsert(aborted_threads, thread)
+        end
+    end
+
+    for _, thread in ipairs(aborted_threads) do
+        if thread.params.on_abort then
+            thread.params.on_abort()
+        end
+    end
+end
+
+function private.wait_for_results(k)
+    if private.current_thread().params.type == 'bidder' then
+        return Aux.control.wait_until(function() return Aux.bids_loaded end, k)
+    elseif private.current_thread().params.type == 'owner' then
+        return private.wait_for_owner_results(k)
+    elseif private.current_thread().params.type == 'list' then
+        return private.wait_for_list_results(k)
+    end
+end
+
+function private.wait_for_owner_results(k)
+    local updated
+    if private.current_thread().page == Aux.current_owner_page then
+        updated = true
     else
-        Aux.control.on_next_event('AUCTION_ITEM_LIST_UPDATE', function()
-            ok = true
+        Aux.control.on_next_event('AUCTION_OWNED_LIST_UPDATE', function()
+            updated = true
         end)
     end
 
-	return controller().wait(function() return ok end, k)
+    Aux.control.wait_until(function() return updated end, k)
 end
 
-function wait_for_owner_data(k)
-	local t0 = time()
-	return controller().wait(function()
-		if time() - t0 > 5 then -- we won't wait longer than 5 seconds
-			return true
-		end
-		local count, _ = GetNumAuctionItems(state.job.type)
-		for i=1,count do
-			local auction_info = Aux.info.auction(i, state.job.type)
-			if auction_info and not auction_info.owner then
-				return false
-			end
-		end
-		return true
-	end, k)
+function private.wait_for_list_results(k)
+    local updated, last_update
+    local listener = Aux.control.event_listener('AUCTION_ITEM_LIST_UPDATE', function()
+        last_update = GetTime()
+        updated = true
+    end)
+    listener:start()
+    Aux.control.wait_until(function()
+        -- order important, owner_data_complete must be called after an update to request missing data
+        local ok = updated and private.owner_data_complete() or last_update and GetTime() - last_update > 5
+        updated = false
+        return ok
+    end, function()
+        listener:stop()
+        return k()
+    end)
 end
 
-function wait_for_callback(args)
+function private.owner_data_complete()
+    if private.current_thread().params.ignore_owner or aux_ignore_owner then
+        return true
+    end
+    local count, _ = GetNumAuctionItems(private.current_thread().params.type)
+    for i=1,count do
+        local auction_info = Aux.info.auction(i, private.current_thread().params.type)
+        if auction_info and not auction_info.owner then
+            return false
+        end
+    end
+    return true
+end
+
+function private.wait_for_callback(...)
 	local ok = true
 
-    local f = tremove(args, 1)
-    local k = tremove(args)
+    local f = tremove(arg, 1)
+    local k = tremove(arg)
 
 	if f then
-		tinsert(args, {
+		tinsert(arg, {
 			suspend = function() ok = false end,
 			resume = function() ok = true end,
 		})
-		f(unpack(args))
+		f(unpack(arg))
 	end
 
 	if ok then
 		return k()
-	else
-		return controller().wait(function() return ok end, k)
+    else
+        return Aux.control.wait_until(function() return ok end, k)
 	end
 end
 
-function scan()
-	
-	submit_query(function()
-		
-        local count, _ = GetNumAuctionItems(state.job.type)
+function private.scan()
+    private.current_thread().query_index = private.current_thread().query_index and private.current_thread().query_index + 1 or 1
+    if private.current_query() then
+        private.wait_for_callback(private.current_thread().params.on_start_query, private.current_thread().query_index, function()
+            private.current_thread().page = private.current_query().start_page or 0
+            return private.process_query()
+        end)
+    else
+        local on_complete = private.current_thread().params.on_complete
+        threads[private.current_thread().params.type] = nil
+        if on_complete then
+            return on_complete()
+        end
+    end
+end
 
-        scan_auctions(count, function()
+function private.process_query()
 
-            state.page = state.job.next_page and state.job.next_page(state.page, state.total_pages)
+    private.submit_query(function()
 
-            if state.page then
-                return scan()
-            else
-                if state.job.on_complete then
-                    state.job.on_complete()
+        local count, _ = GetNumAuctionItems(private.current_thread().params.type)
+
+        private.scan_auctions(count, function()
+
+            private.wait_for_callback(private.current_thread().params.on_page_scanned, function()
+                if private.current_query().next_page then
+                    private.current_thread().page = private.current_query().next_page(private.current_thread().page, private.current_thread().total_pages)
+                else
+                    private.current_thread().page = private.default_next_page(private.current_thread().page, private.current_thread().total_pages)
                 end
-                state = nil
-            end
 
+                if private.current_thread().page then
+                    return private.process_query()
+                else
+                    return private.scan()
+                end
+            end)
         end)
     end)
 end
 
-function scan_auctions(count, k)
-	return scan_auctions_helper(1, count, k)
+function private.scan_auctions(count, k)
+	return private.scan_auctions_helper(1, count, k)
 end
 
-function scan_auctions_helper(i, n, k)
+function private.scan_auctions_helper(i, n, k)
     local recurse = function()
         if i >= n then
             return k()
         else
-            return scan_auctions_helper(i + 1, n, k)
+            return private.scan_auctions_helper(i + 1, n, k)
         end
     end
 
-    local auction_info = Aux.info.auction(i, state.job.type)
-    if auction_info then
-        wait_for_callback{state.job.on_read_auction, auction_info, recurse}
-    else
-        recurse()
+    local auction_info = Aux.info.auction(i, private.current_thread().params.type)
+    if auction_info and (auction_info.owner or private.current_thread().params.ignore_owner or aux_ignore_owner) then
+        auction_info.index = i
+        auction_info.page = private.current_thread().page
+        auction_info.blizzard_query = private.current_query().blizzard_query
+        auction_info.query_type = private.current_thread().params.type
+
+        Aux.history.process_auction(auction_info)
+
+        if not private.current_query().validator or private.current_query().validator(auction_info) then
+            return private.wait_for_callback(private.current_thread().params.on_auction, auction_info, recurse)
+        end
     end
+
+    return recurse()
 end
 
-function submit_query(k)
-	if state.page then
-		controller().wait(function() return state.job.type ~= 'list' or CanSendAuctionQuery() end, function()
+function private.submit_query(k)
+	if private.current_query().blizzard_query then
+        Aux.control.wait_until(function() return private.current_thread().params.type ~= 'list' or CanSendAuctionQuery() end, function()
 
-            if state.job.on_submit_query then
-                state.job.on_submit_query()
+            if private.current_thread().params.on_submit_query then
+                private.current_thread().params.on_submit_query()
             end
-            wait_for_results(function()
-                --wait_for_owner_data(function()
-                local _, total_count = GetNumAuctionItems(state.job.type)
-                state.total_pages = math.ceil(total_count / PAGE_SIZE)
-                if state.total_pages >= state.page + 1 then
-					wait_for_callback{state.job.on_page_loaded, state.page, state.total_pages, function()
-						return k()
-					end}
-				else
-					return k()
-				end
-                -- end)
-            end)
-            if state.job.type == 'bidder' then
-                GetBidderAuctionItems(state.page)
-            elseif state.job.type == 'owner' then
-                GetOwnerAuctionItems(state.page)
+            if private.current_thread().params.type == 'bidder' then
+                GetBidderAuctionItems(private.current_thread().page)
+            elseif private.current_thread().params.type == 'owner' then
+                GetOwnerAuctionItems(private.current_thread().page)
             else
                 QueryAuctionItems(
-                    state.job.query.name,
-                    state.job.query.min_level,
-                    state.job.query.max_level,
-                    state.job.query.slot,
-                    state.job.query.class,
-                    state.job.query.subclass,
-                    state.page,
-                    state.job.query.usable,
-                    state.job.query.quality
+                    Aux.util.safe_index(private.current_query().blizzard_query, 'name'),
+                    Aux.util.safe_index(private.current_query().blizzard_query, 'min_level'),
+                    Aux.util.safe_index(private.current_query().blizzard_query, 'max_level'),
+                    Aux.util.safe_index(private.current_query().blizzard_query, 'slot'),
+                    Aux.util.safe_index(private.current_query().blizzard_query, 'class'),
+                    Aux.util.safe_index(private.current_query().blizzard_query, 'subclass'),
+                    private.current_thread().page,
+                    Aux.util.safe_index(private.current_query().blizzard_query, 'usable'),
+                    Aux.util.safe_index(private.current_query().blizzard_query, 'quality')
                 )
             end
+            private.wait_for_results(function()
+                local _, total_count = GetNumAuctionItems(private.current_thread().params.type)
+                private.current_thread().total_pages = math.ceil(total_count / PAGE_SIZE)
+                if max(1, private.current_thread().total_pages) >= private.current_thread().page + 1 then
+                    private.wait_for_callback(private.current_thread().params.on_page_loaded, private.current_thread().page, max(1, private.current_thread().total_pages), function()
+                        return k()
+                    end)
+                else
+                    return k()
+                end
+            end)
 		end)
-	else
-		return k()
+    else
+        private.current_thread().total_pages = 1
+        return k()
 	end
 end

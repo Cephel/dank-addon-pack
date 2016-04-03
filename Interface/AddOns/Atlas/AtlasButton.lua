@@ -1,7 +1,7 @@
 --[[
 
 	Atlas, a World of Warcraft instance map browser
-	Copyright 2005, 2006 Dan Gilbert
+	Copyright 2005 - 2008 Dan Gilbert
 	Email me at loglow@gmail.com
 
 	This file is part of Atlas.
@@ -79,9 +79,8 @@ end
 
 function AtlasButton_OnEnter()
     GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-    GameTooltip:SetText(ATLAS_BUTTON_TOOLTIP);
-    GameTooltip:AddLine(ATLAS_BUTTON_TOOLTIP2);
-    GameTooltip:AddLine(ATLAS_BUTTON_TOOLTIP3);
+    GameTooltip:SetText(ATLAS_BUTTON_TOOLTIP_TITLE);
 	GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+    GameTooltip:AddLine(ATLAS_BUTTON_TOOLTIP_HINT);
     GameTooltip:Show();
 end
