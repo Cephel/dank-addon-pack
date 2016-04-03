@@ -10,7 +10,7 @@ VanillaGuideDBPC = {
 			},
 			["MainFrameSize"] = {
 				["nWidth"] = 320,
-				["nHeight"] = 320,
+				["nHeight"] = 330,
 			},
 			["Locked"] = true,
 			["ScrollFrameVisible"] = false,

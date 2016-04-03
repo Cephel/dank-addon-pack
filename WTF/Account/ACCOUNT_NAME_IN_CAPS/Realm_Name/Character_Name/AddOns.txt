@@ -1,3 +1,1 @@
 VanillaGuide: disabled
-KLHThreatMeter: enabled
-SW_Stats: enabled
