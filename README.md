@@ -13,7 +13,7 @@ An addon pack designed to be functional and only have things that are actually w
 - Delete `WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/layout-cache.txt` if you can't see KTM and SW_Stats on the screen
 - Delete `WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/VanillaGuide.lua` if you can't see VanillaGuide on the screen
 
-# Automization TODO:
+# Automization TODO
 - EQL3
 	- Restore position
 	- Lock tracker
