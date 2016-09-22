@@ -4,7 +4,7 @@ KLHTM_SavedVariables = {
 		["state"] = {
 			["view"] = "raid",
 			["max"] = true,
-			["pinned"] = true,
+			["pinned"] = false,
 			["closed"] = false,
 			["min"] = false,
 			["raid"] = true,
@@ -19,7 +19,7 @@ KLHTM_SavedVariables = {
 					["pc"] = true,
 					["name"] = true,
 					["threat"] = true,
-					["rage"] = true,
+					["rage"] = false,
 					["hits"] = true,
 				},
 				["sortColumn"] = "threat",

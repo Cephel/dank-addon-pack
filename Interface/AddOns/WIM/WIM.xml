@@ -38,16 +38,16 @@
 
 	<CheckButton name="WIM_ShortcutButtonTemplate" virtual="true">
 		<Size>
-			<AbsDimension x="28" y="28"/>
+			<AbsDimension x="28" y="24"/>
 		</Size>
 		<Layers>
 			<Layer level="BACKGROUND">
 				<Texture name="$parentIcon"/>
 			</Layer>
 		</Layers>
-		<NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-Quickslot2">
+		<NormalTexture name="$parentNormalTexture" file="Interface\AddOns\WIM\Images\button">
 			<Size>
-				<AbsDimension x="48" y="48"/>
+				<AbsDimension x="32" y="32"/>
 			</Size>
 			<Anchors>
 				<Anchor point="CENTER">
@@ -104,7 +104,7 @@
 			</EdgeSize>
 		</Backdrop>
 		<Layers>
-			<Layer level="BACKGROUND">
+			<Layer level="TOP">
 				<Texture name="$parentClassIcon" file="Interface\AddOns\WIM\Images\classBLANK">
 					<Size>
 						<AbsDimension x="64" y="64"/>
@@ -121,9 +121,9 @@
 			<Layer level="OVERLAY">
 				<FontString name="$parentFrom" inherits="GameFontNormalLarge" text="abcdefghijklmnopqrstuvwxyz">
 					<Anchors>
-						<Anchor point="TOPLEFT">
+						<Anchor point="TOP">
 							<Offset>
-								<AbsDimension x="50" y="-6"/>
+								<AbsDimension x="0" y="-8"/>
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -142,17 +142,17 @@
 		<Frames>
 			<Button name="$parentExitButton">
 				<Size>
-					<AbsDimension x="32" y="32"/>
+					<AbsDimension x="18" y="18"/>
 				</Size>
 				<Anchors>
 					<Anchor point="TOPRIGHT">
 						<Offset>
-							<AbsDimension x="4" y="1"/>
+							<AbsDimension x="-8" y="-8"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<NormalTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Up"/>
-				<PushedTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Down"/>
+				<NormalTexture file="Interface\AddOns\WIM\Images\closebutton"/>
+				<PushedTexture file="Interface\AddOns\WIM\Images\closebutton"/>
 				<HighlightTexture alphaMode="ADD" file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight"/>
 				<Scripts>
 					<OnLoad>
@@ -179,12 +179,12 @@
 			</Button>
 			<Button name="$parentHistoryButton" hidden="true">
 				<Size>
-					<AbsDimension x="19" y="19"/>
+					<AbsDimension x="16" y="16"/>
 				</Size>
 				<Anchors>
 					<Anchor point="TOPRIGHT" relativeTo="$parentExitButton" relativePoint="TOPLEFT">
 						<Offset>
-							<AbsDimension x="2" y="-6"/>
+							<AbsDimension x="-4" y="-1"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -228,9 +228,9 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<NormalTexture file="Interface\Buttons\UI-ScrollBar-ScrollUpButton-Up"/>
-				<PushedTexture file="Interface\Buttons\UI-ScrollBar-ScrollUpButton-Down"/>
-				<DisabledTexture file="Interface\Buttons\UI-ScrollBar-ScrollUpButton-Disabled"/>
+				<NormalTexture file="Interface\AddOns\WIM\Images\up"/>
+				<PushedTexture file="Interface\AddOns\WIM\Images\up"/>
+				<DisabledTexture file="Interface\AddOns\WIM\Images\updis"/>
 				<HighlightTexture alphaMode="ADD" file="Interface\Buttons\UI-ScrollBar-ScrollUpButton-Highlight"/>
 				<Scripts>
 					<OnLoad>
@@ -257,9 +257,9 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<NormalTexture file="Interface\Buttons\UI-ScrollBar-ScrollDownButton-Up"/>
-				<PushedTexture file="Interface\Buttons\UI-ScrollBar-ScrollDownButton-Down"/>
-				<DisabledTexture file="Interface\Buttons\UI-ScrollBar-ScrollDownButton-Disabled"/>
+				<NormalTexture file="Interface\AddOns\WIM\Images\down"/>
+				<PushedTexture file="Interface\AddOns\WIM\Images\down"/>
+				<DisabledTexture file="Interface\AddOns\WIM\Images\downdis"/>
 				<HighlightTexture alphaMode="ADD" file="Interface\Buttons\UI-ScrollBar-ScrollDownButton-Highlight"/>
 				<Scripts>
 					<OnLoad>
@@ -289,7 +289,7 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<FontString font="Fonts\FRIZQT__.TTF" justifyH="LEFT">
+				<FontString font="Interface\AddOns\ShaguUI\Fonts\arial.ttf" justifyH="LEFT">
 					<FontHeight>
 						<AbsValue val="12" />
 					</FontHeight>

@@ -6,6 +6,10 @@ VanillaGuide aim to cover the hole for an in-game guide for Vanilla WoW. The Add
     Hints and Tips for various Quests
     MetaMapBWP Integration
 
+> **NOTE:**
+>
+> - This Addon is developed for WoW 1.12.1 (toc 11200), also known as Vanilla WoW 
+>
 
 Credits
 =======

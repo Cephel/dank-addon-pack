@@ -1,8 +1,0 @@
-## Interface: 11200
-## Title : WoW Texas Holdem
-## Author: Kraize@freeholdemstrategy.com
-## Notes: Website: www.freeholdemstrategy.com
-## Notes: Forked from AnzacHoldem written by Peter McNeill Timothy Hancock (Thornwind and Density, Ner'zhul) -- thanks guys
-## Version: v1.2
-WoWTexasHoldem.lua
-WoWTexasHoldem.xml

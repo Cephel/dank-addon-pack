@@ -1,1 +1,5 @@
-VanillaGuide: disabled
+SW_Stats: disabled
+SW_FixLogStrings: enabled
+Informant: enabled
+KLHThreatMeter: disabled
+MikScrollingBattleText: disabled

@@ -48,7 +48,7 @@
 		</Backdrop>
 		<Layers>
 			<Layer level="ARTWORK">
-				<FontString name="$parentTitle"  font="Fonts\FRIZQT__.TTF" text="">
+				<FontString name="$parentTitle"  font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="">
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
 							<Offset>
@@ -378,7 +378,7 @@
 				</Anchors>
 				<TexCoords left="0.2" right="0.8" top="0" bottom="0.6" />
 				</Texture>
-				<FontString name="$parentTitleString" font="Fonts\FRIZQT__.TTF" text="WIM Options">
+				<FontString name="$parentTitleString" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="WIM Options">
 					<Size>
 						<AbsDimension x="140" y="0" />
 					</Size>
@@ -420,7 +420,7 @@
 				<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 				<Layers>
 					<Layer level="OVERLAY">
-						<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Enable WIM">
+						<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Enable WIM">
 							<Anchors>
 								<Anchor point="LEFT">
 									<Offset>
@@ -484,7 +484,7 @@
 						</Anchors>
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Display Options">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Display Options">
 									<Anchors>
 										<Anchor point="TOP">
 											<Offset>
@@ -518,7 +518,7 @@
 						</Anchors>
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Incoming Whispers">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Incoming Whispers">
 									<Anchors>
 										<Anchor point="LEFT">
 											<Offset>
@@ -550,7 +550,7 @@
 						</Anchors>
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Outgoing Whispers">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Outgoing Whispers">
 									<Anchors>
 										<Anchor point="LEFT">
 											<Offset>
@@ -582,7 +582,7 @@
 						</Anchors>
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="System Messages">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="System Messages">
 									<Anchors>
 										<Anchor point="LEFT">
 											<Offset>
@@ -614,7 +614,7 @@
 						</Anchors>
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Error Messages">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Error Messages">
 									<Anchors>
 										<Anchor point="LEFT">
 											<Offset>
@@ -646,7 +646,7 @@
 						</Anchors>
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Web Address Link">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Web Address Link">
 									<Anchors>
 										<Anchor point="LEFT">
 											<Offset>
@@ -686,7 +686,7 @@
 						<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Show shortcut bar.">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Show shortcut bar.">
 									<Anchors>
 										<Anchor point="LEFT">
 											<Offset>
@@ -742,7 +742,7 @@
 						<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Show timestamps.">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Show timestamps.">
 									<Anchors>
 										<Anchor point="LEFT">
 											<Offset>
@@ -791,7 +791,7 @@
 						<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Show character info:">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Show character info:">
 									<Anchors>
 										<Anchor point="LEFT">
 											<Offset>
@@ -848,7 +848,7 @@
 						<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Class Icons">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Class Icons">
 									<Anchors>
 										<Anchor point="LEFT">
 											<Offset>
@@ -905,7 +905,7 @@
 						<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Class Colors">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Class Colors">
 									<Anchors>
 										<Anchor point="LEFT">
 											<Offset>
@@ -962,7 +962,7 @@
 						<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Character Details">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Character Details">
 									<Anchors>
 										<Anchor point="LEFT">
 											<Offset>
@@ -1020,7 +1020,7 @@
 								WIM_Data.fontSize = this:GetValue();
 								WIM_SetAllWindowProps();
 								getglobal(this:GetName().."EditBox"):SetText(this:GetValue());
-								WIM_HistoryFrameMessageListScrollingMessageFrame:SetFont("Fonts\\FRIZQT__.TTF",WIM_Data.fontSize);
+								WIM_HistoryFrameMessageListScrollingMessageFrame:SetFont("Interface\\AddOns\\ShaguUI\\fonts\\arial.ttf",WIM_Data.fontSize);
 							</OnValueChanged>
 						</Scripts>
 					</Slider>
@@ -1104,7 +1104,7 @@
 						</Anchors>
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Minimap Icon">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Minimap Icon">
 									<Anchors>
 										<Anchor point="TOP">
 											<Offset>
@@ -1145,7 +1145,7 @@
 						<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Show Minimap Icon">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Show Minimap Icon">
 									<Anchors>
 										<Anchor point="LEFT">
 											<Offset>
@@ -1194,7 +1194,7 @@
 						<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 						<Layers>
 							<Layer level="OVERLAY">
-								<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Free moving">
+								<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Free moving">
 									<Anchors>
 										<Anchor point="LEFT">
 											<Offset>
@@ -1404,7 +1404,7 @@
 										<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Auto focus window on popup.">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Auto focus window on popup.">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -1453,7 +1453,7 @@
 										<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Keep focus after sending a message.">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Keep focus after sending a message.">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -1503,7 +1503,7 @@
 										<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Only while in a major city.">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Only while in a major city.">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -1552,7 +1552,7 @@
 										<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Show tooltips.">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Show tooltips.">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -1601,7 +1601,7 @@
 										<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Popup window when sending whispers.">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Popup window when sending whispers.">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -1650,7 +1650,7 @@
 										<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Popup window when receiving new whispers.">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Popup window when receiving new whispers.">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -1700,7 +1700,7 @@
 										<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Popup window when receiving replies.">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Popup window when receiving replies.">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -1750,7 +1750,7 @@
 										<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Disable popups while in combat.">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Disable popups while in combat.">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -1799,7 +1799,7 @@
 										<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Supress whispers from default chat frame.">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Supress whispers from default chat frame.">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -1848,7 +1848,7 @@
 										<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Play sound when message received.">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Play sound when message received.">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -1897,7 +1897,7 @@
 										<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Sort conversation list alphabetically.">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Sort conversation list alphabetically.">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -1946,7 +1946,7 @@
 										<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Show AFK and DND messages.">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Show AFK and DND messages.">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -1995,7 +1995,7 @@
 										<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Use 'Escape Key' to close windows.">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Use 'Escape Key' to close windows.">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -2051,7 +2051,7 @@
 										<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Intercept whisper slash commands.">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Intercept whisper slash commands.">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -2132,7 +2132,7 @@
 								<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 								<Layers>
 									<Layer level="OVERLAY">
-										<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Enable cascading. Direction:">
+										<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Enable cascading. Direction:">
 											<Anchors>
 												<Anchor point="LEFT">
 													<Offset>
@@ -2288,7 +2288,7 @@
 										<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Enable Aliasing">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Enable Aliasing">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -2337,7 +2337,7 @@
 										<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Show as comment">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Show as comment">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -2594,7 +2594,7 @@
 										<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 										<Layers>
 											<Layer level="OVERLAY">
-												<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Enable Filtering">
+												<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Enable Filtering">
 													<Anchors>
 														<Anchor point="LEFT">
 															<Offset>
@@ -2859,7 +2859,7 @@
 								<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 								<Layers>
 									<Layer level="OVERLAY">
-										<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Enable History">
+										<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Enable History">
 											<Anchors>
 												<Anchor point="LEFT">
 													<Offset>
@@ -2908,7 +2908,7 @@
 								<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 								<Layers>
 									<Layer level="OVERLAY">
-										<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Record Everyone">
+										<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Record Everyone">
 											<Anchors>
 												<Anchor point="LEFT">
 													<Offset>
@@ -2958,7 +2958,7 @@
 								<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
 								<Layers>
 									<Layer level="OVERLAY">
-										<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Record Friends">
+										<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Record Friends">
 											<Anchors>
 												<Anchor point="LEFT">
 													<Offset>
@@ -3008,7 +3008,7 @@
 								<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
 								<Layers>
 									<Layer level="OVERLAY">
-										<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Record Guild">
+										<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Record Guild">
 											<Anchors>
 												<Anchor point="LEFT">
 													<Offset>
@@ -3050,7 +3050,7 @@
 								</Anchors>
 								<Layers>
 									<Layer level="OVERLAY">
-										<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Incoming messages">
+										<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Incoming messages">
 											<Anchors>
 												<Anchor point="LEFT">
 													<Offset>
@@ -3082,7 +3082,7 @@
 								</Anchors>
 								<Layers>
 									<Layer level="OVERLAY">
-										<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Outgoing messages">
+										<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Outgoing messages">
 											<Anchors>
 												<Anchor point="LEFT">
 													<Offset>
@@ -3122,7 +3122,7 @@
 								<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
 								<Layers>
 									<Layer level="OVERLAY">
-										<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Show history in message:">
+										<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Show history in message:">
 											<Anchors>
 												<Anchor point="LEFT">
 													<Offset>
@@ -3172,7 +3172,7 @@
 								<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
 								<Layers>
 									<Layer level="OVERLAY">
-										<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Set maximum messages per user:">
+										<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Set maximum messages per user:">
 											<Anchors>
 												<Anchor point="LEFT">
 													<Offset>
@@ -3222,7 +3222,7 @@
 								<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
 								<Layers>
 									<Layer level="OVERLAY">
-										<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Delete messages older than a:">
+										<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Delete messages older than a:">
 											<Anchors>
 												<Anchor point="LEFT">
 													<Offset>
@@ -3630,7 +3630,7 @@
 				</Anchors>
 				<TexCoords left="0.2" right="0.8" top="0" bottom="0.6" />
 				</Texture>
-				<FontString name="$parentTitleString" font="Fonts\FRIZQT__.TTF" text="Add New Alias">
+				<FontString name="$parentTitleString" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Add New Alias">
 					<Size>
 						<AbsDimension x="140" y="0" />
 					</Size>
@@ -3668,7 +3668,7 @@
 				</Anchors>
 				<Layers>
 					<Layer level="OVERLAY">
-						<FontString font="Fonts\FRIZQT__.TTF" text="Character Name">
+						<FontString font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Character Name">
 							<Anchors>
 								<Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
 									<Offset>
@@ -3735,7 +3735,7 @@
 				</Anchors>
 				<Layers>
 					<Layer level="OVERLAY">
-						<FontString font="Fonts\FRIZQT__.TTF" text="Character Alias">
+						<FontString font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Character Alias">
 							<Anchors>
 								<Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
 									<Offset>
@@ -3754,7 +3754,7 @@
 								</Offset>
 							</Shadow>
 						</FontString>
-						<FontString name="WIM_Options_AliasWindow_Error" font="Fonts\FRIZQT__.TTF" text="">
+						<FontString name="WIM_Options_AliasWindow_Error" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="">
 							<Anchors>
 								<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT">
 									<Offset>
@@ -3906,7 +3906,7 @@
 				</Anchors>
 				<TexCoords left="0.2" right="0.8" top="0" bottom="0.6" />
 				</Texture>
-				<FontString name="$parentTitleString" font="Fonts\FRIZQT__.TTF" text="Add New Filter">
+				<FontString name="$parentTitleString" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Add New Filter">
 					<Size>
 						<AbsDimension x="140" y="0" />
 					</Size>
@@ -3928,7 +3928,7 @@
 						</Offset>
 					</Shadow>
 				</FontString>
-				<FontString name="$parentActionString" font="Fonts\FRIZQT__.TTF" text="Perform the following action:">
+				<FontString name="$parentActionString" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Perform the following action:">
 					<Size>
 						<AbsDimension x="200" y="0" />
 					</Size>
@@ -3950,7 +3950,7 @@
 						</Offset>
 					</Shadow>
 				</FontString>
-				<FontString name="WIM_Options_FilterWindow_Error" font="Fonts\FRIZQT__.TTF" text="ERROR: Example Error Message" justifyH="LEFT">
+				<FontString name="WIM_Options_FilterWindow_Error" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="ERROR: Example Error Message" justifyH="LEFT">
 					<Size>
 						<AbsDimension x="300" y="0" />
 					</Size>
@@ -3988,7 +3988,7 @@
 				</Anchors>
 				<Layers>
 					<Layer level="OVERLAY">
-						<FontString font="Fonts\FRIZQT__.TTF" text="Keyword/Phrase to Filter">
+						<FontString font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Keyword/Phrase to Filter">
 							<Anchors>
 								<Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
 									<Offset>
@@ -4060,7 +4060,7 @@
 				<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 				<Layers>
 					<Layer level="OVERLAY">
-						<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Ignore">
+						<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Ignore">
 							<Anchors>
 								<Anchor point="LEFT">
 									<Offset>
@@ -4109,7 +4109,7 @@
 				<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
 				<Layers>
 					<Layer level="OVERLAY">
-						<FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="Block">
+						<FontString name="$parentText" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Block">
 							<Anchors>
 								<Anchor point="LEFT">
 									<Offset>
@@ -4313,7 +4313,7 @@
 						</Anchor>
 					</Anchors>
 				</Texture>
-				<FontString name="$parentUser" font="Fonts\FRIZQT__.TTF" text="Pazza">
+				<FontString name="$parentUser" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Pazza">
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeTo="$parentIconNew" relativePoint="TOPRIGHT">
 							<Offset>
@@ -4332,7 +4332,7 @@
 						</Offset>
 					</Shadow>
 				</FontString>
-				<FontString name="$parentStatus" font="Fonts\FRIZQT__.TTF" text="No new messages.">
+				<FontString name="$parentStatus" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="No new messages.">
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeTo="$parentIconNew" relativePoint="TOPRIGHT">
 							<Offset>
@@ -4351,7 +4351,7 @@
 						</Offset>
 					</Shadow>
 				</FontString>
-				<FontString name="$parentCount" font="Fonts\FRIZQT__.TTF" text="Recent Conversation 1 or 20">
+				<FontString name="$parentCount" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="Recent Conversation 1 or 20">
 					<Anchors>
 						<Anchor point="BOTTOM">
 							<Offset>
@@ -4425,7 +4425,7 @@
 				</Anchors>
 				<TexCoords left="0.2" right="0.8" top="0" bottom="0.6" />
 				</Texture>
-				<FontString name="$parentTitleString" font="Fonts\FRIZQT__.TTF" text="WIM Documentation">
+				<FontString name="$parentTitleString" font="Interface\AddOns\ShaguUI\fonts\arial.ttf" text="WIM Documentation">
 					<Size>
 						<AbsDimension x="140" y="0" />
 					</Size>
@@ -4606,7 +4606,7 @@
 										</Offset>
 									</Anchor>
 								</Anchors>
-								<FontString font="Fonts\FRIZQT__.TTF" justifyH="LEFT">
+								<FontString font="Interface\AddOns\ShaguUI\fonts\arial.ttf" justifyH="LEFT">
 									<FontHeight>
 										<AbsValue val="12" />
 									</FontHeight>

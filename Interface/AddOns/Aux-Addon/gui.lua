@@ -1,73 +1,196 @@
-local m = {}
-Aux.gui = m
+local m, public, private = aux.module'gui'
 
---TSM.designDefaults = {
---    frameColors = {
---        frameBG = { backdrop = { 24, 24, 24, .93 }, border = { 30, 30, 30, 1 } },
---        frame = { backdrop = { 24, 24, 24, 1 }, border = { 255, 255, 255, 0.03 } },
---        content = { backdrop = { 42, 42, 42, 1 }, border = { 0, 0, 0, 0 } },
---    },
---    textColors = {
---        iconRegion = { enabled = { 249, 255, 247, 1 } },
---        text = { enabled = { 255, 254, 250, 1 }, disabled = { 147, 151, 139, 1 } },
---        label = { enabled = { 216, 225, 211, 1 }, disabled = { 150, 148, 140, 1 } },
---        title = { enabled = { 132, 219, 9, 1 } },
---        link = { enabled = { 49, 56, 133, 1 } },
---    },
---    inlineColors = {
---        link = { 153, 255, 255, 1 },
---        link2 = { 153, 255, 255, 1 },
---        category = { 36, 106, 36, 1 },
---        category2 = { 85, 180, 8, 1 },
---        tooltip = { 130, 130, 250, 1 },
---    },
---    edgeSize = 1.5,
---    fonts = {
---        content = "Fonts\\ARIALN.TTF",
---        bold = "Interface\\Addons\\TradeSkillMaster\\Media\\DroidSans-Bold.ttf",
---    },
---    fontSizes = {
---        normal = 15,
---        medium = 13,
---        small = 12,
---    },
---}
-
-m.config = {
-    link_color = { 153, 255, 255, 1 },
-    link_color2 = { 153, 255, 255, 1 }, -- TODO inline color needs 255, others need /255
+public.config = {
+	color = {
+		text = {enabled = {255, 254, 250, 1}, disabled = {147, 151, 139, 1}},
+		label = {enabled = {216, 225, 211, 1}, disabled = {150, 148, 140, 1}},
+		link = {153, 255, 255, 1},
+		window = {backdrop = {24, 24, 24, .93}, border = {30, 30, 30, 1}},
+		panel = {backdrop = {24, 24, 24, 1}, border = {255, 255, 255, .03}},
+		content = {backdrop = {42, 42, 42, 1}, border = {0, 0, 0, 0}},
+		state = {enabled = {70, 180, 70}, disabled = {190, 70, 70}},
+	},
     edge_size = 1.5,
-    frame_color = {24/255, 24/255, 24/255, 1},
-    frame_border_color = {1, 1, 1, .03},
-    content_color = {42/255, 42/255, 42/255, 1},
-    content_border_color = {0, 0, 0, 0},
-    content_font = [[Fonts\ARIALN.TTF]],
---    content_font = [[Interface\AddOns\Aux-Addon\ARIALN.TTF]],
-    normal_font_size = 15,
-    normal_button_font_size = 16, -- 15 not working for some clients
-    text_color = { enabled = { 255/255, 254/255, 250/255, 1 }, disabled = { 147/255, 151/255, 139/255, 1 } },
-    label_color = { enabled = { 216/255, 225/255, 211/255, 1 }, disabled = { 150/255, 148/255, 140/255, 1 } },
-
+    font = [[Fonts\ARIALN.TTF]],
+    small_font_size = 13,
+	small_font_size2 = 14,
+    medium_font_size = 15,
+	medium_font_size2 = 16,
+	large_font_size = 17,
+	large_font_size2 = 18,
+    huge_font_size = 23,
 }
 
-function m.inline_color(color)
-    local r, g, b, a = unpack(color)
-    return format("|c%02X%02X%02X%02X", a, r, g, b)
+function private.color_accessor(callback)
+	return aux.index_function({callback=callback, table=m.config.color}, function(self, key)
+		self.private.table = self.private.table[key]
+		if getn(self.private.table) == 0 then
+			return self.public
+		else
+			local color = aux.util.copy(self.private.table)
+			self.private.table = m.config.color
+			return callback(color)
+		end
+	end)
 end
 
-function m.panel(parent, name)
-    local panel = CreateFrame('Frame', name, parent)
-    panel:SetBackdrop({bgFile='Interface\\Buttons\\WHITE8X8', edgeFile='Interface\\Buttons\\WHITE8X8', edgeSize=m.config.edge_size})
-    panel:SetBackdropColor(unpack(m.config.frame_color))
-    panel:SetBackdropBorderColor(unpack(m.config.frame_border_color))
+public.color = m.color_accessor(function(color)
+	local r, g, b, a = unpack(color)
+	return {r/255, g/255, b/255, a}
+end)
+
+public.inline_color = m.color_accessor(function(color)
+	local r, g, b, a = unpack(color)
+	return format('|c%02X%02X%02X%02X', a, r, g, b)
+end)
+
+do
+	local id = 0
+	function public.name()
+		id = id + 1
+		return 'aux_frame'..id
+	end
+end
+
+do
+	local menu, structure
+
+	function public.menu(menu_structure)
+		structure = menu_structure
+		menu:SetPoint('BOTTOMLEFT', GetCursorPosition())
+		menu:Show()
+	end
+
+	function private.initialize_menu()
+		menu = CreateFrame('Frame', m.name(), UIParent, 'UIMenuTemplate')
+		local orig = menu:GetScript('OnShow')
+		menu:SetScript('OnShow', function()
+			UIMenu_Initialize()
+			for i=1,getn(structure) do
+				UIMenu_AddButton(
+					structure[i][1],
+					structure[i],
+					type(structure[i]) == 'string' and structure[element[3]] or element[3]
+				)
+			end
+			return orig()
+		end)
+	end
+end
+
+function m.LOAD()
+	m.initialize_menu()
+
+	local backdrop = DropDownList1Backdrop:GetBackdrop()
+
+	DropDownList1Backdrop.border = DropDownList1Backdrop:CreateTexture()
+	DropDownList1Backdrop.border:SetTexture(1,1,1,0.02)
+	DropDownList1Backdrop.border:SetPoint('TOPLEFT', -1.5, 1.5)
+	DropDownList1Backdrop.border:SetPoint('BOTTOMRIGHT', 1.5, -1.5)
+	DropDownList1Backdrop.border:SetBlendMode('ADD')
+	DropDownList1Backdrop.backdrop = DropDownList1Backdrop:CreateTexture()
+	DropDownList1Backdrop.backdrop:SetTexture(unpack(m.color.content.backdrop))
+	DropDownList1Backdrop.backdrop:SetAllPoints()
+
+	aux.hook('ToggleDropDownMenu', function(...)
+		local ret = {aux.orig.ToggleDropDownMenu(unpack(arg))}
+		local dropdown = getglobal(arg[4] or '') or this:GetParent()
+		if strfind(dropdown:GetName() or '', 'aux_frame') then
+			DropDownList1Backdrop:SetBackdrop({})
+			DropDownList1Backdrop.border:Show()
+			DropDownList1Backdrop.backdrop:Show()
+			DropDownList1:SetWidth(dropdown:GetWidth() * 0.9)
+			DropDownList1:SetHeight(DropDownList1:GetHeight() - 10)
+			DropDownList1:ClearAllPoints()
+			DropDownList1:SetPoint('TOPLEFT', dropdown, 'BOTTOMLEFT', -2, -2)
+			for i=1,UIDROPDOWNMENU_MAXBUTTONS do
+				local button = getglobal('DropDownList1Button'..i)
+				button:SetPoint('TOPLEFT', 0, -((button:GetID() - 1) * UIDROPDOWNMENU_BUTTON_HEIGHT) - 7)
+				button:SetPoint('TOPRIGHT', 0, -((button:GetID() - 1) * UIDROPDOWNMENU_BUTTON_HEIGHT) - 7)
+				local text = button:GetFontString()
+				text:SetFont(m.config.font, m.config.small_font_size2)
+				text:SetPoint('TOPLEFT', 18, 0)
+				text:SetPoint('BOTTOMRIGHT', -8, 0)
+				local highlight = getglobal('DropDownList1Button'..i..'Highlight')
+				highlight:ClearAllPoints()
+				highlight:SetDrawLayer('OVERLAY')
+				highlight:SetHeight(14)
+				highlight:SetPoint('LEFT', 5, 0)
+				highlight:SetPoint('RIGHT', -3, 0)
+				local check = getglobal('DropDownList1Button'..i..'Check')
+				check:SetWidth(16)
+				check:SetHeight(16)
+				check:SetPoint('LEFT', 3, -1)
+			end
+		else
+			DropDownList1Backdrop:SetBackdrop(backdrop)
+			DropDownList1Backdrop.border:Hide()
+			DropDownList1Backdrop.backdrop:Hide()
+			for i=1,UIDROPDOWNMENU_MAXBUTTONS do
+				local button = getglobal('DropDownList1Button'..i)
+				local text = button:GetFontString()
+				text:SetFont([[Fonts\FRIZQT__.ttf]], 10)
+				text:SetShadowOffset(1, -1)
+				local highlight = getglobal('DropDownList1Button'..i..'Highlight')
+				highlight:SetAllPoints()
+				highlight:SetDrawLayer('BACKGROUND')
+				local check = getglobal('DropDownList1Button'..i..'Check')
+				check:SetWidth(24)
+				check:SetHeight(24)
+				check:SetPoint('LEFT', 0, 0)
+			end
+		end
+		return unpack(ret)
+	end)
+end
+
+function public.set_frame_style(frame, backdrop_color, border_color, left, right, top, bottom)
+	frame:SetBackdrop{bgFile=[[Interface\Buttons\WHITE8X8]], edgeFile=[[Interface\Buttons\WHITE8X8]], edgeSize=m.config.edge_size, tile=true, insets={left=left, right=right, top=top, bottom=bottom}}
+	frame:SetBackdropColor(unpack(backdrop_color))
+	frame:SetBackdropBorderColor(unpack(border_color))
+end
+
+function public.set_window_style(frame, left, right, top, bottom)
+    m.set_frame_style(frame, m.color.window.backdrop, m.color.window.border, left, right, top, bottom)
+end
+
+function public.set_panel_style(frame, left, right, top, bottom)
+    m.set_frame_style(frame, m.color.panel.backdrop, m.color.panel.border, left, right, top, bottom)
+end
+
+function public.set_content_style(frame, left, right, top, bottom)
+    m.set_frame_style(frame, m.color.content.backdrop, m.color.content.border, left, right, top, bottom)
+end
+
+function public.panel(parent)
+    local panel = CreateFrame('Frame', nil, parent)
+    m.set_panel_style(panel)
     return panel
 end
 
-function m.button(parent, text_height, name)
-    local button = CreateFrame('Button', name, parent)
-    button:SetBackdrop({bgFile='Interface\\Buttons\\WHITE8X8', edgeFile='Interface\\Buttons\\WHITE8X8', edgeSize=m.config.edge_size})
-    button:SetBackdropColor(unpack(m.config.content_color))
-    button:SetBackdropBorderColor(unpack(m.config.content_border_color))
+function public.checkbutton(parent, text_height)
+    local button = m.button(parent, text_height)
+    button.state = false
+    button:SetBackdropColor(unpack(m.color.state.disabled))
+    function button:SetChecked(state)
+        if state then
+            self:SetBackdropColor(unpack(m.color.state.enabled))
+            self.state = true
+        else
+            self:SetBackdropColor(unpack(m.color.state.disabled))
+            self.state = false
+        end
+    end
+    function button:GetChecked()
+        return self.state
+    end
+    return button
+end
+
+function public.button(parent, text_height)
+    text_height = text_height or 16
+    local button = CreateFrame('Button', nil, parent)
+    m.set_content_style(button)
     local highlight = button:CreateTexture(nil, 'HIGHLIGHT')
     highlight:SetAllPoints()
     highlight:SetTexture(1, 1, 1, .2)
@@ -75,22 +198,22 @@ function m.button(parent, text_height, name)
     button.highlight = highlight
     do
         local label = button:CreateFontString()
-        label:SetFont(m.config.content_font, text_height)
+        label:SetFont(m.config.font, text_height)
         label:SetPoint('CENTER', 0, 0)
         label:SetJustifyH('CENTER')
         label:SetJustifyV('CENTER')
         label:SetHeight(text_height)
-        label:SetTextColor(unpack(m.config.text_color.enabled))
+        label:SetTextColor(unpack(m.color.text.enabled))
         button:SetFontString(label)
     end
     button.default_Enable = button.Enable
     function button:Enable()
-        self:GetFontString():SetTextColor(unpack(m.config.text_color.enabled))
+        self:GetFontString():SetTextColor(unpack(m.color.text.enabled))
         return self:default_Enable()
     end
     button.default_Disable = button.Disable
     function button:Disable()
-        self:GetFontString():SetTextColor(unpack(m.config.text_color.disabled))
+        self:GetFontString():SetTextColor(unpack(m.color.text.disabled))
         return self:default_Disable()
     end
 
@@ -98,205 +221,153 @@ function m.button(parent, text_height, name)
 end
 
 
-function m.resize_tab(tab, width, padding)
+function public.resize_tab(tab, width, padding)
     tab:SetWidth(width + padding + 10)
 end
 
-function m.update_tab(tab)
 
-end
+function public.tab_group(parent, orientation)
 
-do
-    local id = 0
-    function m.tab_group(parent, position)
-        id = id + 1
+    local frame = CreateFrame('Frame', nil, parent)
+    frame:SetHeight(100)
+    frame:SetWidth(100)
 
-        local frame = CreateFrame('Frame', nil, parent)
-        frame:SetHeight(100)
-        frame:SetWidth(100)
---        frame:SetFrameStrata('FULLSCREEN_DIALOG')
+    local self = {
+        frame = parent,
+        tabs = {},
+    }
 
---        local border = CreateFrame('Frame', nil, frame)
---        border:SetPoint('TOPLEFT', 1, -30)
---        border:SetPoint('BOTTOMRIGHT', -1, 3)
---        border:SetBackdrop({ bgFile='Interface\\Buttons\\WHITE8X8', edgeFile='Interface\\Buttons\\WHITE8X8', edgeSize=m.config.edge_size })
---        border:SetBackdropColor(unpack(m.config.frame_color))
---        border:SetBackdropBorderColor(unpack(m.config.frame_border_color))
+    function self:create_tab(text)
+        local id = getn(self.tabs) + 1
 
---        local content = CreateFrame('Frame', nil, border)
---        content:SetPoint('TOPLEFT', 8, -8)
---        content:SetPoint('BOTTOMRIGHT', -8, 8)
-
-        local self = {
-            id = id,
-            frame = parent,
---            border = border,
-            tabs = {},
-            on_select = function() end,
-        }
-
-        function self:create_tab(text)
-            local id = getn(self.tabs) + 1
-
-            local tab = CreateFrame('Button', 'aux_tab_group'..self.id..'_tab'..id, self.frame)
-            tab.id = id
-            tab.group = self
-            tab:SetHeight(24)
-            tab:SetBackdrop({bgFile='Interface\\Buttons\\WHITE8X8', edgeFile='Interface\\Buttons\\WHITE8X8', edgeSize=m.config.edge_size})
-            tab:SetBackdropColor(0, 0, 0, 0)
-            tab:SetBackdropBorderColor(unpack(m.config.frame_border_color))
-            local image = tab:CreateTexture(nil, 'BACKGROUND')
-            image:SetAllPoints()
-            image:SetTexture(unpack(m.config.content_color))
-            tab.image = image
-            local dock = tab:CreateTexture(nil, 'OVERLAY')
-            dock:SetHeight(3)
-            if position == 'TOP' then
-                dock:SetPoint('BOTTOMLEFT', 1, -1)
-                dock:SetPoint('BOTTOMRIGHT', -1, -1)
-            else
-                dock:SetPoint('TOPLEFT', 1, 1)
-                dock:SetPoint('TOPRIGHT', -1, 1)
-            end
-            dock:SetTexture(unpack(m.config.frame_color))
-            tab.dock = dock
-            local highlight = tab:CreateTexture(nil, 'HIGHLIGHT')
-            highlight:SetAllPoints()
-            highlight:SetTexture(1, 1, 1, .2)
-            highlight:SetBlendMode('BLEND')
-            tab.highlight = highlight
-
-            tab.text = tab:CreateFontString()
-            tab.text:SetPoint('LEFT', 3, -1)
-            tab.text:SetPoint('RIGHT', -3, -1)
-            tab.text:SetJustifyH('CENTER')
-            tab.text:SetJustifyV('CENTER')
-            tab.text:SetFont(m.config.content_font, 18)
-            tab:SetFontString(tab.text)
-
-            tab:SetText(text)
-
-            tab:SetScript('OnClick', function()
-                if this.id ~= this.group.selected then
---                    PlaySound('igCharacterInfoTab')
-                    this.group:set_tab(this.id)
-                end
-            end)
-
-            if getn(self.tabs) == 0 then
-                if position == 'TOP' then
-                    tab:SetPoint('BOTTOMLEFT', self.frame, 'TOPLEFT', 4, -1)
-                else
-                    tab:SetPoint('TOPLEFT', self.frame, 'BOTTOMLEFT', 4, 1)
-                end
-            else
-                if position == 'TOP' then
-                    tab:SetPoint('BOTTOMLEFT', self.tabs[getn(self.tabs)], 'BOTTOMRIGHT', 4, 0)
-                else
-                    tab:SetPoint('TOPLEFT', self.tabs[getn(self.tabs)], 'TOPRIGHT', 4, 0)
-                end
-            end
-
-            m.resize_tab(tab, tab:GetFontString():GetStringWidth(), 4)
-
-            -- tab:Show()
-            tinsert(self.tabs, tab)
+        local tab = CreateFrame('Button', m.name(), self.frame)
+        tab.id = id
+        tab.group = self
+        tab:SetHeight(24)
+        tab:SetBackdrop{bgFile=[[Interface\Buttons\WHITE8X8]], edgeFile=[[Interface\Buttons\WHITE8X8]], edgeSize=m.config.edge_size}
+        tab:SetBackdropBorderColor(unpack(m.color.panel.border))
+        local dock = tab:CreateTexture(nil, 'OVERLAY')
+        dock:SetHeight(3)
+        if orientation == 'UP' then
+            dock:SetPoint('BOTTOMLEFT', 1, -1)
+            dock:SetPoint('BOTTOMRIGHT', -1, -1)
+        elseif orientation == 'DOWN' then
+            dock:SetPoint('TOPLEFT', 1, 1)
+            dock:SetPoint('TOPRIGHT', -1, 1)
         end
+        dock:SetTexture(unpack(m.color.panel.backdrop))
+        tab.dock = dock
+        local highlight = tab:CreateTexture(nil, 'HIGHLIGHT')
+        highlight:SetAllPoints()
+        highlight:SetTexture(1, 1, 1, .2)
+        highlight:SetBlendMode('BLEND')
+        tab.highlight = highlight
 
-        function self:set_tab(id)
-            self.selected = id
+        tab.text = tab:CreateFontString()
+        tab.text:SetPoint('LEFT', 3, -1)
+        tab.text:SetPoint('RIGHT', -3, -1)
+        tab.text:SetJustifyH('CENTER')
+        tab.text:SetJustifyV('CENTER')
+        tab.text:SetFont(m.config.font, m.config.large_font_size2)
+        tab:SetFontString(tab.text)
 
-            self.update_tabs()
+        tab:SetText(text)
 
-            self.on_select(id)
-        end
+        tab:SetScript('OnClick', function()
+            if this.id ~= this.group.selected then
+	            PlaySound('igCharacterInfoTab')
+                this.group:set_tab(this.id)
+            end
+        end)
 
-        function self.update_tabs()
-            for _, tab in ipairs(self.tabs) do
-                --    if tab.disabled then
-                --        TSMAPI.Design:SetWidgetLabelColor(tab.text, true)
-                --        tab:Disable()
-                --        tab.text = tab:GetText()
-                --        tab.dock:Hide()
-                if tab.group.selected == tab.id then
---                    TSMAPI.Design:SetWidgetLabelColor(tab.text)
-                    tab.text:SetTextColor(216/255, 225/255, 211/255) -- TODO
-                    tab:Disable()
-                    tab.image:SetTexture(unpack(m.config.frame_color))
-                    tab.dock:Show()
-                    tab:SetHeight(29)
-                else
---                    TSMAPI.Design:SetWidgetTextColor(tab.text)
-                    tab.text:SetTextColor(255/255, 254/255, 250/255) -- TODO
-                    tab:Enable()
-                    tab.image:SetTexture(unpack(m.config.content_color))
-                    tab.dock:Hide()
-                    tab:SetHeight(24)
-                end
+        if getn(self.tabs) == 0 then
+            if orientation == 'UP' then
+                tab:SetPoint('BOTTOMLEFT', self.frame, 'TOPLEFT', 4, -1)
+            elseif orientation == 'DOWN' then
+                tab:SetPoint('TOPLEFT', self.frame, 'BOTTOMLEFT', 4, 1)
+            end
+        else
+            if orientation == 'UP' then
+                tab:SetPoint('BOTTOMLEFT', self.tabs[getn(self.tabs)], 'BOTTOMRIGHT', 4, 0)
+            elseif orientation == 'DOWN' then
+                tab:SetPoint('TOPLEFT', self.tabs[getn(self.tabs)], 'TOPRIGHT', 4, 0)
             end
         end
 
+        m.resize_tab(tab, tab:GetFontString():GetStringWidth(), 4)
 
---            ["OnWidthSet"] = function(self, width)
---                local content = self.content
---                local contentwidth = width - 60
---                if contentwidth < 0 then
---                    contentwidth = 0
---                end
---                content:SetWidth(contentwidth)
---                content.width = contentwidth
---                self:BuildTabs(self)
---                self.frame:SetScript("OnUpdate", BuildTabsOnUpdate)
---            end,
---
---            ["OnHeightSet"] = function(self, height)
---                local content = self.content
---                local contentheight = height - 30
---                if contentheight < 0 then
---                    contentheight = 0
---                end
---                content:SetHeight(contentheight)
---                content.height = contentheight
---            end,
---
---            ["LayoutFinished"] = function(self, width, height)
---                if self.noAutoHeight then return end
---                self:SetHeight((height or 0) + 30)
---            end
-
-        return self
+        tinsert(self.tabs, tab)
     end
+
+    function self:set_tab(id)
+        self.selected = id
+        self:update_tabs()
+        aux.call(self.on_select, id)
+    end
+
+    function self:update_tabs()
+        for _, tab in self.tabs do
+            if tab.group.selected == tab.id then
+                tab.text:SetTextColor(unpack(m.color.label.enabled))
+                tab:Disable()
+                tab:SetBackdropColor(unpack(m.color.panel.backdrop))
+                tab.dock:Show()
+                tab:SetHeight(29)
+            else
+                tab.text:SetTextColor(unpack(m.color.text.enabled))
+                tab:Enable()
+                tab:SetBackdropColor(unpack(m.color.content.backdrop))
+                tab.dock:Hide()
+                tab:SetHeight(24)
+            end
+        end
+    end
+
+    return self
 end
 
-function m.editbox(parent, name)
+function public.editbox(parent)
 
---        local frame = CreateFrame('Frame', name, parent)
---        frame:Hide()
-
-    local editbox = CreateFrame('EditBox', name, parent)
+    local editbox = CreateFrame('EditBox', nil, parent)
     editbox:SetAutoFocus(false)
-    editbox:SetTextInsets(0, 0, 3, 3)
+    editbox:SetTextInsets(1, 2, 3, 3)
     editbox:SetMaxLetters(256)
-    editbox:SetHeight(19)
-    editbox:SetFont(m.config.content_font, m.config.normal_font_size)
+    editbox:SetHeight(22)
+    editbox:SetFont(m.config.font, m.config.medium_font_size)
     editbox:SetShadowColor(0, 0, 0, 0)
-    editbox:SetBackdrop({bgFile='Interface\\Buttons\\WHITE8X8', edgeFile='Interface\\Buttons\\WHITE8X8', edgeSize=m.config.edge_size})
-    editbox:SetBackdropColor(unpack(m.config.content_color))
-    editbox:SetBackdropBorderColor(unpack(m.config.content_border_color))
+    m.set_content_style(editbox)
+    editbox:SetScript('OnEditFocusGained', aux._(editbox.HighlightText, aux.this))
+    editbox:SetScript('OnEditFocusLost', aux._(editbox.HighlightText, aux.this, 0, 0))
+    editbox:SetScript('OnEscapePressed', aux._(editbox.ClearFocus, aux.this))
+    do
+        local last_time, last_x, last_y
+        editbox:SetScript('OnMouseUp', function()
+            local x, y = GetCursorPosition()
+            if last_time and GetTime() - last_time < .5 and x == last_x and y == last_y then
+	            last_time = nil
+                this:HighlightText()
+            else
+                last_time = GetTime()
+                last_x, last_y = x, y
+            end
+        end)
+    end
 
---        local label = frame:CreateFontString(nil, 'OVERLAY')
---        label:SetPoint('TOPLEFT', 0, -2)
---        label:SetPoint('TOPRIGHT', 0, -2)
---        label:SetJustifyH('LEFT')
---        label:SetJustifyV('CENTER')
---        label:SetHeight(18)
---        label:SetFont(m.config.content_font, m.config.normal_font_size)
---        label:SetShadowColor(0, 0, 0, 0)
+    function editbox:Enable()
+	    editbox:EnableMouse(true)
+	    editbox:SetTextColor(unpack(m.color.text.enabled))
+    end
+
+    function editbox:Disable()
+	    editbox:EnableMouse(false)
+	    editbox:SetTextColor(unpack(m.color.text.disabled))
+	    editbox:ClearFocus()
+    end
 
     return editbox
 end
 
-function m.status_bar(parent)
+function public.status_bar(parent)
     local self = CreateFrame('Frame', nil, parent)
 
     local level = parent:GetFrameLevel()
@@ -319,12 +390,6 @@ function m.status_bar(parent)
                 this:SetAlpha(1)
             end
         end)
---        local ag = status_bar:CreateAnimationGroup()
---        local alpha = ag:CreateAnimation('Alpha')
---        alpha:SetDuration(1)
---        alpha:SetChange(-.5)
---        ag:SetLooping('Bounce')
---        status_bar.ag = ag
         self.minor_status_bar = status_bar
     end
 
@@ -344,12 +409,6 @@ function m.status_bar(parent)
                 this:SetAlpha(1)
             end
         end)
---        local ag = status_bar:CreateAnimationGroup()
---        local alpha = ag:CreateAnimation('Alpha')
---        alpha:SetDuration(1)
---        alpha:SetChange(-.5)
---        ag:SetLooping('Bounce')
---        status_bar.ag = ag
         self.major_status_bar = status_bar
     end
 
@@ -357,8 +416,8 @@ function m.status_bar(parent)
         local text_frame = CreateFrame('Frame', nil, self)
         text_frame:SetFrameLevel(level + 4)
         text_frame:SetAllPoints(self)
-        local text = m.label(text_frame)
-        text:SetTextColor(unpack(m.config.text_color.enabled))
+        local text = m.label(text_frame, 15)
+        text:SetTextColor(unpack(m.color.text.enabled))
         text:SetPoint('CENTER', 0, 0)
         self.text = text
     end
@@ -366,19 +425,9 @@ function m.status_bar(parent)
     function self:update_status(major_status, minor_status)
         if major_status then
             self.major_status_bar:SetValue(major_status)
---            if major_status == 100 then
---                self.major_status_bar.ag:Stop()
---            elseif not self.major_status_bar.ag:IsPlaying() then
---                self.major_status_bar.ag:Play()
---            end
         end
         if minor_status then
             self.minor_status_bar:SetValue(minor_status)
---            if minor_status == 100 then
---                self.minor_status_bar.ag:Stop()
---            elseif not self.minor_status_bar.ag:IsPlaying() then
---                self.minor_status_bar.ag:Play()
---            end
         end
     end
 
@@ -389,263 +438,129 @@ function m.status_bar(parent)
     return self
 end
 
-function m.label(parent, size)
+function public.item(parent)
+    local item = CreateFrame('Frame', nil, parent)
+    item:SetWidth(260)
+    item:SetHeight(40)
+    local btn = CreateFrame('CheckButton', m.name(), item, 'ActionButtonTemplate')
+    item.button = btn
+    btn:SetPoint('LEFT', 2, .5)
+    btn:SetHighlightTexture(nil)
+    btn:RegisterForClicks()
+    item.texture = getglobal(btn:GetName()..'Icon')
+    item.texture:SetTexCoord(.06, .94, .06, .94)
+    item.name = aux.gui.label(btn, 15)
+    item.name:SetJustifyH('LEFT')
+    item.name:SetPoint('LEFT', btn, 'RIGHT', 10, 0)
+    item.name:SetPoint('RIGHT', item, 'RIGHT', -10, .5)
+    item.count = getglobal(btn:GetName()..'Count')
+    item.count:SetTextHeight(17)
+    return item
+end
+
+function public.label(parent, size)
     local label = parent:CreateFontString()
-    label:SetFont(m.config.content_font, size or m.config.normal_font_size)
-    label:SetTextColor(unpack(m.config.label_color.enabled))
+    label:SetFont(m.config.font, size or m.config.small_font_size)
+    label:SetTextColor(unpack(m.color.label.enabled))
     return label
 end
 
-function m.horizontal_line(parent, y_offset, inverted_color)
+function public.horizontal_line(parent, y_offset, inverted_color)
     local texture = parent:CreateTexture()
     texture:SetPoint('TOPLEFT', parent, 'TOPLEFT', 2, y_offset)
     texture:SetPoint('TOPRIGHT', parent, 'TOPRIGHT', -2, y_offset)
     texture:SetHeight(2)
     if inverted_color then
-        texture:SetTexture(unpack(m.config.frame_color))
+        texture:SetTexture(unpack(m.color.panel.backdrop))
     else
-        texture:SetTexture(unpack(m.config.content_color))
+        texture:SetTexture(unpack(m.color.content.backdrop))
     end
     return texture
 end
 
-function m.vertical_line(parent, x_offset, inverted_color)
+function public.vertical_line(parent, x_offset, top_offset, bottom_offset, inverted_color)
     local texture = parent:CreateTexture()
-    texture:SetPoint('TOPLEFT', parent, 'TOPLEFT', x_offset, -2)
-    texture:SetPoint('BOTTOMLEFT', parent, 'BOTTOMLEFT', x_offset, 2)
+    texture:SetPoint('TOPLEFT', parent, 'TOPLEFT', x_offset, top_offset or -2)
+    texture:SetPoint('BOTTOMLEFT', parent, 'BOTTOMLEFT', x_offset, bottom_offset or 2)
     texture:SetWidth(2)
     if inverted_color then
-        texture:SetTexture(unpack(m.config.frame_color))
+        texture:SetTexture(unpack(m.color.panel.backdrop))
     else
-        texture:SetTexture(unpack(m.config.content_color))
+        texture:SetTexture(unpack(m.color.content.backdrop))
     end
     return texture
 end
 
-do
-    local id = 0
-    function m.dropdown(parent)
-        id = id + 1
 
-        --    local frame = CreateFrame("Frame", nil, UIParent)
-        local dropdown = CreateFrame('Frame', 'aux_dropdown'..id, parent, 'UIDropDownMenuTemplate')
+function public.dropdown(parent)
+    local dropdown = CreateFrame('Frame', m.name(), parent, 'UIDropDownMenuTemplate')
+	m.set_content_style(dropdown, 0, 0, 2, 2)
 
-        dropdown:SetBackdrop({bgFile='Interface\\Buttons\\WHITE8X8', edgeFile='Interface\\Buttons\\WHITE8X8', edgeSize=Aux.gui.config.edge_size, insets={top=5,bottom=5}})
-        dropdown:SetBackdropColor(unpack(Aux.gui.config.content_color))
-        dropdown:SetBackdropBorderColor(unpack(Aux.gui.config.content_border_color))
-        local left = getglobal(dropdown:GetName()..'Left'):Hide()
-        local middle = getglobal(dropdown:GetName()..'Middle'):Hide()
-        local right = getglobal(dropdown:GetName()..'Right'):Hide()
+    getglobal(dropdown:GetName()..'Left'):Hide()
+    getglobal(dropdown:GetName()..'Middle'):Hide()
+    getglobal(dropdown:GetName()..'Right'):Hide()
 
-        local button = getglobal(dropdown:GetName()..'Button')
-        button:ClearAllPoints()
-        button:SetPoint('RIGHT', dropdown, 0, 0)
+    local button = getglobal(dropdown:GetName()..'Button')
+    button:ClearAllPoints()
+    button:SetPoint('RIGHT', dropdown, -1, 0)
+    dropdown.button = button
 
-        local text = getglobal(dropdown:GetName()..'Text')
-        text:ClearAllPoints()
-        text:SetPoint('RIGHT', button, 'LEFT', -2, 0)
-        text:SetPoint('LEFT', dropdown, 'LEFT', 8, 0)
-        text:SetFont(Aux.gui.config.content_font, 13)
-        text:SetShadowColor(0, 0, 0, 0)
+    local text = getglobal(dropdown:GetName()..'Text')
+    text:ClearAllPoints()
+    text:SetPoint('RIGHT', button, 'LEFT', -2, 0)
+    text:SetPoint('LEFT', 8, 0)
+    text:SetFont(m.config.font, m.config.medium_font_size)
+    text:SetShadowColor(0, 0, 0, 0)
 
-    --    frame:SetScript("OnHide", Dropdown_OnHide)
-    --
-    --    dropdown:ClearAllPoints()
-    --    dropdown:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -7, 0)
-    --    dropdown:SetScript("OnHide", nil)
-    --    dropdown:SetScript("OnEnter", Control_OnEnter)
-    --    dropdown:SetScript("OnLeave", Control_OnLeave)
-    --    dropdown:SetScript("OnMouseUp", function(self, button) Dropdown_TogglePullout(self.obj.button, button) end)
-    --    TSMAPI.Design:SetContentColor(dropdown)
-    --
-    --    local left = _G[dropdown:GetName().."Left"]
-    --    local middle = _G[dropdown:GetName().."Middle"]
-    --    local right = _G[dropdown:GetName().."Right"]
-    --
-    --    middle:ClearAllPoints()
-    --    right:ClearAllPoints()
-    --
-    --    middle:SetPoint("LEFT", left, "RIGHT", 0, 0)
-    --    middle:SetPoint("RIGHT", right, "LEFT", 0, 0)
-    --    right:SetPoint("TOPRIGHT", dropdown, "TOPRIGHT", 0, 17)
-    --
-    --    local button = _G[dropdown:GetName().."Button"]
-    --    button:RegisterForClicks("AnyUp")
-    --    button:SetScript("OnEnter", Control_OnEnter)
-    --    button:SetScript("OnLeave", Control_OnLeave)
-    --    button:SetScript("OnClick", Dropdown_TogglePullout)
-    --    button:ClearAllPoints()
-    --    button:SetPoint("RIGHT", dropdown, 0, 0)
-    --
-    --    local text = _G[dropdown:GetName().."Text"]
-    --    text:ClearAllPoints()
-    --    text:SetPoint("RIGHT", button, "LEFT", -2, 0)
-    --    text:SetPoint("LEFT", dropdown, "LEFT", 8, 0)
-    --    text:SetFont(TSMAPI.Design:GetContentFont("normal"))
-    --    text:SetShadowColor(0, 0, 0, 0)
-    --
-    --    local label = frame:CreateFontString(nil, "OVERLAY")
-    --    label:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
-    --    label:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, 0)
-    --    label:SetJustifyH("LEFT")
-    --    label:SetHeight(18)
-    --    label:SetFont(TSMAPI.Design:GetContentFont("small"))
-    --    label:SetShadowColor(0, 0, 0, 0)
-    --    label:Hide()
-    --
-    --    left:Hide()
-    --    middle:Hide()
-    --    right:Hide()
-    --
-    --    local widget = {
-    --        frame = frame,
-    --        label = label,
-    --        dropdown = dropdown,
-    --        text = text,
-    --        button = button,
-    --        count = count,
-    --        alignoffset = 30,
-    --        type = Type,
-    --    }
-    --    for method, func in pairs(methods) do
-    --        widget[method] = func
-    --    end
-    --    frame.obj = widget
-    --    dropdown.obj = widget
-    --    text.obj = widget
-    --    button.obj = widget
-
-        return dropdown
-    end
+    return dropdown
 end
 
-function m.slider(frame, name)
---    local frame = CreateFrame('Frame', nil, UIParent)
---
---    frame:EnableMouse(true)
---    frame:SetScript("OnMouseDown", Frame_OnMouseDown)
---    frame:SetScript("OnEnter", Control_OnEnter)
---    frame:SetScript("OnLeave", Control_OnLeave)
---
+function public.slider(parent)
 
-    local slider = CreateFrame('Slider', name, frame)
+    local slider = CreateFrame('Slider', nil, parent)
     slider:SetOrientation('HORIZONTAL')
     slider:SetHeight(6)
-    slider:SetHitRectInsets(0, 0, -8, -8)
---    slider:SetPoint('TOPLEFT', label, 'BOTTOMLEFT', 3, -4)
---    slider:SetPoint('TOPRIGHT', label, 'BOTTOMRIGHT', -6, -4)
+    slider:SetHitRectInsets(0, 0, -12, -12)
     slider:SetValue(0)
-    slider:SetBackdrop({ bgFile='Interface\\Buttons\\WHITE8X8', edgeFile='Interface\\Buttons\\WHITE8X8', edgeSize=m.config.edge_size })
-    slider:SetBackdropColor(unpack(m.config.frame_color))
-    slider:SetBackdropBorderColor(unpack(m.config.frame_border_color))
+
+    m.set_panel_style(slider)
     local thumb_texture = slider:CreateTexture(nil, 'ARTWORK')
     thumb_texture:SetPoint('CENTER', 0, 0)
-    thumb_texture:SetTexture(unpack(m.config.content_color))
-    thumb_texture:SetHeight(15)
+    thumb_texture:SetTexture(unpack(m.color.content.backdrop))
+    thumb_texture:SetHeight(18)
     thumb_texture:SetWidth(8)
     slider:SetThumbTexture(thumb_texture)
 
     local label = slider:CreateFontString(nil, 'OVERLAY')
-    label:SetPoint('BOTTOMLEFT', slider, 'TOPLEFT', -3, 6)
-    label:SetPoint('BOTTOMRIGHT', slider, 'TOPRIGHT', 6, 6)
+    label:SetPoint('BOTTOMLEFT', slider, 'TOPLEFT', -3, 8)
+    label:SetPoint('BOTTOMRIGHT', slider, 'TOPRIGHT', 6, 8)
     label:SetJustifyH('LEFT')
     label:SetHeight(13)
-    label:SetFont(m.config.content_font, m.config.normal_font_size)
-    label:SetTextColor(unpack(m.config.label_color.enabled))
+    label:SetFont(m.config.font, m.config.small_font_size)
+    label:SetTextColor(unpack(m.color.label.enabled))
 
-
---    local lowtext = slider:CreateFontString(nil, 'ARTWORK')
---    lowtext:SetFont(TSMAPI.Design:GetContentFont('small'))
---    lowtext:SetPoint('TOPLEFT', slider, 'BOTTOMLEFT', 2, -4)
---
---    local hightext = slider:CreateFontString(nil, 'ARTWORK')
---    hightext:SetFont(TSMAPI.Design:GetContentFont('small'))
---    hightext:SetPoint('TOPRIGHT', slider, 'BOTTOMRIGHT', -2, -4)
---
-    local editbox = CreateFrame('EditBox', nil, slider)
-    editbox:SetAutoFocus(false)
+    local editbox = m.editbox(slider)
     editbox:SetPoint('LEFT', slider, 'RIGHT', 5, 0)
-    editbox:SetHeight(15)
-    editbox:SetWidth(70)
+    editbox:SetWidth(50)
+    editbox:SetHeight(18)
     editbox:SetJustifyH('CENTER')
-    editbox:EnableMouse(true)
-    editbox:SetBackdrop({ bgFile='Interface\\Buttons\\WHITE8X8', edgeFile='Interface\\Buttons\\WHITE8X8', edgeSize=m.config.edge_size })
-    editbox:SetBackdropColor(unpack(m.config.content_color))
-    editbox:SetBackdropBorderColor(unpack(m.config.content_border_color))
---    editbox:SetScript('OnEnterPressed', EditBox_OnEnterPressed)
---    editbox:SetScript('OnEscapePressed', EditBox_OnEscapePressed)
---    editbox:SetScript('OnTextChanged', EditBox_OnTextChanged)
---    editbox:SetScript('OnEnter', Control_OnEnter)
---    editbox:SetScript('OnLeave', Control_OnLeave)
---    editbox:SetFont(m.config.content_font, m.config.normal_font_size)
-    editbox:SetFont(m.config.content_font, m.config.normal_button_font_size)
-    editbox:SetShadowColor(0, 0, 0, 0)
---
---    local button = CreateFrame('Button', nil, editbox, 'UIPanelButtonTemplate')
---    button:SetWidth(40)
---    button:SetHeight(20)
---    button:SetPoint('LEFT', editbox, 'RIGHT', 2, 0)
---    button:SetText(OKAY)
---    button:SetScript('OnClick', Button_OnClick)
---    button:Hide()
---
---    local widget = {
---        label       = label,
---        slider      = slider,
---        lowtext     = lowtext,
---        hightext    = hightext,
---        editbox     = editbox,
---        button		= button,
---        alignoffset = 25,
---        frame       = frame,
---        type        = Type
---    }
---    for method, func in pairs(methods) do
---        widget[method] = func
---    end
---    slider.obj, editbox.obj, button.obj, frame.obj = widget, widget, widget, widget
-
+    editbox:SetFont(m.config.font, 17)
 
     slider.label = label
     slider.editbox = editbox
     return slider
 end
 
---function m.checkbox()
---    local frame = CreateFrame('Button', nil, UIParent)
---    frame:Hide()
---    frame:EnableMouse(true)
---    frame:SetScript("OnEnter", Control_OnEnter)
---    frame:SetScript("OnLeave", Control_OnLeave)
---    frame:SetScript("OnMouseDown", CheckBox_OnMouseDown)
---    frame:SetScript("OnMouseUp", CheckBox_OnMouseUp)
---
---    local checkbox = CreateFrame('Button', nil, frame)
---    checkbox:EnableMouse(false)
---    checkbox:SetWidth(16)
---    checkbox:SetHeight(16)
---    checkbox:SetPoint('TOPLEFT', 4, -4)
---    checkbox:SetBackdrop({ bgFile='Interface\\Buttons\\WHITE8X8', edgeFile='Interface\\Buttons\\WHITE8X8', edgeSize=m.config.edge_size })
---    checkbox:SetBackdropColor(unpack(m.config.content_color))
---    checkbox:SetBackdropBorderColor(unpack(m.config.content_border_color))
---    local highlight = checkbox:CreateTexture(nil, 'HIGHLIGHT')
---    highlight:SetAllPoints()
---    highlight:SetTexture(1, 1, 1, .2)
---    highlight:SetBlendMode('BLEND')
---
---    local check = checkbox:CreateTexture(nil, 'OVERLAY')
---    check:SetTexture([[Interface\Buttons\UI-CheckBox-Check]])
---    check:SetTexCoord(.12, .88, .12, .88)
---    check:SetBlendMode('BLEND')
---    check:SetPoint('BOTTOMRIGHT')
---
---    local text = frame:CreateFontString(nil, 'OVERLAY')
---    text:SetJustifyH('LEFT')
---    text:SetHeight(18)
---    text:SetPoint('LEFT', checkbox, 'RIGHT')
---    text:SetPoint('RIGHT')
---    text:SetFont(m.config.content_font, m.config.normal_font_size)
---
---    checkbox.text = text
---    return checkbox
---end
+function public.checkbox(parent)
+    local checkbox = CreateFrame('CheckButton', nil, parent, 'UICheckButtonTemplate')
+    checkbox:SetWidth(16)
+    checkbox:SetHeight(16)
+	m.set_content_style(checkbox)
+    checkbox:SetNormalTexture(nil)
+    checkbox:SetPushedTexture(nil)
+    checkbox:GetHighlightTexture():SetAllPoints()
+    checkbox:GetHighlightTexture():SetTexture(1, 1, 1, .2)
+    checkbox:GetCheckedTexture():SetTexCoord(.12, .88, .12, .88)
+    checkbox:GetHighlightTexture('BLEND')
+    return checkbox
+end

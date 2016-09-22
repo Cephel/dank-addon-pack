@@ -1,34 +1,40 @@
-local private, public = {}, {}
-Aux.control = public
+local m, public, private = aux.module'control'
 
-private.event_listeners = {}
+private.event_frame = CreateFrame('Frame')
+private.listeners = {}
 private.threads = {}
+public.thread_id = nil
 
-function public.on_event()
-	for listener, _ in pairs(private.event_listeners) do
-		if event == listener.event and not listener.deleted then
-			listener.action()
+function m.LOAD()
+	m.event_frame:SetScript('OnUpdate', m.UPDATE)
+	m.event_frame:SetScript('OnEvent', m.EVENT)
+end
+
+function private.EVENT()
+	for _, listener in m.listeners do
+		if event == listener.event and not listener.killed then
+			listener.cb(listener.kill)
 		end
 	end
 end
 
-function public.on_update()
-	private.event_listeners = Aux.util.set_filter(private.event_listeners, function(l) return not l.deleted end)
-	local threads = {}
-	for thread_id, thread in pairs(private.threads) do
-		if not thread.killed then
-			threads[thread_id] = thread
+function private.UPDATE()
+	for _, listener in m.listeners do
+		if not aux.util.any(m.listeners, function(l) return not l.killed and l.event == listener.event end) then
+			m.event_frame:UnregisterEvent(listener.event)
 		end
 	end
-	private.threads = threads
 
-	for thread_id, thread in pairs(private.threads) do
+	m.listeners = aux.util.filter(m.listeners, function(l) return not l.killed end)
+	m.threads = aux.util.filter(m.threads, function(th) return not th.killed end)
+
+	for thread_id, thread in m.threads do
 		if not thread.killed then
 			local k = thread.k
 			thread.k = nil
-			public.thread_id = thread_id
+			m.thread_id = thread_id
 			k()
-			public.thread_id = nil
+			m.thread_id = nil
 			if not thread.k then
 				thread.killed = true
 			end
@@ -36,79 +42,58 @@ function public.on_update()
 	end
 end
 
-function public.event_listener(event, action)
-	local self = {}
-	
-	local listener = { event=event, action=action }
-	
-	function self:set_action(action)
-		listener.action = action
-	end
-	
-	function self:start()
-		Aux.util.set_add(private.event_listeners, listener)
-		AuxControlFrame:RegisterEvent(event)
-		return self
-	end
-	
-	function self:stop()
-		listener.deleted = true
-		if not Aux.util.any(Aux.util.set_to_array(private.event_listeners), function(l) return l.event == event end) then
-			AuxControlFrame:UnregisterEvent(event)
-		end
-		return self
-	end
-	
-	return self
-end
-
-function public.on_next_event(event, callback)
-	local listener = public.event_listener(event)
-	
-	listener:set_action(function()
-		listener:stop()
-		return callback()
-	end)
-	
-	listener:start()
-end
-
-function public.on_next_update(callback)
-	return public.new_thread(callback)
-end
-
-function public.as_soon_as(p, callback)
-	return public.new_thread(function()
-		return public.wait_until(p, callback)
-	end)
-end
-
 do
-	local next_thread_id = 1
-	function public.new_thread(k)
-		local thread_id = next_thread_id
-		next_thread_id = next_thread_id + 1
-		private.threads[thread_id] = { k = k }
-		return thread_id
+	local id = 0
+	function private.id()
+		id = id + 1
+		return id
+	end
+end
+
+function public.kill_listener(listener_id)
+	for _, listener in {m.listeners[listener_id]} do
+		listener.killed = true
 	end
 end
 
 function public.kill_thread(thread_id)
-	if thread_id and private.threads[thread_id] then
-		private.threads[thread_id].killed = true
+	for _, thread in {m.threads[thread_id]} do
+		thread.killed = true
 	end
 end
 
-function public.wait(...)
-	local k = tremove(arg, 1)
-	private.threads[public.thread_id].k = function() return k(unpack(arg)) end
+function public.event_listener(event, cb)
+	local listener_id = m.id()
+	m.listeners[listener_id] = { event=event, cb=cb, kill=function(...) if arg.n == 0 or arg[1] then m.kill_listener(listener_id) end end }
+	m.event_frame:RegisterEvent(event)
+	return listener_id
 end
 
-function public.wait_until(p, ...)
-	local k = tremove(arg, 1)
+function public.on_next_event(event, callback)
+	m.event_listener(event, function(kill)
+		callback()
+		kill()
+	end)
+end
+
+function public.thread(k, ...)
+	local thread_id = m.id()
+	m.threads[thread_id] = { k = aux._(k, unpack(arg)) }
+	return thread_id
+end
+
+function public.wait(k, ...)
+	if type(k) == 'number' then
+		m.when(function() k = k - 1 return k <= 1 end, unpack(arg))
+	else
+		m.threads[m.thread_id].k = aux._(k, unpack(arg))
+	end
+end
+
+function public.when(p, k, ...)
 	if p() then
 		return k(unpack(arg))
 	else
-		return public.wait(public.wait_until, p, function() return k(unpack(arg)) end)
+		return m.wait(m.when, p, aux._(k, unpack(arg)))
 	end
 end

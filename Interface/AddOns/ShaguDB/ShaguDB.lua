@@ -8,7 +8,7 @@ ShaguDB_VARIABLES_LOADED:RegisterEvent("VARIABLES_LOADED");
 ShaguDB_VARIABLES_LOADED:SetScript("OnEvent", function(self, event, ...)
     ShaguDBDB = {}; ShaguDBDBH = {};
     ShaguDB_MAP_NOTES = {};
-    ShaguDB_Print("|cff33ff88ShaguDB|cffffffff 6.5 |cffaaaaaa [enGB]");
+    ShaguDB_Print("|cff33ff88ShaguDB|cffffffff 7.2 |cffaaaaaa [enGB]");
     Cartographer_Notes:RegisterNotesDatabase("ShaguDB",ShaguDBDB,ShaguDBDBH);
 
     -- load symbols
@@ -76,7 +76,7 @@ SLASH_SHAGU1 = "/shagu";
 SlashCmdList["SHAGU"] = function(input, editbox)
   local params = {};
   if (input == "" or input == nil) then
-    ShaguDB_Print("|cff33ff88ShaguDB|cffffffff 6.5 |cff00ccff[" .. UnitFactionGroup("player") .. "]|cffaaaaaa [enGB]");
+    ShaguDB_Print("|cff33ff88ShaguDB|cffffffff 7.2 |cff00ccff[" .. UnitFactionGroup("player") .. "]|cffaaaaaa [enGB]");
     ShaguDB_Print("Available Commands:");
     ShaguDB_Print("/shagu spawn <mob|gameobject> |cffaaaaaa - search objects");
     ShaguDB_Print("/shagu item <item> |cffaaaaaa - search loot");
@@ -300,11 +300,18 @@ function ShaguDB_searchMonster(monsterName,questTitle,questGiver)
       local f, t, coordx, coordy, zone = strfind(spawnDB[monsterName]["coords"][cid], "(.*),(.*),(.*)");
       zoneName = zoneDB[tonumber(zone)];
 
+      local level = spawnDB[monsterName]["level"]
+      if level ~= 0 then 
+        level = "\nLevel: " .. level 
+      else
+        level = ""
+      end
+
       if(questTitle ~= nil) then
         if(questGiver ~= nil) then
-          table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, "Quest: "..questTitle, monsterName, "quest", 0});
+          table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, "Quest: "..questTitle, monsterName .. level, "quest", 0});
         else
-          table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, "Quest: "..questTitle, "Kill: "..monsterName, cMark, 0});
+          table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, "Quest: "..questTitle, "Kill: "..monsterName .. level, cMark, 0});
         end
       else
         if (zoneName ~= oldZone and strfind(zoneList, zoneName) == nil) then
@@ -315,16 +322,17 @@ function ShaguDB_searchMonster(monsterName,questTitle,questGiver)
             showmax = showmax + 1;
           end
         end
-        table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, monsterName, coordx..","..coordy, cMark, 0});
+        table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, monsterName, "Coords: " .. coordx..","..coordy .. level, cMark, 0});
       end
     end
   end
 end
 
 
-function ShaguDB_searchItem(itemName,questTitle)
+function ShaguDB_searchItem(itemName,questTitle,autotrack)
   local runonce = false;
   firstIsBest = false;
+  local showmax = 0;
   ShaguDB_NextCMark();
 
   if (itemName ~= nil and itemDB[itemName] ~= nil) then
@@ -336,42 +344,55 @@ function ShaguDB_searchItem(itemName,questTitle)
 
       if(spawnDB[monsterName] ~= nil) then
         zoneList = " "
-        for cid, cdata in pairs(spawnDB[monsterName]["coords"]) do
-          hasResult = true;
-          local f, t, coordx, coordy, zone = strfind(spawnDB[monsterName]["coords"][cid], "(.*),(.*),(.*)");
-          zoneName = zoneDB[tonumber(zone)];
+        if(questTitle == nil and runonce == false) then
+          ShaguDB_Print("|cffffcc33ShaguDB: |cffffffffDropchances for |cff33ff88"..itemName.."|cffffffff at:" );
+          showmax = 0;
+          runonce = true
+        end
+        if spawnDB[monsterName]["coords"] then
+          for cid, cdata in pairs(spawnDB[monsterName]["coords"]) do
+            hasResult = true;
+            local f, t, coordx, coordy, zone = strfind(spawnDB[monsterName]["coords"][cid], "(.*),(.*),(.*)");
+            zoneName = zoneDB[tonumber(zone)];
+            local level = spawnDB[monsterName]["level"]
+            if level ~= 0 then 
+              level = "\nLevel: " .. level 
+            else
+              level = ""
+            end
 
-          if(questTitle == nil and runonce == false) then
-            ShaguDB_Print("|cffffcc33ShaguDB: |cffffffffDropchances for |cff33ff88"..itemName.."|cffffffff at:" );
-            showmax = 0;
-            runonce = true
-          end
+            if questTitle ~= nil and autotrack and showmax < 5 then
+              table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, "Quest: "..questTitle, monsterName .. level .. "\nLoot: " ..itemName .. "\nDropchance: " .. dropRate, cMark, 0});
+            elseif questTitle ~= nil and not autotrack then
+              table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, "Quest: "..questTitle, monsterName .. level .. "\nLoot: " ..itemName .. "\nDropchance: " .. dropRate, cMark, 0});
+            end
 
-          if(questTitle ~= nil) then
-            table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, "Quest: "..questTitle, monsterName .. "\nLoot: " ..itemName .. "\nDropchance: " .. dropRate, cMark, 0});
-          else
-            table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, itemName, monsterName .. "\nDrop: " .. dropRate, cMark, 0});
-          end
+            if questTitle == nil then
+              table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, itemName, monsterName .. level .. "\nDrop: " .. dropRate, cMark, 0});
+            end
 
-          -- set best map
-          bestZone = zoneDB[tonumber(spawnDB[monsterName]["zone"])];
-          if(firstIsBest ~= true) then
-            globalBestZone = zoneDB[tonumber(spawnDB[monsterName]["zone"])];
-          end
+            -- set best map
+            bestZone = zoneDB[tonumber(spawnDB[monsterName]["zone"])];
+            if(firstIsBest ~= true) then
+              globalBestZone = zoneDB[tonumber(spawnDB[monsterName]["zone"])];
+            end
 
-          -- build zone string
-          if (zoneName ~= oldZone and strfind(zoneList, zoneName) == nil) then
-            zoneList = zoneList .. "[" .. zoneName .. "] "
-            oldZone = zoneName
+            -- build zone string
+            if (zoneName ~= oldZone and strfind(zoneList, zoneName) == nil) then
+              zoneList = zoneList .. "[" .. zoneName .. "] "
+              oldZone = zoneName
+            end
           end
         end
         if(questTitle == nil and showmax < 5) then
+          if dropRate == "0.00%" then dropRate = "N/A" end
+          if zoneList == " " then zoneList = "[unknown]" end
           ShaguDB_Print(" |cffffffff (" .. dropRate .. ")" .. " |cffffff00" .. monsterName .. "|caaaaaaaa " .. zoneList);
         end
         if(questTitle == nil) then
           firstIsBest = true;
-          showmax = showmax + 1;
         end
+        showmax = showmax + 1;
       end
     end
     if(questTitle == nil) then
@@ -395,32 +416,37 @@ function ShaguDB_searchVendor(itemName,questTitle)
       if (dropRate == "0") then dropRate = "Infinite"; else dropRate = dropRate; end
 
       if(spawnDB[monsterName] ~= nil and strfind(spawnDB[monsterName]["faction"], faction) ~= nil) then
-        for cid, cdata in pairs(spawnDB[monsterName]["coords"]) do
-          local f, t, coordx, coordy, zone = strfind(spawnDB[monsterName]["coords"][cid], "(.*),(.*),(.*)");
-          zoneName = zoneDB[tonumber(zone)];
+        if spawnDB[monsterName]["coords"] then
+          for cid, cdata in pairs(spawnDB[monsterName]["coords"]) do
+            local f, t, coordx, coordy, zone = strfind(spawnDB[monsterName]["coords"][cid], "(.*),(.*),(.*)");
+            zoneName = zoneDB[tonumber(zone)];
 
-          if(questTitle ~= nil) then
-            table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, "Quest: "..questTitle, monsterName .. "\nBuy: " ..itemName .. "\nCount: " .. dropRate, "vendor", 0});
-          else
-            table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, itemName, monsterName .. "\nSells: " .. dropRate, "vendor", 0});
-          end
-
-          -- build zone string
-          if (strfind(zoneList, zoneName) == nil) then
-            zoneList = zoneList .. zoneName .. ", "
-            if(questTitle == nil and showmax < 5) then
-              ShaguDB_Print(" |cffffffff (" .. coordx .. " , ".. coordy .. ")" .. " |cffffff00" .. monsterName .. "|caaaaaaaa [" .. zoneName.."]");
-              showmax = showmax + 1;
+            if(questTitle ~= nil) then
+              table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, "Quest: "..questTitle, monsterName .. "\nBuy: " ..itemName .. "\nCount: " .. dropRate, "vendor", 0});
+            else
+              table.insert(ShaguDB_MAP_NOTES,{zoneName, coordx, coordy, itemName, monsterName .. "\nSells: " .. dropRate, "vendor", 0});
             end
-            oldZone = zoneName
-          end
 
-          if (strfind(zoneList,GetZoneText()) ~= nil) then
-            bestZone = GetZoneText();
-          else
-            bestZone = zoneName
+            -- build zone string
+            if (strfind(zoneList, zoneName) == nil) then
+              zoneList = zoneList .. zoneName .. ", "
+              if(questTitle == nil and showmax < 5) then
+                ShaguDB_Print(" |cffffffff (" .. coordx .. " , ".. coordy .. ")" .. " |cffffff00" .. monsterName .. "|caaaaaaaa [" .. zoneName.."]");
+                showmax = showmax + 1;
+              end
+              oldZone = zoneName
+            end
+
+            if (strfind(zoneList,GetZoneText()) ~= nil) then
+              bestZone = GetZoneText();
+            else
+              bestZone = zoneName
+            end
           end
         end
+      end
+      if(questTitle == nil and showmax < 1) then
+        ShaguDB_Print(" |cffffffff (??,??)" .. " |cffffff00" .. monsterName .. "|caaaaaaaa [unknown]");
       end
     end
   end
@@ -440,7 +466,7 @@ function ShaguDB_searchQuests(zoneName)
     if(zone ~= nil) then
       for questTitle, questGiver in pairs(questDB) do
         for questGiver in pairs(questGiver) do
-          if (questGiver ~= "" and questGiver ~= nil and spawnDB[questGiver] ~= nil and strfind(spawnDB[questGiver]["faction"], faction) ~= nil) then
+          if (questGiver ~= "" and questGiver ~= nil and spawnDB[questGiver] ~= nil and strfind(spawnDB[questGiver]["faction"], faction) ~= nil) and spawnDB[questGiver]["coords"] then
             for cid, cdata in pairs(spawnDB[questGiver]["coords"]) do
               local f, t, coordx, coordy, zoneGiver = strfind(spawnDB[questGiver]["coords"][cid], "(.*),(.*),(.*)");
 
@@ -452,5 +478,87 @@ function ShaguDB_searchQuests(zoneName)
         end
       end
     end
+  end
+end
+
+local HookSetItemRef = SetItemRef
+SetItemRef = function (link, text, button)
+  isQuest, _, questID = string.find(link, "quest:(%d+):.*");
+  isQuest2, _, _ = string.find(link, "quest2:.*");
+
+  _, _, questLevel = string.find(link, "quest:%d+:(%d+)");
+  local playerHasQuest = false
+
+  if isQuest then
+    -- A usual Quest Link introduced in 2.0x
+    ShowUIPanel(ItemRefTooltip);
+    ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE");
+
+    hasTitle, _, questTitle = string.find(text, ".*|h%[(.*)%]|h.*");
+    if hasTitle then
+      ItemRefTooltip:AddLine(questTitle, 1,1,0)
+    end
+
+    for i=1, GetNumQuestLogEntries() do
+      local questlogTitle, level, questTag, suggestedGroup, isHeader, isCollapsed, isComplete, isDaily, questID = GetQuestLogTitle(i);
+      if questTitle == questlogTitle then
+        playerHasQuest = true
+        SelectQuestLogEntry(i)
+        local _, text = GetQuestLogQuestText()
+        ItemRefTooltip:AddLine(text,1,1,1,true)
+
+        for j=1, GetNumQuestLeaderBoards() do
+          if j == 1 and GetNumQuestLeaderBoards() > 0 then ItemRefTooltip:AddLine("|cffffffff ") end
+          local desc, type, done = GetQuestLogLeaderBoard(j)
+          if done then ItemRefTooltip:AddLine("|cffaaffaa"..desc.."|r")
+          else ItemRefTooltip:AddLine("|cffffffff"..desc.."|r") end
+        end
+      end
+    end
+
+    if playerHasQuest == false then
+      ItemRefTooltip:AddLine("You don't have this quest.", 1, .8, .8)
+    end
+
+    if questLevel ~= 0 and questLevel ~= "0" then
+      local color = GetDifficultyColor(questLevel)
+      ItemRefTooltip:AddLine("Quest Level " .. questLevel, color.r, color.g, color.b)
+    end
+
+    ItemRefTooltip:Show()
+
+  elseif isQuest2 then
+    -- QuestLink Compatibility
+      ShowUIPanel(ItemRefTooltip);
+      ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE");
+      hasTitle, _, questTitle = string.find(text, ".*|h%[(.*)%]|h.*");
+      if hasTitle then
+        ItemRefTooltip:AddLine(questTitle, 1,1,0)
+      end
+      ItemRefTooltip:AddLine("(Unknown QuestLink).", 1, .3, .3)
+
+      for i=1, GetNumQuestLogEntries() do
+        local questlogTitle, level, questTag, suggestedGroup, isHeader, isCollapsed, isComplete, isDaily, questID = GetQuestLogTitle(i);
+        if questTitle == questlogTitle then
+          playerHasQuest = true
+          SelectQuestLogEntry(i)
+          local _, text = GetQuestLogQuestText()
+          ItemRefTooltip:AddLine(text,1,1,1,true)
+
+          for j=1, GetNumQuestLeaderBoards() do
+            if j == 1 and GetNumQuestLeaderBoards() > 0 then ItemRefTooltip:AddLine("|cffffffff ") end
+            local desc, type, done = GetQuestLogLeaderBoard(j)
+            if done then ItemRefTooltip:AddLine("|cffaaffaa"..desc.."|r")
+            else ItemRefTooltip:AddLine("|cffffffff"..desc.."|r") end
+          end
+        end
+      end
+
+      if playerHasQuest == false then
+        ItemRefTooltip:AddLine("You don't have this quest.", 1, .8, .8)
+      end
+      ItemRefTooltip:Show()
+  else
+    HookSetItemRef(link, text, button)
   end
 end

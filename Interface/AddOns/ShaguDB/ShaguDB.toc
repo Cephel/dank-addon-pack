@@ -2,10 +2,10 @@
 ## Title: |cff33ffccShagu|cffffffffDB
 ## Author: Eric (Shagu) Mauser, 2015
 ## Notes: A Quest-, Item-, Vendor- and Spawn-database. Notes are shown via Cartographer.
-## Version: 6.5-enGB
+## Version: 7.2-enGB
 ## RequiredDeps: Cartographer
 ## OptionalDeps: ShaguQuest
-## SavedVariables: ShaguMinimapPosition ShaguMinimapEnabled SDBG_Favourites
+## SavedVariables: ShaguMinimapPosition ShaguMinimapEnabled SDBG_Favs
 
 # database
 db\zoneDB.lua

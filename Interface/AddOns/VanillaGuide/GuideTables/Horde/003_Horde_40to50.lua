@@ -43,7 +43,7 @@ Table_003_Horde_40to50 = {
 			[18] = { str = "18) #DOQUEST\"Study of the Elements: Rock\"# (#NPCgreater rock elementals#)" },
 			[19] = { str = "19) Then make sure all Badlands quests (besides #ACCEPT\"Report to Helgrum\"# ) are done and turned in." },
 			[20] = { str = "20) You should be about level 41 right now, if not grind to it." },
-			[21] = { str = "21) Hearth to BB and check if you have #DOQUEST\"Dream Dust in the Swamp\"# in your questlog. If not, go accept it from Krazek at 27.77", x = 27, y = 77, zone = "Stranlethorn Vale" },
+			[21] = { str = "21) Hearth to BB and check if you have #DOQUEST\"Dream Dust in the Swamp\"# in your questlog. If not, go accept it from Krazek at 27.77", x = 27, y = 77, zone = "Stranglethorn Vale" },
 			[22] = { str = "22) Fly to Grom'gol." },
 			[23] = { str = "23) Go turn in all the #NPCThe Green Hills of Stranglethorn Chapters/Quests# at Nesingwary's Expedition (35.10) if you have all the pages for it, if not you have another chance to turn this in again later.  You can also look in the AH for your missing pages.", x = 35, y = 10, zone = "Badlands" },
 			[24] = { str = "24) Then run all the way to Swamp of Sorrows, stopping along the way to accept this quest: #ACCEPT\"Nothing But the Truth\"# (in Duskwood at 87.35)", x = 87, y = 35, zone = "Duskwood" },

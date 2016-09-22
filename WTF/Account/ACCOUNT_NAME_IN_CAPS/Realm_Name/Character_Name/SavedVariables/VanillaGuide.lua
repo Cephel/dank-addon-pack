@@ -4,14 +4,11 @@ VanillaGuideDBPC = {
 		["UI"] = {
 			["MainFrameAnchor"] = {
 				["sTo"] = "TOPLEFT",
-				["nX"] = 970,
+				["nX"] = 975,
 				["sFrom"] = "TOPLEFT",
-				["nY"] = -450,
+				["nY"] = -385,
 			},
-			["MainFrameSize"] = {
-				["nWidth"] = 320,
-				["nHeight"] = 330,
-			},
+			["StepScroll"] = 0.48,
 			["Locked"] = true,
 			["ScrollFrameVisible"] = false,
 			["Layer"] = "MEDIUM",
@@ -20,6 +17,10 @@ VanillaGuideDBPC = {
 				["nA"] = 0,
 				["nB"] = 0.1098039215686275,
 				["nG"] = 0.1098039215686275,
+			},
+			["MainFrameSize"] = {
+				["nWidth"] = 320.0000043767834,
+				["nHeight"] = 320.0000145892778,
 			},
 		},
 	},

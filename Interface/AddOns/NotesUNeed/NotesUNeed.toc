@@ -1,5 +1,5 @@
 ## Interface: 11200
-## Title: |cFF006699UUI -|r Notes'U'Need v3.21.11200
+## Title: |cFF006699UUI -|r Notes'U'Need v3.21.11000
 ## Notes: Notes Manager that allows you to track Friends, Ignores, Guild members, Quests, Items and generic notes
 ##  storing information like Professions, Guild, PvP ranks, real world contact information, and anything
 ##  else you like really.  Also provides a search function allowing the user to find notes on players
