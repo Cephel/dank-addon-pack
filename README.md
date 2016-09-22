@@ -9,59 +9,38 @@ An addon pack designed to be functional and only have things that are actually w
 - Rename `WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name` to correct character name
   - You can copy this folder to account for multiple characters
 
-# Troubleshooting
-- Delete `WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/layout-cache.txt` if you can't see KTM and SW_Stats on the screen
-- Delete `WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/VanillaGuide.lua` if you can't see VanillaGuide on the screen
-
-# Automization TODO:
-- EQL3
-	- Restore position
-	- Lock tracker
-	- Untick Zones in tracker
-	- Add untracked on progress
-	- Remove finished quests from tracker
-
 # Credits
-A list of addons used in this pack:
-- !ImprovedErrorFrame
+- [Shagu](http://shaguaddons.ericmauser.de/shaguui/), for the scaffolding on which the UI rests, mainly ShaguUI
+
+## Other addons included
 - !OmniCC
-- Ace
-- Align
 - Atlas
 - AtlasLoot
 - AtlasQuest
 - Auctioneer
-- Bagnon
-- Bagnon_Core
-- Bagnon_Options
-- Banknon
+- Aux-Addon
 - BonusScanner
-- ClosetGnome
-- CustomNameplates
+- Cartographer
+- CT_MailMod
 - EnhTooltip
-- EQL3
 - EquipCompare
-- EzDismount
-- FriendShare
-- GMail
 - Informant
 - KLHThreatMeter
-- La_Vendetta_Boss_Mods
-- LunaUnitFrames
+- La Vendetta Boss Mods
 - MCP
-- MetaMap
-- MetaMapBWP
-- MetaMapFWM
 - MikScrollingBattleText
 - MikScrollingBattleTextOptions
-- MobHealth
-- NiceDamage
 - NotesUNeed
 - Opium
-- Prat
-- SimpleCombatLog
+- Outfitter
+- Samuel
+- ShaguDB
+- ShaguQuest
 - Stubby
+- SuperMacro
 - SW_FixLogStrings
 - SW_Stats
 - VanillaGuide
 - vQueue
+- WIM
+- LazyPig
