@@ -1,0 +1,3 @@
+[submodule "Interface/AddOns/pfUI"]
+	path = Interface/AddOns/pfUI
+	url = git://github.com/shagu/pfUI
