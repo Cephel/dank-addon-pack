@@ -1,6 +1,6 @@
 # Dank Addon Pack
 > An exercise in advanced autism
-> - Anonymous
+- Anonymous
 
 # Installation
 - Extract to your WoW directory
