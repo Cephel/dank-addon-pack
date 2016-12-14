@@ -13,6 +13,8 @@
   
 # Credits
 - [Aux](https://github.com/shirsig/aux-addon)
+- [Clean Up](https://github.com/shirsig/Clean_Up)
+- [crafty](https://github.com/shirsig/crafty)
 - [DPSMate](https://github.com/Geigerkind/DPSMate)
 - [HealComm](https://github.com/Aviana/HealComm)
 - [LazyPig](https://github.com/satan666/_LP)
