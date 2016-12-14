@@ -4,3 +4,6 @@
 [submodule "Interface/AddOns/DPSMate"]
 	path = Interface/AddOns/DPSMate
 	url = https://github.com/Geigerkind/DPSMate
+[submodule "Interface/AddOns/HealComm"]
+	path = Interface/AddOns/HealComm
+	url = https://github.com/Aviana/HealComm
