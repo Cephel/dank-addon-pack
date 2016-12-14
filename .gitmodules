@@ -19,3 +19,6 @@
 [submodule "Interface/AddOns/_LP"]
 	path = Interface/AddOns/_LP
 	url = https://github.com/satan666/_LP
+[submodule "Interface/AddOns/vQueue"]
+	path = Interface/AddOns/vQueue
+	url = https://github.com/Devlix/vQueue
