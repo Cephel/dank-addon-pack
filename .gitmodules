@@ -1,3 +1,6 @@
 [submodule "Interface/AddOns/pfUI"]
 	path = Interface/AddOns/pfUI
 	url = git://github.com/shagu/pfUI
+[submodule "Interface/AddOns/DPSMate"]
+	path = Interface/AddOns/DPSMate
+	url = https://github.com/Geigerkind/DPSMate
