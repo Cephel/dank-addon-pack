@@ -3,6 +3,8 @@
 
 -Anonymous
 
+This addon pack is designed with a minimalist approach. If there is not a clear purpose for an addon, it shouldn't be there. It is designed class-agnostic, meaning it should work on every class, so no special x-class-exclusive addons are included. The placement of addons and other UI elements is meticiously aligned by manually editing the config files for pixel perfect alignment to please the ~autistic~ aesthetic gentleman of tomorrow.
+
 # Installation
 - Extract to your WoW directory
 - Rename `WTF/Account/ACCOUNT_NAME_IN_CAPS` to your account name in caps
