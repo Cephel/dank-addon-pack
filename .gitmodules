@@ -22,3 +22,6 @@
 [submodule "Interface/AddOns/vQueue"]
 	path = Interface/AddOns/vQueue
 	url = https://github.com/Devlix/vQueue
+[submodule "Interface/AddOns/SW_Stats-Vanilla"]
+	path = Interface/AddOns/SW_Stats-Vanilla
+	url = https://github.com/Zerf/SW_Stats-Vanilla
