@@ -26,7 +26,8 @@
 - [WIM](https://github.com/shirsig/WIM)
 
 
-# Other addons included
+## Other addons included
+### If your addon is on github and appears here, contact me so I can add it properly
 - Atlas
 - AtlasLoot
 - AtlasQuest
