@@ -16,3 +16,6 @@
 [submodule "Interface/AddOns/aux-addon"]
 	path = Interface/AddOns/aux-addon
 	url = https://github.com/shirsig/aux-addon
+[submodule "Interface/AddOns/_LP"]
+	path = Interface/AddOns/_LP
+	url = https://github.com/satan666/_LP
