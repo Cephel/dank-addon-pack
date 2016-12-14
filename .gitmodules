@@ -7,3 +7,6 @@
 [submodule "Interface/AddOns/HealComm"]
 	path = Interface/AddOns/HealComm
 	url = https://github.com/Aviana/HealComm
+[submodule "Interface/AddOns/WIM"]
+	path = Interface/AddOns/WIM
+	url = https://github.com/shirsig/WIM
