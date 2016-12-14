@@ -25,3 +25,12 @@
 [submodule "Interface/AddOns/VanillaGuide"]
 	path = Interface/AddOns/VanillaGuide
 	url = https://github.com/rsheep/VanillaGuide
+[submodule "Interface/AddOns/Postal"]
+	path = Interface/AddOns/Postal
+	url = https://github.com/shirsig/Postal
+[submodule "Interface/AddOns/crafty"]
+	path = Interface/AddOns/crafty
+	url = https://github.com/shirsig/crafty
+[submodule "Interface/AddOns/Clean_Up-lib"]
+	path = Interface/AddOns/Clean_Up-lib
+	url = https://github.com/shirsig/Clean_Up-lib
