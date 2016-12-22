@@ -16,8 +16,8 @@
 [submodule "Interface/AddOns/aux-addon"]
 	path = Interface/AddOns/aux-addon
 	url = https://github.com/shirsig/aux-addon
-[submodule "Interface/AddOns/_LP"]
-	path = Interface/AddOns/_LP
+[submodule "Interface/AddOns/LP"]
+	path = Interface/AddOns/LP
 	url = https://github.com/satan666/_LP
 [submodule "Interface/AddOns/vQueue"]
 	path = Interface/AddOns/vQueue
@@ -31,6 +31,6 @@
 [submodule "Interface/AddOns/crafty"]
 	path = Interface/AddOns/crafty
 	url = https://github.com/shirsig/crafty
-[submodule "Interface/AddOns/Clean_Up-lib"]
-	path = Interface/AddOns/Clean_Up-lib
+[submodule "Interface/AddOns/Clean_Up"]
+	path = Interface/AddOns/Clean_Up
 	url = https://github.com/shirsig/Clean_Up-lib
