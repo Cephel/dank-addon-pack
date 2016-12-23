@@ -38,8 +38,6 @@ This addon pack is designed with a minimalist approach. If there is not a clear 
 - BonusScanner
 - Cartographer
 - EnhTooltip
-- EquipCompare
-- Informant
 - KLHThreatMeter
 - La Vendetta Boss Mods
 - MCP
