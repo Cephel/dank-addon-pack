@@ -43,6 +43,7 @@ This addon pack is designed with a minimalist approach. If there is not a clear 
 - MCP
 - MikScrollingBattleText
 - MikScrollingBattleTextOptions
+- MobHealth
 - NotesUNeed
 - Opium
 - Outfitter
