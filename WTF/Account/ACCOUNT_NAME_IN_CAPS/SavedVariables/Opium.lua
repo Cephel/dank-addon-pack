@@ -10,26 +10,30 @@ OpiumData = {
 	},
 	["config"] = {
 		["soundalert"] = false,
-		["chatframe"] = "2",
+		["guilddisplay"] = true,
+		["trackpvpranks"] = true,
+		["trackpvpstats"] = true,
+		["chatframe"] = "1",
+		["colorwho"] = true,
 		["blockallsends"] = false,
 		["dbVersion"] = 4,
-		["statsdropdown"] = 1,
-		["textalert"] = true,
-		["trackpvpranks"] = true,
-		["mmbutton"] = true,
-		["mmbuttonposition"] = 107,
-		["currentsort"] = 1,
-		["guilddisplay"] = true,
-		["colorwho"] = true,
 		["alertsonlyonenemy"] = false,
-		["targetbutton"] = true,
-		["trackpvpstats"] = true,
+		["textalert"] = true,
+		["targetbutton"] = false,
 		["autostore"] = 2,
+		["mmbutton"] = false,
+		["mmbuttonposition"] = 320,
 	},
 	["playerLinks"] = {
+		["Nostalrius PvP"] = {
+		},
 	},
 	["kosGuild"] = {
+		["Nostalrius PvP"] = {
+		},
 	},
 	["kosPlayer"] = {
+		["Nostalrius PvP"] = {
+		},
 	},
 }
