@@ -31,6 +31,3 @@
 [submodule "Interface/AddOns/Clean_Up"]
 	path = Interface/AddOns/Clean_Up
 	url = https://github.com/shirsig/Clean_Up-lib
-[submodule "Interface/AddOns/VCB"]
-	path = Interface/AddOns/VCB
-	url = https://github.com/Geigerkind/VCB
