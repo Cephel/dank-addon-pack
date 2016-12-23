@@ -1,2 +1,0 @@
-/script Bartender.db.profile["Bar4"].Hide = not Bartender.db.profile["Bar4"].Hide; Bartender:ButtonHideCheck();
-

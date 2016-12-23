@@ -4,6 +4,8 @@ SW_Settings = {
 	["SW_TL_AutoDelete"] = true,
 	["ReportAmount"] = 5,
 	["LAST_V_RUN"] = "2.0 Beta.7",
+	["SY_AutoVote"] = 1,
+	["SW_IconPos"] = 200,
 	["InfoSettings"] = {
 		[1] = {
 			["BFS"] = 10,
@@ -157,41 +159,16 @@ SW_RPS = {
 	["maxDPS"] = 0,
 }
 SW_StrTable = {
-	[1] = "Ceph",
-	[2] = "WORLD",
-	[3] = "Warchief's Blessing",
 }
 SW_DataCollection = {
 	["settings"] = {
-		["isInRaid"] = false,
-		["isInGroup"] = false,
-		["lastZone"] = "",
-		["startMarker"] = 1,
-		["biggestSelect"] = 0,
-		["smallestSelect"] = 0,
-		["endMarker"] = 1,
-		["activeOnly"] = true,
+
 	},
 	["meta"] = {
-		[1] = {
-			["type"] = "PC",
-			["stringID"] = 1,
-			["everGroup"] = true,
-			["classE"] = "HUNTER",
-			["level"] = 60,
-			["origName"] = "Ceph",
-			["rank"] = 0,
-		},
+
 	},
 	["data"] = {
-		[1] = {
-			["initTS"] = {
-				["epochTS"] = 1470901085,
-				["msO"] = 0.2660000000614673,
-				["uTS"] = -498.7339999675751,
-			},
-			["Name"] = "Start",
-		},
+
 	},
 }
 SW_DBG_Log = {

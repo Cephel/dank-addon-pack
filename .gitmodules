@@ -1,0 +1,33 @@
+[submodule "Interface/AddOns/pfUI"]
+	path = Interface/AddOns/pfUI
+	url = git://github.com/shagu/pfUI
+[submodule "Interface/AddOns/DPSMate"]
+	path = Interface/AddOns/DPSMate
+	url = https://github.com/Geigerkind/DPSMate
+[submodule "Interface/AddOns/HealComm"]
+	path = Interface/AddOns/HealComm
+	url = https://github.com/Aviana/HealComm
+[submodule "Interface/AddOns/WIM"]
+	path = Interface/AddOns/WIM
+	url = https://github.com/shirsig/WIM
+[submodule "Interface/AddOns/aux-addon"]
+	path = Interface/AddOns/aux-addon
+	url = https://github.com/shirsig/aux-addon
+[submodule "Interface/AddOns/LP"]
+	path = Interface/AddOns/LP
+	url = https://github.com/satan666/_LP
+[submodule "Interface/AddOns/vQueue"]
+	path = Interface/AddOns/vQueue
+	url = https://github.com/Devlix/vQueue
+[submodule "Interface/AddOns/VanillaGuide"]
+	path = Interface/AddOns/VanillaGuide
+	url = https://github.com/rsheep/VanillaGuide
+[submodule "Interface/AddOns/Postal"]
+	path = Interface/AddOns/Postal
+	url = https://github.com/shirsig/Postal
+[submodule "Interface/AddOns/crafty"]
+	path = Interface/AddOns/crafty
+	url = https://github.com/shirsig/crafty
+[submodule "Interface/AddOns/Clean_Up"]
+	path = Interface/AddOns/Clean_Up
+	url = https://github.com/shirsig/Clean_Up-lib

@@ -1,27 +1,42 @@
 # Dank Addon Pack
-An addon pack designed to be functional and only have things that are actually worth having.
+> An exercise in advanced autism
+
+-Anonymous
+
+This addon pack is designed with a minimalist approach. If there is not a clear purpose for an addon, it shouldn't be there. It is designed class-agnostic, meaning it should work on every class, so no special x-class-exclusive addons are included. The placement of addons and other UI elements is meticiously aligned by manually editing the config files for pixel perfect alignment to please the ~~autistic~~ aesthetic gentleman of tomorrow.
 
 # Installation
-- Extract to WoW directory
-- Rename `WTF/Account/ACCOUNT_NAME_IN_CAPS` to correct account name
-  - You can copy this folder to account for multiple accounts
-- Rename `WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name` to correct realm name
-- Rename `WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name` to correct character name
-  - You can copy this folder to account for multiple characters
+- Extract to your WoW directory
+- Rename `WTF/Account/ACCOUNT_NAME_IN_CAPS` to your account name in caps
+  - You can copy this folder multiple times for multiple accounts
+- Rename `WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name` to the name of the realm
+- Rename `WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name` to your character name
+  - You can copy this folder multiple times for multiple characters
 
+  
 # Credits
-- [Shagu](http://shaguaddons.ericmauser.de/shaguui/), for the scaffolding on which the UI rests, mainly ShaguUI
+- [Aux](https://github.com/shirsig/aux-addon)
+- [Clean Up](https://github.com/shirsig/Clean_Up)
+- [crafty](https://github.com/shirsig/crafty)
+- [DPSMate](https://github.com/Geigerkind/DPSMate)
+- [HealComm](https://github.com/Aviana/HealComm)
+- [LazyPig](https://github.com/satan666/_LP)
+- [pfUI](https://github.com/shagu/pfUI)
+- [Postal](https://github.com/shirsig/Postal)
+- [Samuel](https://github.com/Terrub/Samuel)
+- [VanillaGuide](https://github.com/rsheep/VanillaGuide)
+- [vQueue](https://github.com/Devlix/vQueue)
+- [WIM](https://github.com/shirsig/WIM)
+
 
 ## Other addons included
-- !OmniCC
+### If your addon is on github and appears here, contact me so I can add it properly
 - Atlas
 - AtlasLoot
 - AtlasQuest
 - Auctioneer
-- Aux-Addon
 - BonusScanner
 - Cartographer
-- CT_MailMod
 - EnhTooltip
 - EquipCompare
 - Informant
@@ -33,7 +48,6 @@ An addon pack designed to be functional and only have things that are actually w
 - NotesUNeed
 - Opium
 - Outfitter
-- Samuel
 - ShaguDB
 - ShaguQuest
 - Stubby
@@ -41,6 +55,3 @@ An addon pack designed to be functional and only have things that are actually w
 - SW_FixLogStrings
 - SW_Stats
 - VanillaGuide
-- vQueue
-- WIM
-- LazyPig
