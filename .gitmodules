@@ -10,9 +10,6 @@
 [submodule "Interface/AddOns/WIM"]
 	path = Interface/AddOns/WIM
 	url = https://github.com/shirsig/WIM
-[submodule "Interface/AddOns/Samuel"]
-	path = Interface/AddOns/Samuel
-	url = https://github.com/Terrub/Samuel
 [submodule "Interface/AddOns/aux-addon"]
 	path = Interface/AddOns/aux-addon
 	url = https://github.com/shirsig/aux-addon
