@@ -23,7 +23,7 @@ Y: 0
 W: 1820
 H: 1024
 Frame: AtlasFrame
-FrameLevel: 15
+FrameLevel: 11
 X: 220
 Y: -31
 Frame: AtlasOptionsFrame
@@ -32,12 +32,12 @@ X: 609
 Y: -142
 Frame: aurae
 FrameLevel: 1
-X: 1129
-Y: -447
+X: 1070
+Y: -445
 Frame: KLHTM_Frame
 FrameLevel: 1
-X: 1280
-Y: -425
+X: 1290
+Y: -480
 Frame: DPSMate_MiniMap
 FrameLevel: 4
 X: 1484
