@@ -10,8 +10,8 @@
 [submodule "Interface/AddOns/WIM"]
 	path = Interface/AddOns/WIM
 	url = https://github.com/shirsig/WIM
-[submodule "Interface/AddOns/aux-addon"]
-	path = Interface/AddOns/aux-addon
+[submodule "Interface/AddOns/Aux-Addon"]
+	path = Interface/AddOns/Aux-Addon
 	url = https://github.com/shirsig/aux-addon
 [submodule "Interface/AddOns/LP"]
 	path = Interface/AddOns/LP
