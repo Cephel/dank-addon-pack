@@ -61,7 +61,6 @@ WTF/Account/ACCOUNT_NAME_IN_CAPS/*
 WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/*
 
 # Global config files
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/LVBM_API.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/MikScrollingBattleText.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/Opium.lua
