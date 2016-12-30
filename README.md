@@ -24,7 +24,6 @@ This addon pack is designed with a minimalist approach. If there is not a clear 
 - [HealComm](https://github.com/Aviana/HealComm)
 - [pfUI](https://github.com/shagu/pfUI)
 - [Postal](https://github.com/shirsig/Postal)
-- [Samuel](https://github.com/Terrub/Samuel)
 - [VanillaGuide](https://github.com/rsheep/VanillaGuide)
 - [vQueue](https://github.com/Devlix/vQueue)
 - [WIM](https://github.com/shirsig/WIM)
