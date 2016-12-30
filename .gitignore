@@ -65,7 +65,6 @@ WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/*
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/LVBM_API.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/MikScrollingBattleText.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/Opium.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/ShaguUI.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/SuperMacro.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/vQueue.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/WIM.lua
@@ -83,6 +82,7 @@ WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/*
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/AtlasLoot.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/KLHThreatMeter.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/Outfitter.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/pfUI.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/SW_Stats.lua
 !WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/VanillaGuide.lua
 
