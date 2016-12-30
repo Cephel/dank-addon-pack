@@ -35,7 +35,6 @@ This addon pack is designed with a minimalist approach. If there is not a clear 
 - [La Vendetta Boss Mods](https://github.com/Zerf/LVBM)
 - [LazyPig](https://github.com/satan666/_LP)
 - [MikScrollingBattleText](https://github.com/AtheneGenesis/Vanilla_MikScrollingBattleText)
-- [SWStats](https://github.com/Zerf/SW_Stats-Vanilla)
 
 ## Other addons included
 ### If your addon is on Github and appears here, contact me so I can add it properly
