@@ -25,9 +25,6 @@
 [submodule "Interface/AddOns/crafty"]
 	path = Interface/AddOns/crafty
 	url = https://github.com/shirsig/crafty
-[submodule "Interface/AddOns/Clean_Up"]
-	path = Interface/AddOns/Clean_Up
-	url = https://github.com/shirsig/Clean_Up-lib
 [submodule "Interface/AddOns/Decursive"]
 	path = Interface/AddOns/Decursive
 	url = https://github.com/Zerf/Decursive
@@ -37,3 +34,6 @@
 [submodule "Interface/AddOns/Aux-Addon"]
 	path = Interface/AddOns/Aux-Addon
 	url = https://github.com/shirsig/aux-addon
+[submodule "Interface/AddOns/Clean_Up"]
+	path = Interface/AddOns/Clean_Up
+	url = https://github.com/shirsig/Clean_Up
