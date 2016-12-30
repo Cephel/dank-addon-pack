@@ -15,6 +15,7 @@ This addon pack is designed with a minimalist approach. If there is not a clear 
 
   
 # Credits
+- [Auctioneer](https://github.com/Zerf/Auctioneer-Vanilla)
 - [Aux](https://github.com/shirsig/aux-addon)
 - [Clean Up](https://github.com/shirsig/Clean_Up)
 - [crafty](https://github.com/shirsig/crafty)
@@ -29,21 +30,21 @@ This addon pack is designed with a minimalist approach. If there is not a clear 
 - [vQueue](https://github.com/Devlix/vQueue)
 - [WIM](https://github.com/shirsig/WIM)
 
+## Addons that are on Github, but cannot be added as submodule because of incompatible folder structure
+- [Atlas](https://github.com/Cabro/Atlas)
+- [AtlasLoot](https://github.com/Cabro/Atlas)
+- [AtlasQuest](https://github.com/Cabro/Atlas)
+- [La Vendetta Boss Mods](https://github.com/Zerf/LVBM)
+- [MikScrollingBattleText](https://github.com/AtheneGenesis/Vanilla_MikScrollingBattleText)
+- [SWStats](https://github.com/Zerf/SW_Stats-Vanilla)
 
 ## Other addons included
-### If your addon is on github and appears here, contact me so I can add it properly
-- Atlas
-- AtlasLoot
-- AtlasQuest
-- Auctioneer
+### If your addon is on Github and appears here, contact me so I can add it properly
 - BonusScanner
 - Cartographer
 - EnhTooltip
 - KLHThreatMeter
-- La Vendetta Boss Mods
 - MCP
-- MikScrollingBattleText
-- MikScrollingBattleTextOptions
 - MobHealth
 - NotesUNeed
 - Opium
@@ -52,6 +53,3 @@ This addon pack is designed with a minimalist approach. If there is not a clear 
 - ShaguQuest
 - Stubby
 - SuperMacro
-- SW_FixLogStrings
-- SW_Stats
-- VanillaGuide

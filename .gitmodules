@@ -34,3 +34,6 @@
 [submodule "Interface/AddOns/Decursive"]
 	path = Interface/AddOns/Decursive
 	url = https://github.com/Zerf/Decursive
+[submodule "Interface/AddOns/Auctioneer"]
+	path = Interface/AddOns/Auctioneer
+	url = https://github.com/Zerf/Auctioneer-Vanilla
