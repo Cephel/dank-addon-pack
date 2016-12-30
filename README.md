@@ -16,6 +16,7 @@ This addon pack is designed with a minimalist approach. If there is not a clear 
   
 # Credits
 - [Auctioneer](https://github.com/Zerf/Auctioneer-Vanilla)
+- [Aurae](https://github.com/shirsig/aurae)
 - [Aux](https://github.com/shirsig/aux-addon)
 - [Clean Up](https://github.com/shirsig/Clean_Up)
 - [crafty](https://github.com/shirsig/crafty)

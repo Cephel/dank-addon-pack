@@ -37,3 +37,6 @@
 [submodule "Interface/AddOns/Clean_Up"]
 	path = Interface/AddOns/Clean_Up
 	url = https://github.com/shirsig/Clean_Up
+[submodule "Interface/AddOns/Aurae"]
+	path = Interface/AddOns/Aurae
+	url = https://github.com/shirsig/aurae
