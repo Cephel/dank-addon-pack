@@ -22,7 +22,6 @@ This addon pack is designed with a minimalist approach. If there is not a clear 
 - [Decursive](https://github.com/Zerf/Decursive)
 - [DPSMate](https://github.com/Geigerkind/DPSMate)
 - [HealComm](https://github.com/Aviana/HealComm)
-- [LazyPig](https://github.com/satan666/_LP)
 - [pfUI](https://github.com/shagu/pfUI)
 - [Postal](https://github.com/shirsig/Postal)
 - [Samuel](https://github.com/Terrub/Samuel)
@@ -35,6 +34,7 @@ This addon pack is designed with a minimalist approach. If there is not a clear 
 - [AtlasLoot](https://github.com/Cabro/Atlas)
 - [AtlasQuest](https://github.com/Cabro/Atlas)
 - [La Vendetta Boss Mods](https://github.com/Zerf/LVBM)
+- [LazyPig](https://github.com/satan666/_LP)
 - [MikScrollingBattleText](https://github.com/AtheneGenesis/Vanilla_MikScrollingBattleText)
 - [SWStats](https://github.com/Zerf/SW_Stats-Vanilla)
 
