@@ -31,3 +31,6 @@
 [submodule "Interface/AddOns/Clean_Up"]
 	path = Interface/AddOns/Clean_Up
 	url = https://github.com/shirsig/Clean_Up-lib
+[submodule "Interface/AddOns/Decursive"]
+	path = Interface/AddOns/Decursive
+	url = https://github.com/Zerf/Decursive

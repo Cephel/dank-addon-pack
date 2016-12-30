@@ -18,6 +18,7 @@ This addon pack is designed with a minimalist approach. If there is not a clear 
 - [Aux](https://github.com/shirsig/aux-addon)
 - [Clean Up](https://github.com/shirsig/Clean_Up)
 - [crafty](https://github.com/shirsig/crafty)
+- [Decursive](https://github.com/Zerf/Decursive)
 - [DPSMate](https://github.com/Geigerkind/DPSMate)
 - [HealComm](https://github.com/Aviana/HealComm)
 - [LazyPig](https://github.com/satan666/_LP)
