@@ -38,14 +38,6 @@ LVBM_SavedVars = {
 		["AutoRespond"] = true,
 		["SpecialWarningTextSize"] = 40,
 		["CharSettings"] = {
-			["Cephell"] = {
-				["AggroFlash"] = false,
-				["AggroShake"] = false,
-				["AggroSound"] = false,
-				["AggroAlert"] = false,
-				["AggroSpecialWarning"] = false,
-				["AggroLocalWarning"] = false,
-			},
 		},
 		["EnableSync"] = true,
 		["StatusBarColor"] = {
