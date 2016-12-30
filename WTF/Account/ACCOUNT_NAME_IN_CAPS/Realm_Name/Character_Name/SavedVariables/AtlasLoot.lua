@@ -9,7 +9,7 @@ AtlasLootCharDB = {
 	["SafeLinks"] = true,
 	["SearchResult"] = {
 	},
-	["EquipCompare"] = true,
+	["EquipCompare"] = false,
 	["MinimapButtonRadius"] = 78,
 	["WishList"] = {
 	},

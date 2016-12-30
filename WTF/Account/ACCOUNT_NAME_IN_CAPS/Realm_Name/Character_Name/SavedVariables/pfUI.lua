@@ -26,28 +26,30 @@ pfUI_config = {
 		["buff"] = "0",
 		["group"] = "0",
 		["bags"] = "0",
+		["addons"] = "0",
 		["minimap"] = "0",
 		["autoshift"] = "0",
-		["loot"] = "0",
+		["eqcompare"] = "0",
+		["roll"] = "0",
 		["skin"] = "0",
 		["target"] = "0",
 		["raid"] = "0",
-		["addons"] = "0",
-		["eqcompare"] = "0",
 		["panel"] = "0",
+		["chat"] = "0",
 		["infight"] = "0",
-		["xpbar"] = "0",
 		["castbar"] = "0",
-		["pet"] = "0",
+		["xpbar"] = "0",
+		["hoverbind"] = "0",
+		["targettarget"] = "0",
 		["tooltip"] = "0",
-		["mouseover"] = "0",
+		["pet"] = "0",
 		["sellvalue"] = "0",
 		["thirdparty"] = "0",
 		["player"] = "0",
-		["chat"] = "0",
+		["mouseover"] = "0",
 		["actionbar"] = "0",
 		["nameplates"] = "0",
-		["targettarget"] = "0",
+		["loot"] = "0",
 		["cooldown"] = "0",
 		["uf_tukui"] = "0",
 	},
@@ -61,7 +63,13 @@ pfUI_config = {
 		},
 	},
 	["tooltip"] = {
+		["compare"] = {
+			["showalways"] = "0",
+		},
 		["position"] = "bottom",
+		["vendor"] = {
+			["showalways"] = "0",
+		},
 	},
 	["unitframes"] = {
 		["portrait"] = "0",
@@ -106,10 +114,7 @@ pfUI_config = {
 			["energy"] = "1",
 			["showPVPMinimap"] = "0",
 		},
-		["ttarget"] = {
-			["pspace"] = "-3",
-		},
-		["debuff_size"] = "20",
+		["custom"] = "0",
 		["target"] = {
 			["height"] = "50",
 			["pheight"] = "10",
@@ -117,10 +122,18 @@ pfUI_config = {
 			["pspace"] = "-3",
 			["width"] = "200",
 		},
+		["customcolor"] = ".2,.2,.2,1",
+		["ttarget"] = {
+			["pspace"] = "-3",
+		},
+		["debuff_size"] = "20",
 		["disable"] = "0",
 	},
 	["thirdparty"] = {
 		["wim"] = {
+			["enable"] = "1",
+		},
+		["ktm"] = {
 			["enable"] = "1",
 		},
 		["dpsmate"] = {
@@ -179,21 +192,46 @@ pfUI_config = {
 	},
 	["bars"] = {
 		["glowrange"] = "1",
-		["hide_vertical"] = "0",
+		["hide_pet"] = "0",
 		["icon_size"] = "20",
 		["hide_shapeshift"] = "0",
-		["rangecolor"] = "1,0.1,0.1,1",
 		["hide_bottom"] = "0",
 		["hide_bottomright"] = "0",
-		["hide_pet"] = "0",
 		["background"] = "1",
+		["hide_tworight"] = "0",
 		["hide_time"] = "1",
+		["hide_vertical"] = "0",
 		["hide_bottomleft"] = "0",
+		["pet"] = {
+			["formfactor"] = "10 x 1",
+		},
+		["actionmain"] = {
+			["formfactor"] = "12 x 1",
+		},
+		["rangecolor"] = "1,0.1,0.1,1",
+		["bottomright"] = {
+			["formfactor"] = "6 x 2",
+		},
+		["hide_right"] = "0",
+		["right"] = {
+			["formfactor"] = "6 x 2",
+		},
+		["bottomleft"] = {
+			["formfactor"] = "12 x 1",
+		},
+		["hide_actionmain"] = "0",
+		["tworight"] = {
+			["formfactor"] = "1 x 12",
+		},
+		["shapeshift"] = {
+			["formfactor"] = "10 x 1",
+		},
 	},
 	["chat"] = {
 		["global"] = {
-			["background"] = ".2,.2,.2,.5",
 			["custombg"] = "0",
+			["background"] = ".2,.2,.2,.5",
+			["whisper"] = "1,.6,1,1",
 		},
 		["right"] = {
 			["height"] = "180",
@@ -213,15 +251,16 @@ pfUI_config = {
 		},
 	},
 	["global"] = {
-		["errors_hide"] = "0",
+		["pixelperfect"] = "0",
 		["font_combat"] = "homespun",
 		["errors_limit"] = "1",
 		["force_region"] = "1",
+		["profile"] = "default",
 		["font_size"] = "12",
 		["font_square"] = "homespun",
 		["hidewbuff"] = "0",
 		["hidebuff"] = "0",
-		["pixelperfect"] = "0",
+		["errors_hide"] = "0",
 		["font_default"] = "arial",
 	},
 }
