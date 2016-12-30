@@ -25,15 +25,9 @@ OpiumData = {
 		["mmbuttonposition"] = 320,
 	},
 	["playerLinks"] = {
-		["Nostalrius PvP"] = {
-		},
 	},
 	["kosGuild"] = {
-		["Nostalrius PvP"] = {
-		},
 	},
 	["kosPlayer"] = {
-		["Nostalrius PvP"] = {
-		},
 	},
 }
