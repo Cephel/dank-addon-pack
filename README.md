@@ -12,9 +12,11 @@ This addon pack is designed with a minimalist approach. If there is not a clear 
 - Rename `WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name` to the name of the realm
 - Rename `WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name` to your character name
   - You can copy this folder multiple times for multiple characters
+## Important
+The .zip download does not currently include any of the addons listed under "Credits" below, this is the fault of Github, not mine. Please download them manually right now while I work on a solution.
 
   
-# Credits
+# Credits and also addons that you need to download manually right now
 - [Auctioneer](https://github.com/Zerf/Auctioneer-Vanilla)
 - [Aurae](https://github.com/shirsig/aurae)
 - [Aux](https://github.com/shirsig/aux-addon)
