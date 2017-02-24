@@ -34,9 +34,6 @@
 [submodule "Interface/AddOns/Clean_Up"]
 	path = Interface/AddOns/Clean_Up
 	url = https://github.com/shirsig/Clean_Up
-[submodule "Interface/AddOns/Aurae"]
-	path = Interface/AddOns/ccwatch
-	url = https://github.com/shirsig/aurae
 [submodule "Interface/AddOns/WebDKP"]
 	path = Interface/AddOns/WebDKP
 	url = https://github.com/webdkpthroaway/WebDKP_Elysium
