@@ -40,3 +40,6 @@
 [submodule "Interface/AddOns/WebDKP"]
 	path = Interface/AddOns/WebDKP
 	url = https://github.com/webdkpthroaway/WebDKP_Elysium
+[submodule "Interface/AddOns/DebuffTimers"]
+	path = Interface/AddOns/DebuffTimers
+	url = https://github.com/Voidmenull/DebuffTimers
