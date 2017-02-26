@@ -19,10 +19,10 @@ The .zip download does not currently include any of the addons listed under "Cre
   
 # Credits and also addons that you need to download manually right now
 - [Auctioneer](https://github.com/Zerf/Auctioneer-Vanilla)
-- [Aurae](https://github.com/shirsig/aurae)
 - [Aux](https://github.com/shirsig/aux-addon)
 - [Clean Up](https://github.com/shirsig/Clean_Up)
 - [crafty](https://github.com/shirsig/crafty)
+- [DebuffTimers](https://github.com/Voidmenull/DebuffTimers)
 - [Decursive](https://github.com/Zerf/Decursive)
 - [DPSMate](https://github.com/Geigerkind/DPSMate)
 - [HealComm](https://github.com/Aviana/HealComm)
