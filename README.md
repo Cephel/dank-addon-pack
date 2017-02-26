@@ -19,12 +19,11 @@ The .zip download does not currently include any of the addons listed under "Cre
   
 # Credits and also addons that you need to download manually right now
 - [Auctioneer](https://github.com/Zerf/Auctioneer-Vanilla)
-- [Aurae](https://github.com/shirsig/aurae)
 - [Aux](https://github.com/shirsig/aux-addon)
 - [Clean Up](https://github.com/shirsig/Clean_Up)
 - [crafty](https://github.com/shirsig/crafty)
+- [DebuffTimers](https://github.com/Voidmenull/DebuffTimers)
 - [Decursive](https://github.com/Zerf/Decursive)
-- [DPSMate](https://github.com/Geigerkind/DPSMate)
 - [HealComm](https://github.com/Aviana/HealComm)
 - [pfUI](https://github.com/shagu/pfUI)
 - [Postal](https://github.com/shirsig/Postal)
@@ -36,6 +35,7 @@ The .zip download does not currently include any of the addons listed under "Cre
 - [Atlas](https://github.com/Cabro/Atlas)
 - [AtlasLoot](https://github.com/Cabro/Atlas)
 - [AtlasQuest](https://github.com/Cabro/Atlas)
+- [DPSMate](https://github.com/Geigerkind/DPSMate)
 - [La Vendetta Boss Mods](https://github.com/Zerf/LVBM)
 - [LazyPig](https://github.com/satan666/_LP)
 - [MikScrollingBattleText](https://github.com/AtheneGenesis/Vanilla_MikScrollingBattleText)
