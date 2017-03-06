@@ -302,11 +302,11 @@
 							DPSMate_ConfigMenu_Tab_Content_BGColor_SwatchBg.r = DPSMateSettings["windows"][this:GetParent().Key]["contentbgcolor"][1]
 							DPSMate_ConfigMenu_Tab_Content_BGColor_SwatchBg.g = DPSMateSettings["windows"][this:GetParent().Key]["contentbgcolor"][2]
 							DPSMate_ConfigMenu_Tab_Content_BGColor_SwatchBg.b = DPSMateSettings["windows"][this:GetParent().Key]["contentbgcolor"][3]
-							UIDropDownMenu_SetSelectedValue(DPSMate_ConfigMenu_Tab_Content_NumberFormat, DPSMateSettings["windows"][this:GetParent().Key]["numberformat"])
 							UIDropDownMenu_SetSelectedValue(DPSMate_ConfigMenu_Tab_Content_BGDropDown, DPSMateSettings["windows"][this:GetParent().Key]["contentbgtexture"])
 							UIDropDownMenu_SetSelectedValue(DPSMate_ConfigMenu_Tab_Content_BorderTexture, DPSMateSettings["windows"][this:GetParent().Key]["bordertexture"] or "UI-Tooltip-Border")
 							DPSMate_ConfigMenu_Tab_Content_BorderTextureText:SetText(DPSMateSettings["windows"][this:GetParent().Key]["bordertexture"] or "UI-Tooltip-Border")
 							UIDropDownMenu_SetSelectedValue(DPSMate_ConfigMenu_Tab_Content_BorderStrata, DPSMateSettings["windows"][this:GetParent().Key]["borderstrata"] or 1)
+							UIDropDownMenu_SetSelectedValue(DPSMate_ConfigMenu_Tab_Content_NumberFormat, DPSMateSettings["windows"][this:GetParent().Key]["numberformat"])
 							DPSMate_ConfigMenu_Tab_Content_BGDropDownText:SetText(DPSMateSettings["windows"][this:GetParent().Key]["contentbgtexture"])
 							DPSMate_ConfigMenu_Tab_Content_BorderColorNormalTexture:SetVertexColor(DPSMateSettings["windows"][this:GetParent().Key]["contentbordercolor"][1], DPSMateSettings["windows"][this:GetParent().Key]["contentbordercolor"][2], DPSMateSettings["windows"][this:GetParent().Key]["contentbordercolor"][3])
 							DPSMate_ConfigMenu_Tab_Content_BorderColor_SwatchBg.r = DPSMateSettings["windows"][this:GetParent().Key]["contentbordercolor"][1]
@@ -756,7 +756,6 @@
 				this:RegisterForClicks("RightButtonUp")
 				this:RegisterForDrag("LeftButton")
 				this:SetClampedToScreen(true)
-				this:SetParent(Minimap)
 			</OnLoad>
 			<OnDragStart>
 				this:LockHighlight()
@@ -1254,6 +1253,23 @@
 					</Layer>
 				</Layers>
 			</Frame>
+			<CheckButton name="$parent_Delay" inherits="DPSMate_Template_CheckButton" frameStrata="TOOLTIP">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$Parent_Channel" relativePoint="RIGHT">
+						<Offset x="-18" y="0" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						this.aide = DPSMate.L["reportdelaytooltip"]
+						getglobal(this:GetName().."_Title"):SetText(DPSMate.L["delay"])
+					</OnLoad>
+					<OnClick>
+						DPSMateSettings["reportdelay"] = not DPSMateSettings["reportdelay"]
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			
 			<Slider name="$parent_Lines" inherits="OptionsSliderTemplate">
 				<Size>
 					<AbsDimension x="160" y="14" />
@@ -5901,6 +5917,25 @@
 							</OnClick>
 						</Scripts>
 					</Button>
+					<CheckButton name="$parent_LegacyLogs" inherits="DPSMate_Template_CheckButton">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parent_HelloWorld" relativePoint="TOPLEFT">
+								<Offset x="0" y="-20" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								this.aide = "Check this to track data for legacy logs!"
+								getglobal(this:GetName().."_Title"):SetText("Legacy Logs")
+							</OnLoad>
+							<OnClick>
+								DPSMateSettings["legacylogs"] = not DPSMateSettings["legacylogs"] 
+								if DPSMateSettings["enable"] then
+									DPSMate:Enable()
+								end
+							</OnClick>
+						</Scripts>
+					</CheckButton>
 				</Frames>
 			</Frame>
 			
@@ -6060,7 +6095,7 @@
 						</Scripts>
 					</Frame>
 					<Frame name="$parent_Thanks" inherits="DPSMate_Template_TextBox">
-						<Size x="280" y="80" />
+						<Size x="280" y="90" />
 						<Anchors>
 							<Anchor point="TOP" relativeTo="$parent_Who" relativePoint="BOTTOM">
 								<Offset x="0" y="-17" />
@@ -6069,6 +6104,9 @@
 						<Scripts>
 							<OnLoad>
 								getglobal(this:GetName().."_Title"):SetText(DPSMate.L["thanksto"])
+								getglobal(this:GetName().."_Text"):SetHeight(90)
+								getglobal(this:GetName().."_Text"):ClearAllPoints()
+								getglobal(this:GetName().."_Text"):SetPoint("TOPLEFT", this, "TOPLEFT", 5, -5)
 								getglobal(this:GetName().."_Text"):SetText(DPSMate.L["thankstoText"])
 							</OnLoad>
 						</Scripts>
@@ -6112,8 +6150,6 @@
 				this:RegisterEvent("CHAT_MSG_COMBAT_HOSTILEPLAYER_HITS")
 				this:RegisterEvent("CHAT_MSG_COMBAT_HOSTILEPLAYER_MISSES")
 				
-				--this:RegisterEvent("COMBAT_TEXT_UPDATE")
-				
 				this:RegisterEvent("CHAT_MSG_COMBAT_CREATURE_VS_SELF_HITS")
 				this:RegisterEvent("CHAT_MSG_COMBAT_CREATURE_VS_SELF_MISSES")
 				this:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_SELF_DAMAGE")
@@ -6151,15 +6187,12 @@
 				this:RegisterEvent("PLAYER_REGEN_DISABLED")
 				this:RegisterEvent("PLAYER_REGEN_ENABLED")
 				
-				--this:RegisterEvent("SPELLCAST_CHANNEL_START")
-				--this:RegisterEvent("SPELLCAST_STOP")
-				--this:RegisterEvent("SPELLCAST_FAILED")
-				--this:RegisterEvent("SPELLCAST_INTERRUPTED")
-				
 				this:RegisterEvent("PLAYER_AURAS_CHANGED")
-				--this:RegisterEvent("UNIT_AURA")
 				this:RegisterEvent("PLAYER_TARGET_CHANGED")
-				this:RegisterEvent("PLAYER_LOGOUT")
+				this:RegisterEvent("PET_STABLE_CLOSED")
+				this:RegisterEvent("PET_STABLE_SHOW")
+				this:RegisterEvent("PET_STABLE_UPDATE")
+				this:RegisterEvent("PET_STABLE_UPDATE_PAPERDOLL")
 			</OnLoad>
 			<OnEvent>
 				DPSMate.DB:OnEvent(event)

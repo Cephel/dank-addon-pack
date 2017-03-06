@@ -1,27 +1,21 @@
 -- Global Variables
 DPSMate.Options.fonts = {
-	["FRIZQT"] = "Fonts\\FRIZQT__.TTF",
+	["FRIZQT"] = UNIT_NAME_FONT,
 	["ARIALN"] = "Fonts\\ARIALN.TTF",
 	["MORPHEUS"] = "Fonts\\MORPHEUS.TTF",
-	["ABF"] = "Interface\\AddOns\\DPSMate\\fonts\\ABF.TTF",
-	["Accidental Presidency"] = "Interface\\AddOns\\DPSMate\\fonts\\Accidental Presidency.TTF",
-	["Adventure"] = "Interface\\AddOns\\DPSMate\\fonts\\Adventure.TTF",
-	["Avqest"] = "Interface\\AddOns\\DPSMate\\fonts\\Avqest.TTF",
-	["Bazooka"] = "Interface\\AddOns\\DPSMate\\fonts\\Bazooka.TTF",
-	["BigNoodleTitling"] = "Interface\\AddOns\\DPSMate\\fonts\\BigNoodleTitling.TTF",
-	["BigNoodleTitling-Oblique"] = "Interface\\AddOns\\DPSMate\\fonts\\BigNoodleTitling-Oblique.TTF",
-	["BlackChancery"] = "Interface\\AddOns\\DPSMate\\fonts\\BlackChancery.TTF",
-	["Emblem"] = "Interface\\AddOns\\DPSMate\\fonts\\Emblem.TTF",
-	["Enigma__2"] = "Interface\\AddOns\\DPSMate\\fonts\\Enigma__2.TTF",
-	["Movie_Poster-Bold"] = "Interface\\AddOns\\DPSMate\\fonts\\Movie_Poster-Bold.TTF",
-	["Porky"] = "Interface\\AddOns\\DPSMate\\fonts\\Porky.TTF",
-	["rm_midse"] = "Interface\\AddOns\\DPSMate\\fonts\\rm_midse.TTF",
-	["Tangerin"] = "Interface\\AddOns\\DPSMate\\fonts\\Tangerin.TTF",
-	["Tw_Cen_MT_Bold"] = "Interface\\AddOns\\DPSMate\\fonts\\Tw_Cen_MT_Bold.TTF",
-	["Ultima_Campagnoli"] = "Interface\\AddOns\\DPSMate\\fonts\\Ultima_Campagnoli.TTF",
-	["VeraSe"] = "Interface\\AddOns\\DPSMate\\fonts\\VeraSe.TTF",
-	["Yellowjacket"] = "Interface\\AddOns\\DPSMate\\fonts\\Yellowjacket.TTF",
 	["visitor2"] = "Interface\\AddOns\\DPSMate\\fonts\\visitor2.TTF",
+	["Accidental Presidency"] = "Interface\\AddOns\\DPSMate\\fonts\\Accidental Presidency.TTF",
+	["Enigma__2"] = "Interface\\AddOns\\DPSMate\\fonts\\Enigma__2.TTF",
+	["VeraSe"] = "Interface\\AddOns\\DPSMate\\fonts\\VeraSe.TTF",
+	["AlteHaas"] = "Interface\\AddOns\\DPSMate\\fonts\\AlteHaas.TTF",
+	["CaviarDreams"] = "Interface\\AddOns\\DPSMate\\fonts\\CaviarDreams.TTF",
+	["Expressway"] = "Interface\\AddOns\\DPSMate\\fonts\\Expressway.TTF",
+	["ExpresswayBold"] = "Interface\\AddOns\\DPSMate\\fonts\\ExpresswayBold.TTF",
+	["Roboto"] = "Interface\\AddOns\\DPSMate\\fonts\\Roboto.TTF",
+	["The Bad Times"] = "Interface\\AddOns\\DPSMate\\fonts\\The Bad Times.TTF",
+	["Vegur"] = "Interface\\AddOns\\DPSMate\\fonts\\Vegur.TTF",
+	["Mandarin1"] = "Interface\\AddOns\\DPSMate\\fonts\\Mandarin1.TTF",
+	["Mandarin2"] = "Interface\\AddOns\\DPSMate\\fonts\\Mandarin2.TTF",
 }
 DPSMate.Options.fontflags = {
 	["None"] = "NONE",
@@ -541,10 +535,14 @@ function DPSMate.Options:InitializeConfigMenu()
 	DPSMate_ConfigMenu_Tab_Broadcasting_Fails:SetChecked(DPSMateSettings["bcfail"])
 	DPSMate_ConfigMenu_Tab_Broadcasting_RaidWarning:SetChecked(DPSMateSettings["bcrw"])
 	
+	-- Tab Raidleader options
+	DPSMate_ConfigMenu_Tab_RaidLeader_LegacyLogs:SetChecked(DPSMateSettings["legacylogs"])
+	
 	-- Mode menu
 	for cat, _ in DPSMateSettings["hiddenmodes"] do
 		DPSMate.Options.Options[1]["args"][cat] = nil
 	end
+
 end
 
 DPSMate.Options.OldLogout = Logout
@@ -741,17 +739,6 @@ function DPSMate.Options:OnEvent(event)
 		end
 	elseif event == "ZONE_CHANGED_NEW_AREA" then
 		DPSMate.DB:OnGroupUpdate()
-	elseif event == "PLAYER_LOGOUT" then
-		for key, val in DPSMateSettings["windows"] do
-			local point, _, _, xOfs, yOfs = _G("DPSMate_"..val["name"]):GetPoint()
-			DPSMateSettings["windows"][key]["position"] = {}
-			DPSMateSettings["windows"][key]["position"][1] = point
-			DPSMateSettings["windows"][key]["position"][2] = xOfs
-			DPSMateSettings["windows"][key]["position"][3] = yOfs
-			DPSMateSettings["windows"][key]["savsize"] = {}
-			DPSMateSettings["windows"][key]["savsize"][1] = _G("DPSMate_"..val["name"]):GetWidth()
-			DPSMateSettings["windows"][key]["savsize"][2] = _G("DPSMate_"..val["name"]):GetHeight()
-		end
 	end
 end
 
@@ -872,8 +859,8 @@ function DPSMate.Options:PopUpAccept(bool, bypass)
 				CCBreaker = {}
 			}
 			DPSMateCombatTime = {
-				total = 1,
-				current = 1,
+				total = 0.0001,
+				current = 0.0001,
 				segments = {},
 				effective = {
 					[1] = {},
@@ -933,48 +920,51 @@ function DPSMate.Options:PopUpAccept(bool, bypass)
 			DPSMateCCBreaker[2] = {}
 			DPSMateCombatTime["current"] = 1
 		end
-		DPSMate.Modules.DPS.DB = DPSMateDamageDone
-		DPSMate.Modules.Damage.DB = DPSMateDamageDone
-		DPSMate.Modules.DamageTaken.DB = DPSMateDamageTaken
-		DPSMate.Modules.FriendlyFire.DB = DPSMateEDT
-		DPSMate.Modules.FriendlyFireTaken.DB = DPSMateEDT
-		DPSMate.Modules.DTPS.DB = DPSMateDamageTaken
-		DPSMate.Modules.EDD.DB = DPSMateEDD
-		DPSMate.Modules.EDT.DB = DPSMateEDT
-		DPSMate.Modules.Healing.DB = DPSMateTHealing
-		DPSMate.Modules.HPS.DB = DPSMateTHealing
-		DPSMate.Modules.Overhealing.DB = DPSMateOverhealing
-		DPSMate.Modules.EffectiveHealing.DB = DPSMateEHealing
-		DPSMate.Modules.EffectiveHPS.DB = DPSMateEHealing
-		DPSMate.Modules.HealingTaken.DB = DPSMateHealingTaken
-		DPSMate.Modules.EffectiveHealingTaken.DB = DPSMateEHealingTaken
-		DPSMate.Modules.Absorbs.DB = DPSMateAbsorbs
-		DPSMate.Modules.AbsorbsTaken.DB = DPSMateAbsorbs
-		DPSMate.Modules.HealingAndAbsorbs.DB = DPSMateAbsorbs
-		DPSMate.Modules.Deaths.DB = DPSMateDeaths
-		DPSMate.Modules.Dispels.DB = DPSMateDispels
-		DPSMate.Modules.DispelsReceived.DB = DPSMateDispels
-		DPSMate.Modules.Decurses.DB = DPSMateDispels
-		DPSMate.Modules.DecursesReceived.DB = DPSMateDispels
-		DPSMate.Modules.CureDisease.DB = DPSMateDispels
-		DPSMate.Modules.CureDiseaseReceived.DB = DPSMateDispels
-		DPSMate.Modules.CurePoison.DB = DPSMateDispels
-		DPSMate.Modules.CurePoisonReceived.DB = DPSMateDispels
-		DPSMate.Modules.LiftMagic.DB = DPSMateDispels
-		DPSMate.Modules.LiftMagicReceived.DB = DPSMateDispels
-		DPSMate.Modules.Interrupts.DB = DPSMateInterrupts
-		DPSMate.Modules.AurasGained.DB = DPSMateAurasGained
-		DPSMate.Modules.AurasLost.DB = DPSMateAurasGained
-		DPSMate.Modules.AurasUptimers.DB = DPSMateAurasGained
-		DPSMate.Modules.Procs.DB = DPSMateAurasGained
-		DPSMate.Modules.Casts.DB = DPSMateEDT
-		DPSMate.Modules.Threat.DB = DPSMateThreat
-		DPSMate.Modules.TPS.DB = DPSMateThreat
-		DPSMate.Modules.Fails.DB = DPSMateFails
-		DPSMate.Modules.CCBreaker.DB = DPSMateCCBreaker
-		DPSMate.Modules.OHPS.DB = DPSMateOverhealing
-		DPSMate.Modules.OHealingTaken.DB = DPSMateOverhealingTaken
-		DPSMate.Modules.Activity.DB = DPSMateCombatTime
+		
+		if DPSMate.Modules.DPS then DPSMate.Modules.DPS.DB = DPSMateDamageDone end
+		if DPSMate.Modules.Damage then DPSMate.Modules.Damage.DB = DPSMateDamageDone end
+		if DPSMate.Modules.DamageTaken then DPSMate.Modules.DamageTaken.DB = DPSMateDamageTaken end
+		if DPSMate.Modules.DTPS then DPSMate.Modules.DTPS.DB = DPSMateDamageTaken end
+		if DPSMate.Modules.EDD then DPSMate.Modules.EDD.DB = DPSMateEDD end
+		if DPSMate.Modules.EDT then DPSMate.Modules.EDT.DB = DPSMateEDT end
+		if DPSMate.Modules.FriendlyFire then DPSMate.Modules.FriendlyFire.DB = DPSMateEDT end
+		if DPSMate.Modules.FriendlyFireTaken then DPSMate.Modules.FriendlyFireTaken.DB = DPSMateEDT end
+		if DPSMate.Modules.Healing then DPSMate.Modules.Healing.DB = DPSMateTHealing end
+		if DPSMate.Modules.HPS then DPSMate.Modules.HPS.DB = DPSMateTHealing end
+		if DPSMate.Modules.Overhealing then DPSMate.Modules.Overhealing.DB = DPSMateOverhealing end
+		if DPSMate.Modules.EffectiveHealing then DPSMate.Modules.EffectiveHealing.DB = DPSMateEHealing end
+		if DPSMate.Modules.EffectiveHPS then DPSMate.Modules.EffectiveHPS.DB = DPSMateEHealing end
+		if DPSMate.Modules.HealingTaken then DPSMate.Modules.HealingTaken.DB = DPSMateHealingTaken end
+		if DPSMate.Modules.EffectiveHealingTaken then DPSMate.Modules.EffectiveHealingTaken.DB = DPSMateEHealingTaken end
+		if DPSMate.Modules.Absorbs then DPSMate.Modules.Absorbs.DB = DPSMateAbsorbs end
+		if DPSMate.Modules.AbsorbsTaken then DPSMate.Modules.AbsorbsTaken.DB = DPSMateAbsorbs end
+		if DPSMate.Modules.HealingAndAbsorbs then DPSMate.Modules.HealingAndAbsorbs.DB = DPSMateAbsorbs end
+		if DPSMate.Modules.Deaths then DPSMate.Modules.Deaths.DB = DPSMateDeaths end
+		if DPSMate.Modules.Dispels then DPSMate.Modules.Dispels.DB = DPSMateDispels end
+		if DPSMate.Modules.DispelsReceived then DPSMate.Modules.DispelsReceived.DB = DPSMateDispels end
+		if DPSMate.Modules.Decurses then DPSMate.Modules.Decurses.DB = DPSMateDispels end
+		if DPSMate.Modules.DecursesReceived then DPSMate.Modules.DecursesReceived.DB = DPSMateDispels end
+		if DPSMate.Modules.CureDisease then DPSMate.Modules.CureDisease.DB = DPSMateDispels end
+		if DPSMate.Modules.CureDiseaseReceived then DPSMate.Modules.CureDiseaseReceived.DB = DPSMateDispels end
+		if DPSMate.Modules.CurePoison then DPSMate.Modules.CurePoison.DB = DPSMateDispels end
+		if DPSMate.Modules.CurePoisonReceived then DPSMate.Modules.CurePoisonReceived.DB = DPSMateDispels end
+		if DPSMate.Modules.LiftMagic then DPSMate.Modules.LiftMagic.DB = DPSMateDispels end
+		if DPSMate.Modules.LiftMagicReceived then DPSMate.Modules.LiftMagicReceived.DB = DPSMateDispels end
+		if DPSMate.Modules.Interrupts then DPSMate.Modules.Interrupts.DB = DPSMateInterrupts end
+		if DPSMate.Modules.AurasGained then DPSMate.Modules.AurasGained.DB = DPSMateAurasGained end
+		if DPSMate.Modules.AurasLost then DPSMate.Modules.AurasLost.DB = DPSMateAurasGained end
+		if DPSMate.Modules.AurasLost then DPSMate.Modules.AurasLost.DB = DPSMateAurasGained end
+		if DPSMate.Modules.AurasUptimers then DPSMate.Modules.AurasUptimers.DB = DPSMateAurasGained end
+		if DPSMate.Modules.Procs then DPSMate.Modules.Procs.DB = DPSMateAurasGained end
+		if DPSMate.Modules.Casts then DPSMate.Modules.Casts.DB = DPSMateEDT end
+		if DPSMate.Modules.Threat then DPSMate.Modules.Threat.DB = DPSMateThreat end
+		if DPSMate.Modules.TPS then DPSMate.Modules.TPS.DB = DPSMateThreat end
+		if DPSMate.Modules.Fails then DPSMate.Modules.Fails.DB = DPSMateFails end
+		if DPSMate.Modules.CCBreaker then DPSMate.Modules.CCBreaker.DB = DPSMateCCBreaker end
+		if DPSMate.Modules.OHPS then DPSMate.Modules.OHPS.DB = DPSMateOverhealing end
+		if DPSMate.Modules.OHealingTaken then DPSMate.Modules.OHealingTaken.DB = DPSMateOverhealingTaken end
+		if DPSMate.Modules.Activity then DPSMate.Modules.Activity.DB = DPSMateCombatTime end
+		
 		for _, val in pairs(DPSMateSettings["windows"]) do
 			if not val["options"][2]["total"] and not val["options"][2]["currentfight"] then
 				val["options"][2]["total"] = true
@@ -1011,6 +1001,9 @@ function DPSMate.Options:ToggleDrewDrop(i, obj, pa)
 	end
 	DPSMateSettings["windows"][pa.Key]["options"][i][obj] = true
 	if i == 1 then
+		if not DPSMate.Options.Options[1]["args"][obj] then
+			obj = "damage"
+		end
 		_G(pa:GetName().."_Head_Font"):SetText(DPSMate.Options.Options[i]["args"][obj].name)
 		DPSMateSettings["windows"][pa.Key]["CurMode"] = obj
 	end
@@ -1494,7 +1487,11 @@ function DPSMate.Options:Report()
 	SendChatMessage(DPSMate.L["name"].." - "..DPSMate.L["reportfor"]..DPSMate:GetModeName(DPSMate_Report.PaKey or 1).." - ".._G("DPSMate_"..DPSMateSettings["windows"][DPSMate_Report.PaKey or 1]["name"].."_Head_Font"):GetText().." - "..b[1]..b[2], chn, nil, index)
 	for i=1, DPSMate_Report_Lines:GetValue() do
 		if (not value[i] or value[i] == 0) then break end
-		SendChatMessage(i..". "..name[i].." -"..value[i], chn, nil, index)
+		if DPSMateSettings["reportdelay"] then
+			tinsert(DPSMate.DelayMsg, {i..". "..name[i].." -"..value[i], chn, index})
+		else
+			SendChatMessage(i..". "..name[i].." -"..value[i], chn, nil, index)
+		end
 	end
 	DPSMate_Report:Hide()
 end
@@ -1529,22 +1526,43 @@ function DPSMate.Options:ReportUserDetails(obj, channel, name)
 		if (not a[i]) then break end
 		local p
 		if type(c[i])=="table" then p = strformat("%.2f", c[i][1]).." ("..strformat("%.2f", 100*c[i][1]/b).."%)" else p = strformat("%.2f", c[i]).." ("..strformat("%.2f", 100*c[i]/b).."%)" end
+		if DPSMateSettings["windows"][Key]["CurMode"] == "aurasuptime" then p = strformat("%.2f%%", c[i]) end
 		if DPSMateSettings["windows"][Key]["CurMode"] == "deaths" then
 			local type = " (HIT)"
 			if c[i][3]==1 then type=" (CRIT)" elseif c[i][3]==2 then type=" (CRUSH)" end
 			if c[i][2]==1 then
-				SendChatMessage(i..". |cFF8cff80"..DPSMate:GetAbilityById(a[i]).." => ".."+"..c[i][1]..type.."|r", chn, nil, index)
+				if DPSMateSettings["reportdelay"] then
+					tinsert(DPSMate.DelayMsg, {i..". |cFF8cff80"..DPSMate:GetAbilityById(a[i]).." => ".."+"..c[i][1]..type.."|r", chn, index})
+				else
+					SendChatMessage(i..". |cFF8cff80"..DPSMate:GetAbilityById(a[i]).." => ".."+"..c[i][1]..type.."|r", chn, nil, index)
+				end
 			else
-				SendChatMessage(i..". |cFFFF8080"..DPSMate:GetAbilityById(a[i]).." => ".."-"..c[i][1]..type.."|r", chn, nil, index)
+				if DPSMateSettings["reportdelay"] then
+					tinsert(DPSMate.DelayMsg, {i..". |cFFFF8080"..DPSMate:GetAbilityById(a[i]).." => ".."-"..c[i][1]..type.."|r", chn, index})
+				else
+					SendChatMessage(i..". |cFFFF8080"..DPSMate:GetAbilityById(a[i]).." => ".."-"..c[i][1]..type.."|r", chn, nil, index)
+				end
 			end
 		else
 			if DPSMateSettings["windows"][Key]["CurMode"] == "fails" then
-				SendChatMessage(i..". "..DPSMate.Modules.Fails:Type(a[i]).." - "..p, chn, nil, index)
+				if DPSMateSettings["reportdelay"] then
+					tinsert(DPSMate.DelayMsg, {i..". "..DPSMate.Modules.Fails:Type(a[i]).." - "..p, chn, index})
+				else
+					SendChatMessage(i..". "..DPSMate.Modules.Fails:Type(a[i]).." - "..p, chn, nil, index)
+				end
 			else
 				if DPSMate:TContains(AbilityModes, DPSMateSettings["windows"][Key]["CurMode"]) then
-					SendChatMessage(i..". "..DPSMate:GetAbilityById(a[i]).." - "..p, chn, nil, index)
+					if DPSMateSettings["reportdelay"] then
+						tinsert(DPSMate.DelayMsg, {i..". "..DPSMate:GetAbilityById(a[i]).." - "..p, chn, index})
+					else
+						SendChatMessage(i..". "..DPSMate:GetAbilityById(a[i]).." - "..p, chn, nil, index)
+					end
 				else
-					SendChatMessage(i..". "..DPSMate:GetUserById(a[i]).." - "..p, chn, nil, index)
+					if DPSMateSettings["reportdelay"] then
+						tinsert(DPSMate.DelayMsg, {i..". "..DPSMate:GetUserById(a[i]).." - "..p, chn, index})
+					else
+						SendChatMessage(i..". "..DPSMate:GetUserById(a[i]).." - "..p, chn, nil, index)
+					end
 				end
 			end
 		end
@@ -1666,13 +1684,26 @@ function DPSMate.Options:FormatTime(time)
 end
 
 function DPSMate.Options:NewSegment(segname)
+	local max = 0
+	local a = ""
 	-- Get name of this session
-	local _,_,a = DPSMate.Modules.EDT:GetSortedTable(DPSMateEDT[2])
+	for c, v in pairs(DPSMateEDT[2]) do
+		local CV = 0
+		for cat, val in pairs(v) do
+			if cat~="i" then
+				CV = CV+val["i"]
+			end
+		end
+		if max<CV then
+			max = CV
+			a = c
+		end
+	end
 	local extra = ""
-	if a[1] or segname~=nil then
+	if a or segname~=nil then
 		local name = segname
 		if not segname then
-			name = DPSMate:GetUserById(a[1]) or DPSMate.L["unknown"]
+			name = DPSMate:GetUserById(a) or DPSMate.L["unknown"]
 			extra = " - CBT: "..self:FormatTime(DPSMateCombatTime["current"])
 		end
 		if DPSMateSettings["onlybossfights"] then
@@ -1804,29 +1835,28 @@ function DPSMate.Options:CreateWindow()
 			CurMode = "damage",
 			hidden = false,
 			scale = 1,
-			barfont = "ARIALN",
-			barfontsize = 14,
+			barfont = "FRIZQT",
+			barfontsize = 13,
 			barfontflag = "Outline",
-			bartexture = "Healbot",
+			bartexture = "Minimalist",
 			barspacing = 1,
-			barheight = 19,
+			barheight = 17,
 			classicons = true,
 			ranks = true,
 			titlebar = true,
 			titlebarfont = "FRIZQT",
 			titlebarfontflag = "None",
 			titlebarfontsize = 12,
-			titlebarheight = 18,
+			titlebarheight = 17,
 			titlebarreport = true,
 			titlebarreset = true,
 			titlebarsegments = true,
 			titlebarconfig = true,
+			titlebarsync = true,
 			titlebarenable = true,
 			titlebarfilter = true,
-			titlebarsync = DPSMateSettings["sync"],
-			titlebarenable = DPSMateSettings["enable"],
-			titlebartexture = "Healbot",
-			titlebarbgcolor = {0.01568627450980392,0,1},
+			titlebartexture = "Minimalist",
+			titlebarbgcolor = {0.1568627450980392,0.1725490196078431,0.1647058823529412},
 			titlebarfontcolor = {1.0,0.82,0.0},
 			barfontcolor = {1.0,1.0,1.0},
 			contentbgtexture = "UI-Tooltip-Background",
@@ -1848,7 +1878,7 @@ function DPSMate.Options:CreateWindow()
 				druid = true,
 			},
 			filterpeople = "",
-			grouponly = false,
+			grouponly = true,
 			realtime = false,
 			cbtdisplay = false,
 			barbg = false,
@@ -1865,6 +1895,7 @@ function DPSMate.Options:CreateWindow()
 			local fr=CreateFrame("Frame", "DPSMate_"..na, UIParent, "DPSMate_Statusframe")
 			fr.Key=TL
 		end
+		_G("DPSMate_"..na):Show()
 		if not _G("DPSMate_ConfigMenu_Menu_Button"..(9+TL)) then
 			local f = CreateFrame("Button", "DPSMate_ConfigMenu_Menu_Button"..(9+TL), DPSMate_ConfigMenu_Menu, "DPSMate_Template_WindowButton")
 			f.Key = TL
@@ -1936,6 +1967,20 @@ function DPSMate.Options:Lock()
 	DPSMateSettings.lock = true
 	for _,val in pairs(DPSMateSettings["windows"]) do
 		_G("DPSMate_"..val["name"].."_Resize"):Hide()
+	end
+	-- Saving positions to prevent a potential crash
+	local point, _, _, xOfs, yOfs;
+	for key, val in DPSMateSettings["windows"] do
+		if _G("DPSMate_"..val["name"]) then
+			point, _, _, xOfs, yOfs = _G("DPSMate_"..val["name"]):GetPoint()
+			DPSMateSettings["windows"][key]["position"] = {}
+			DPSMateSettings["windows"][key]["position"][1] = point
+			DPSMateSettings["windows"][key]["position"][2] = xOfs
+			DPSMateSettings["windows"][key]["position"][3] = yOfs
+			DPSMateSettings["windows"][key]["savsize"] = {}
+			DPSMateSettings["windows"][key]["savsize"][1] = _G("DPSMate_"..val["name"]):GetWidth()
+			DPSMateSettings["windows"][key]["savsize"][2] = _G("DPSMate_"..val["name"]):GetHeight()
+		end
 	end
 	DPSMate:SendMessage(DPSMate.L["lockedallw"])
 end
@@ -2070,11 +2115,12 @@ function DPSMate.Options:ShowTooltip()
 		elseif DPSMateSettings["tooltipanchor"] == 5 then
 			GameTooltip:SetOwner(this:GetParent():GetParent():GetParent(), "TOPRIGHT")
 		end
-		GameTooltip:AddLine(this.user.."'s ".._G(this:GetParent():GetParent():GetParent():GetName().."_Head_Font"):GetText(), 1,1,1)
+		local _, cbt = DPSMate:GetMode(DPSMate_Details.PaKey)
+		GameTooltip:AddLine(this.user.." ["..self:FormatTime(cbt).."]", 1,0.82,0,1)
 		DPSMate.RegistredModules[DPSMateSettings["windows"][DPSMate_Details.PaKey]["CurMode"]]:ShowTooltip(this.user, DPSMate_Details.PaKey)
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(DPSMate.L["leftclickopend"])
-		GameTooltip:AddLine(DPSMate.L["rightclickopenm"])
+		GameTooltip:AddLine(DPSMate.L["leftclickopend"], 0,1,0,1)
+		GameTooltip:AddLine(DPSMate.L["rightclickopenm"], 0,1,0,1)
 		GameTooltip:Show()
 	end
 end
@@ -2125,6 +2171,7 @@ function DPSMate.Options:ToggleSync()
 			_G("DPSMate_"..val["name"].."_Head_Sync"):GetNormalTexture():SetVertexColor(0.67,0.83,0.45,1)
 		end
 	end
+	DPSMate.Sync.synckey = ""
 end
 
 

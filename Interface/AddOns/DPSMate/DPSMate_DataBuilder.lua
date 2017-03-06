@@ -5,42 +5,42 @@
 -- Global Variables
 DPSMate.DB.loaded = false
 DPSMate.DB.ShieldFlags = {
-	[DPSMate.BabbleSpell:GetTranslation("Power Word: Shield")] = 0, -- All
-	[DPSMate.BabbleSpell:GetTranslation("Ice Barrier")] = 0, -- All
-	[DPSMate.BabbleSpell:GetTranslation("The Burrower's Shell")] = 0, -- All
-	[DPSMate.BabbleSpell:GetTranslation("Aura of Protection")] = 0, -- All
-	[DPSMate.BabbleSpell:GetTranslation("Damage Absorb")] = 0, -- All
-	[DPSMate.BabbleSpell:GetTranslation("Physical Protection")] = 1, -- Meele
-	[DPSMate.BabbleSpell:GetTranslation("Harm Prevention Belt")] = 0, -- All
-	[DPSMate.BabbleSpell:GetTranslation("Mana Shield")] = 1, -- Meele
-	[DPSMate.BabbleSpell:GetTranslation("Frost Protection")] = 2, -- Frost
-	[DPSMate.BabbleSpell:GetTranslation("Frost Resistance")] = 2, -- Frost
-	[DPSMate.BabbleSpell:GetTranslation("Frost Ward")] = 2, -- Frost
-	[DPSMate.BabbleSpell:GetTranslation("Fire Protection")] = 3, -- Fire
-	[DPSMate.BabbleSpell:GetTranslation("Fire Ward")] = 3, -- Fire
-	[DPSMate.BabbleSpell:GetTranslation("Nature Protection")] = 4, -- Nature
-	[DPSMate.BabbleSpell:GetTranslation("Shadow Protection")] = 5, -- Shadow
-	[DPSMate.BabbleSpell:GetTranslation("Arcane Protection")] = 6, -- Arcane
-	[DPSMate.BabbleSpell:GetTranslation("Holy Protection")] = 7, -- Holy
+	["Power Word: Shield"] = 0, -- All
+	["Ice Barrier"] = 0, -- All
+	["The Burrower's Shell"] = 0, -- All
+	["Aura of Protection"] = 0, -- All
+	["Damage Absorb"] = 0, -- All
+	["Physical Protection"] = 1, -- Meele
+	["Harm Prevention Belt"] = 0, -- All
+	["Mana Shield"] = 1, -- Meele
+	["Frost Protection"] = 2, -- Frost
+	["Frost Resistance"] = 2, -- Frost
+	["Frost Ward"] = 2, -- Frost
+	["Fire Protection"] = 3, -- Fire
+	["Fire Ward"] = 3, -- Fire
+	["Nature Protection"] = 4, -- Nature
+	["Shadow Protection"] = 5, -- Shadow
+	["Arcane Protection"] = 6, -- Arcane
+	["Holy Protection"] = 7, -- Holy
 }
 DPSMate.DB.FixedShieldAmounts = {
-	[DPSMate.BabbleSpell:GetTranslation("Power Word: Shield")] = 1000, -- All
-	[DPSMate.BabbleSpell:GetTranslation("Ice Barrier")] = 818, -- All
-	[DPSMate.BabbleSpell:GetTranslation("The Burrower's Shell")] = 900, -- All
-	[DPSMate.BabbleSpell:GetTranslation("Aura of Protection")] = 1000, -- All
-	[DPSMate.BabbleSpell:GetTranslation("Damage Absorb")] = 550, -- All
-	[DPSMate.BabbleSpell:GetTranslation("Physical Protection")] = 500, -- Meele
-	[DPSMate.BabbleSpell:GetTranslation("Harm Prevention Belt")] = 500, -- All
-	[DPSMate.BabbleSpell:GetTranslation("Mana Shield")] = 570, -- Meele
-	[DPSMate.BabbleSpell:GetTranslation("Frost Protection")] = 2500, -- Frost
-	[DPSMate.BabbleSpell:GetTranslation("Frost Resistance")] = 600, -- Frost
-	[DPSMate.BabbleSpell:GetTranslation("Frost Ward")] = 920, -- Frost
-	[DPSMate.BabbleSpell:GetTranslation("Fire Protection")] = 2500, -- Fire
-	[DPSMate.BabbleSpell:GetTranslation("Fire Ward")] = 920, -- Fire
-	[DPSMate.BabbleSpell:GetTranslation("Nature Protection")] = 2500, -- Nature
-	[DPSMate.BabbleSpell:GetTranslation("Shadow Protection")] = 2500, -- Shadow
-	[DPSMate.BabbleSpell:GetTranslation("Arcane Protection")] = 2500, -- Arcane
-	[DPSMate.BabbleSpell:GetTranslation("Holy Protection")] = 2500, -- Holy
+	["Power Word: Shield"] = 1000, -- All
+	["Ice Barrier"] = 818, -- All
+	["The Burrower's Shell"] = 900, -- All
+	["Aura of Protection"] = 1000, -- All
+	["Damage Absorb"] = 550, -- All
+	["Physical Protection"] = 500, -- Meele
+	["Harm Prevention Belt"] = 500, -- All
+	["Mana Shield"] = 570, -- Meele
+	["Frost Protection"] = 2500, -- Frost
+	["Frost Resistance"] = 600, -- Frost
+	["Frost Ward"] = 920, -- Frost
+	["Fire Protection"] = 2500, -- Fire
+	["Fire Ward"] = 920, -- Fire
+	["Nature Protection"] = 2500, -- Nature
+	["Shadow Protection"] = 2500, -- Shadow
+	["Arcane Protection"] = 2500, -- Arcane
+	["Holy Protection"] = 2500, -- Holy
 }
 local AbilityFlags = {
 	["fire"] = 3,
@@ -57,7 +57,45 @@ local AbilityFlags = {
 	["schatten"] = 5,
 	["natur"] = 4,
 	["frost"] = 2,
-	["physisch"] = 1
+	["physisch"] = 1,
+	
+	["火焰"] = 3,
+	["神圣"] = 7,
+	["奥术"] = 6,
+	["暗影"] = 5,
+	["自然"] = 4,
+	["冰霜"] = 2,
+	["物理"] = 1,
+
+	["ombre"] = 5,
+	["feu"] = 3,
+	["nature"] = 4,
+	["givre"] = 2,
+	["arcane"] = 6,
+	["sacré"] = 7,
+	["d'ombre"] = 5,
+	["d'feu"] = 3,
+	["d'nature"] = 4,
+	["d'givre"] = 2,
+	["d'arcane"] = 6,
+	["d'sacré"] = 7,
+	["de ombre"] = 5,
+	["de feu"] = 3,
+	["de givre"] = 2,
+	["de nature"] = 4,
+	["de arcane"] = 6,
+	["de sacré"] = 7,
+	["physique"] = 1,
+	["d'physique"] = 1,
+	["de physique"] = 1,
+
+	["огонь"] = 3,
+	["обычный"] = 7,
+	["тайная магия"] = 6,
+	["тьма"] = 5,
+	["природа"] = 4,
+	["лед"] = 2,
+	["физический урон"] = 1,
 }
 DPSMate.DB.NeedUpdate = false
 DPSMate.DB.UserData = {}
@@ -81,6 +119,7 @@ DPSMate.DB.Zones = {
 DPSMate.DB.KTMHOOK = {}
 DPSMate.DB.NextSwing = {}
 DPSMate.DB.NextSwingEDD = {}
+DPSMate.DB.precision = 1.0
 
 -- Local Variables
 local CombatState = false
@@ -100,15 +139,38 @@ local GT = GetTime
 local strfind = string.find
 local UL = UnitLevel
 local slower = strlower
-local windfuryab = {
-	[DPSMate.BabbleSpell:GetTranslation("Windfury Weapon")] = true,
-	[DPSMate.BabbleSpell:GetTranslation("Windfury Totem")] = true,
+local strformat = string.format
+DPSMate.DB.windfuryab = {
+	["Windfury Weapon"] = true,
+	["Windfury Totem"] = true,
 }
+local playerfaction = UnitFactionGroup("player")
+
+if not GameTime_GT then
+	GameTime_GT = function()
+		local hour, minutes = GetGameTime()
+		if hour>12 then
+			hour = mod(hour, 12)
+			if minutes<10 then
+				return hour..":0"..minutes.." PM"
+			else
+				return hour..":"..minutes.." PM"
+			end
+		else
+			hour = mod(hour, 12)
+			if minutes<10 then
+				return hour..":0"..minutes.." AM"
+			else
+				return hour..":"..minutes.." AM"
+			end
+		end
+	end
+end
 
 -- Begin Functions
 
 function DPSMate.DB:OnEvent(event)
-	if event == "ADDON_LOADED" and (not self.loaded) then
+	if event == "PLAYER_ENTERING_WORLD" and (not self.loaded) then
 		if DPSMateSettings == nil then
 			DPSMateSettings = {
 				windows = {
@@ -125,19 +187,19 @@ function DPSMate.DB:OnEvent(event)
 						CurMode = "damage",
 						hidden = false,
 						scale = 1,
-						barfont = "ARIALN",
-						barfontsize = 14,
+						barfont = "FRIZQT",
+						barfontsize = 13,
 						barfontflag = "Outline",
-						bartexture = "Healbot",
+						bartexture = "Minimalist",
 						barspacing = 1,
-						barheight = 19,
+						barheight = 17,
 						classicons = true,
 						ranks = true,
 						titlebar = true,
 						titlebarfont = "FRIZQT",
 						titlebarfontflag = "None",
 						titlebarfontsize = 12,
-						titlebarheight = 18,
+						titlebarheight = 17,
 						titlebarreport = true,
 						titlebarreset = true,
 						titlebarsegments = true,
@@ -145,8 +207,8 @@ function DPSMate.DB:OnEvent(event)
 						titlebarsync = true,
 						titlebarenable = true,
 						titlebarfilter = true,
-						titlebartexture = "Healbot",
-						titlebarbgcolor = {0.01568627450980392,0,1},
+						titlebartexture = "Minimalist",
+						titlebarbgcolor = {0.1568627450980392,0.1725490196078431,0.1647058823529412},
 						titlebarfontcolor = {1.0,0.82,0.0},
 						barfontcolor = {1.0,1.0,1.0},
 						contentbgtexture = "UI-Tooltip-Background",
@@ -168,7 +230,7 @@ function DPSMate.DB:OnEvent(event)
 							druid = true,
 						},
 						filterpeople = "",
-						grouponly = false,
+						grouponly = true,
 						realtime = false,
 						cbtdisplay = false,
 						barbg = false,
@@ -189,7 +251,7 @@ function DPSMate.DB:OnEvent(event)
 				dataresetsleaveparty = 2,
 				dataresetspartyamount = 2,
 				dataresetssync = 3,
-				dataresetslogout = 3,
+				dataresetslogout = 2,
 				showminimapbutton = true,
 				showtotals = true,
 				hidewhensolo = false,
@@ -420,6 +482,8 @@ function DPSMate.DB:OnEvent(event)
 				bcrw = false,
 				targetscale=0.58,
 				hideonlogin = false,
+				reportdelay = false,
+				legacylogs = false,
 			}
 		end
 		if DPSMateHistory == nil then 
@@ -470,141 +534,54 @@ function DPSMate.DB:OnEvent(event)
 		if DPSMatePlayer == nil then DPSMatePlayer = {} end
 		if DPSMateLoot == nil then DPSMateLoot = {} end
 		
-		DPSMate.Modules.DPS.DB = DPSMateDamageDone
-		DPSMate.Modules.Damage.DB = DPSMateDamageDone
-		DPSMate.Modules.DamageTaken.DB = DPSMateDamageTaken
-		DPSMate.Modules.DTPS.DB = DPSMateDamageTaken
-		DPSMate.Modules.EDD.DB = DPSMateEDD
-		DPSMate.Modules.EDT.DB = DPSMateEDT
-		DPSMate.Modules.FriendlyFire.DB = DPSMateEDT
-		DPSMate.Modules.FriendlyFireTaken.DB = DPSMateEDT
-		DPSMate.Modules.Healing.DB = DPSMateTHealing
-		DPSMate.Modules.HPS.DB = DPSMateTHealing
-		DPSMate.Modules.Overhealing.DB = DPSMateOverhealing
-		DPSMate.Modules.EffectiveHealing.DB = DPSMateEHealing
-		DPSMate.Modules.EffectiveHPS.DB = DPSMateEHealing
-		DPSMate.Modules.HealingTaken.DB = DPSMateHealingTaken
-		DPSMate.Modules.EffectiveHealingTaken.DB = DPSMateEHealingTaken
-		DPSMate.Modules.Absorbs.DB = DPSMateAbsorbs
-		DPSMate.Modules.AbsorbsTaken.DB = DPSMateAbsorbs
-		DPSMate.Modules.HealingAndAbsorbs.DB = DPSMateAbsorbs
-		DPSMate.Modules.Deaths.DB = DPSMateDeaths
-		DPSMate.Modules.Dispels.DB = DPSMateDispels
-		DPSMate.Modules.DispelsReceived.DB = DPSMateDispels
-		DPSMate.Modules.Decurses.DB = DPSMateDispels
-		DPSMate.Modules.DecursesReceived.DB = DPSMateDispels
-		DPSMate.Modules.CureDisease.DB = DPSMateDispels
-		DPSMate.Modules.CureDiseaseReceived.DB = DPSMateDispels
-		DPSMate.Modules.CurePoison.DB = DPSMateDispels
-		DPSMate.Modules.CurePoisonReceived.DB = DPSMateDispels
-		DPSMate.Modules.LiftMagic.DB = DPSMateDispels
-		DPSMate.Modules.LiftMagicReceived.DB = DPSMateDispels
-		DPSMate.Modules.Interrupts.DB = DPSMateInterrupts
-		DPSMate.Modules.AurasGained.DB = DPSMateAurasGained
-		DPSMate.Modules.AurasLost.DB = DPSMateAurasGained
-		DPSMate.Modules.AurasLost.DB = DPSMateAurasGained
-		DPSMate.Modules.AurasUptimers.DB = DPSMateAurasGained
-		DPSMate.Modules.Procs.DB = DPSMateAurasGained
-		DPSMate.Modules.Casts.DB = DPSMateEDT
-		DPSMate.Modules.Threat.DB = DPSMateThreat
-		DPSMate.Modules.TPS.DB = DPSMateThreat
-		DPSMate.Modules.Fails.DB = DPSMateFails
-		DPSMate.Modules.CCBreaker.DB = DPSMateCCBreaker
-		DPSMate.Modules.OHPS.DB = DPSMateOverhealing
-		DPSMate.Modules.OHealingTaken.DB = DPSMateOverhealingTaken
-		DPSMate.Modules.Activity.DB = DPSMateCombatTime
-		
-		if not DPSMateSettings["columnsprocs"] then
-			DPSMateSettings["columnsprocs"] = {
-				[1] = true,
-				[2] = true,
-			}
-		end
-		if not DPSMateSettings["columnscasts"] then
-			DPSMateSettings["columnscasts"] = {
-				[1] = true,
-				[2] = true,
-			}
-		end
-		if not DPSMateSettings["columnsfails"] then
-			DPSMateSettings["columnsfails"] = {
-				[1] = true,
-				[2] = true,
-			}
-		end
-		if not DPSMateSettings["columnsthreat"] then
-			DPSMateSettings["columnsthreat"] = {
-				[1] = true,
-				[2] = false,
-				[3] = true,
-				[4] = false
-			}
-		end
-		if not DPSMateSettings["columnstps"] then
-			DPSMateSettings["columnstps"] = {
-				[1] = false,
-				[2] = true,
-				[3] = true,
-				[4] = false
-			}
-		end
-		if not DPSMateSettings["columnsohps"] then
-			DPSMateSettings["columnsohps"] = {
-				[1] = false,
-				[2] = true,
-				[3] = true,
-				[4] = false
-			}
-		end
-		if not DPSMateSettings["columnsohealingtaken"] then
-			DPSMateSettings["columnsohealingtaken"] = {
-				[1] = true,
-				[2] = false,
-				[3] = true,
-				[4] = false
-			}
-		end
-		if not DPSMateSettings["columnsccbreaker"] then
-			DPSMateSettings["columnsccbreaker"] = {
-				[1] = true,
-				[2] = true
-			}
-		end
-		if not DPSMateSettings["mergepets"] then
-			DPSMateSettings["mergepets"] = true
-		end
-		if not DPSMateSettings["columnsfriendlyfiretaken"] then 
-			DPSMateSettings["columnsfriendlyfiretaken"] = {
-				[1] = true,
-				[2] = false,
-				[3] = true,
-				[4] = false
-			}
-		end
-		if not DPSMateSettings["targetscale"] then
-			DPSMateSettings["targetscale"] = 0.58
-		end
-		
-		-- Settings for each window
-		for num, val in pairs(DPSMateSettings["windows"]) do
-			if not val["contentbordercolor"] then
-				DPSMateSettings["windows"][num]["contentbordercolor"] = {0,0,0}
-			end
-			if not val["borderstrata"] then
-				DPSMateSettings["windows"][num]["borderstrata"] = 1
-			end
-			if not val["bordertexture"] then
-				DPSMateSettings["windows"][num]["bordertexture"] = "UI-Tooltip-Border"
-			end
-			if not val["borderopacity"] then
-				DPSMateSettings["windows"][num]["borderopacity"] = 1
-			end
-		end
+		if DPSMate.Modules.DPS then DPSMate.Modules.DPS.DB = DPSMateDamageDone end
+		if DPSMate.Modules.Damage then DPSMate.Modules.Damage.DB = DPSMateDamageDone end
+		if DPSMate.Modules.DamageTaken then DPSMate.Modules.DamageTaken.DB = DPSMateDamageTaken end
+		if DPSMate.Modules.DTPS then DPSMate.Modules.DTPS.DB = DPSMateDamageTaken end
+		if DPSMate.Modules.EDD then DPSMate.Modules.EDD.DB = DPSMateEDD end
+		if DPSMate.Modules.EDT then DPSMate.Modules.EDT.DB = DPSMateEDT end
+		if DPSMate.Modules.FriendlyFire then DPSMate.Modules.FriendlyFire.DB = DPSMateEDT end
+		if DPSMate.Modules.FriendlyFireTaken then DPSMate.Modules.FriendlyFireTaken.DB = DPSMateEDT end
+		if DPSMate.Modules.Healing then DPSMate.Modules.Healing.DB = DPSMateTHealing end
+		if DPSMate.Modules.HPS then DPSMate.Modules.HPS.DB = DPSMateTHealing end
+		if DPSMate.Modules.Overhealing then DPSMate.Modules.Overhealing.DB = DPSMateOverhealing end
+		if DPSMate.Modules.EffectiveHealing then DPSMate.Modules.EffectiveHealing.DB = DPSMateEHealing end
+		if DPSMate.Modules.EffectiveHPS then DPSMate.Modules.EffectiveHPS.DB = DPSMateEHealing end
+		if DPSMate.Modules.HealingTaken then DPSMate.Modules.HealingTaken.DB = DPSMateHealingTaken end
+		if DPSMate.Modules.EffectiveHealingTaken then DPSMate.Modules.EffectiveHealingTaken.DB = DPSMateEHealingTaken end
+		if DPSMate.Modules.Absorbs then DPSMate.Modules.Absorbs.DB = DPSMateAbsorbs end
+		if DPSMate.Modules.AbsorbsTaken then DPSMate.Modules.AbsorbsTaken.DB = DPSMateAbsorbs end
+		if DPSMate.Modules.HealingAndAbsorbs then DPSMate.Modules.HealingAndAbsorbs.DB = DPSMateAbsorbs end
+		if DPSMate.Modules.Deaths then DPSMate.Modules.Deaths.DB = DPSMateDeaths end
+		if DPSMate.Modules.Dispels then DPSMate.Modules.Dispels.DB = DPSMateDispels end
+		if DPSMate.Modules.DispelsReceived then DPSMate.Modules.DispelsReceived.DB = DPSMateDispels end
+		if DPSMate.Modules.Decurses then DPSMate.Modules.Decurses.DB = DPSMateDispels end
+		if DPSMate.Modules.DecursesReceived then DPSMate.Modules.DecursesReceived.DB = DPSMateDispels end
+		if DPSMate.Modules.CureDisease then DPSMate.Modules.CureDisease.DB = DPSMateDispels end
+		if DPSMate.Modules.CureDiseaseReceived then DPSMate.Modules.CureDiseaseReceived.DB = DPSMateDispels end
+		if DPSMate.Modules.CurePoison then DPSMate.Modules.CurePoison.DB = DPSMateDispels end
+		if DPSMate.Modules.CurePoisonReceived then DPSMate.Modules.CurePoisonReceived.DB = DPSMateDispels end
+		if DPSMate.Modules.LiftMagic then DPSMate.Modules.LiftMagic.DB = DPSMateDispels end
+		if DPSMate.Modules.LiftMagicReceived then DPSMate.Modules.LiftMagicReceived.DB = DPSMateDispels end
+		if DPSMate.Modules.Interrupts then DPSMate.Modules.Interrupts.DB = DPSMateInterrupts end
+		if DPSMate.Modules.AurasGained then DPSMate.Modules.AurasGained.DB = DPSMateAurasGained end
+		if DPSMate.Modules.AurasLost then DPSMate.Modules.AurasLost.DB = DPSMateAurasGained end
+		if DPSMate.Modules.AurasLost then DPSMate.Modules.AurasLost.DB = DPSMateAurasGained end
+		if DPSMate.Modules.AurasUptimers then DPSMate.Modules.AurasUptimers.DB = DPSMateAurasGained end
+		if DPSMate.Modules.Procs then DPSMate.Modules.Procs.DB = DPSMateAurasGained end
+		if DPSMate.Modules.Casts then DPSMate.Modules.Casts.DB = DPSMateEDT end
+		if DPSMate.Modules.Threat then DPSMate.Modules.Threat.DB = DPSMateThreat end
+		if DPSMate.Modules.TPS then DPSMate.Modules.TPS.DB = DPSMateThreat end
+		if DPSMate.Modules.Fails then DPSMate.Modules.Fails.DB = DPSMateFails end
+		if DPSMate.Modules.CCBreaker then DPSMate.Modules.CCBreaker.DB = DPSMateCCBreaker end
+		if DPSMate.Modules.OHPS then DPSMate.Modules.OHPS.DB = DPSMateOverhealing end
+		if DPSMate.Modules.OHealingTaken then DPSMate.Modules.OHealingTaken.DB = DPSMateOverhealingTaken end
+		if DPSMate.Modules.Activity then DPSMate.Modules.Activity.DB = DPSMateCombatTime end
 		
 		if DPSMateCombatTime == nil then
 			DPSMateCombatTime = {
-				total = 1,
-				current = 1,
+				total = 0.0001,
+				current = 0.0001,
 				segments = {},
 				effective = {
 					[1] = {},
@@ -633,6 +610,13 @@ function DPSMate.DB:OnEvent(event)
 			DPSMate.Options:PopUpAccept(true, true)
 		end
 		
+		local frames = {"", "_Absorbs", "_AbsorbsTaken", "_Auras", "_Casts", "_CCBreaker", "_CureDisease", "_CureDiseaseReceived", "_CurePoison", "_CurePoisonReceived", "_DamageTaken", "_DamageTakenTotal", "_DamageTotal", "_Deaths", "_Decurses", "_DecursesReceived", "_Dispels", "_DispelsReceived", "_EDD", "_EDT", "_EHealing", "_EHealingTaken", "_Fails", "_FF", "_FFT", "_Healing", "_HealingTaken", "_Interrupts", "_LiftMagic", "_LiftMagicReceived", "_OHealingTaken", "_Overhealing", "_Procs", "_AbsorbsTakenTotal", "_AbsorbsTotal", "_AurasTotal", "_CastsTotal", "_CCBreakerTotal", "_CureDisease_Total", "_CurePoison_Total", "_Deaths_Total", "_Decurses_Total", "_Dispels_Total", "_EDDTotal", "_EDTTotal", "_EHealingTakenTotal", "_EHealingTotal", "_FailsTotal", "_FFTotal", "_FFTTotal", "_HABTotal", "_HealingTakenTotal", "_HealingTotal", "_Interrupts_Total", "_LiftMagic_Total", "_OverhealingTakenTotal", "_OverhealingTotal", "_ProcsTotal"}
+		for cat, val in pairs(frames) do
+			if _G("DPSMate_Details"..val) then
+				_G("DPSMate_Details"..val):SetToplevel(true)
+			end
+		end
+		
 		-- Look it up at NEC
 		--SetCVar("CombatLogRangeParty", 150);
 		--SetCVar("CombatLogRangePartyPet", 150);
@@ -657,7 +641,7 @@ function DPSMate.DB:OnEvent(event)
 			end
 		end
 		DPSMate.Options:HideWhenSolo()
-		if (not CombatState and cheatCombat+10<GetTime()) then
+		if (not CombatState and cheatCombat+10<GT()) then
 			DPSMate.Options:NewSegment()
 		end
 		CombatState, CombatTime = true, 0
@@ -676,7 +660,7 @@ function DPSMate.DB:OnEvent(event)
 		self:hasVanishedFeignDeath()
 	elseif event == "PLAYER_TARGET_CHANGED" then
 		self:PlayerTargetChanged()
-	elseif event == "PLAYER_PET_CHANGED" then
+	elseif event == "PLAYER_PET_CHANGED" or event == "PET_STABLE_CLOSED" or event == "PET_STABLE_SHOW" or event == "PET_STABLE_UPDATE" or event == "PET_STABLE_UPDATE_PAPERDOLL" then
 		DPSMate.DB:OnGroupUpdate()
 	end
 end
@@ -706,6 +690,15 @@ function DPSMate.DB:OnGroupUpdate()
 			DPSMateUser[pet][4] = true
 			DPSMateUser[name][5] = pet
 			DPSMateUser[pet][6] = DPSMateUser[name][1]
+		end
+		if DPSMate.Parser.TargetParty[pet] then
+			DPSMateUser[pet][4] = false
+			DPSMateUser[pet][6] = ""
+			DPSMateUser[name][5] = ""
+		end
+		if DPSMateUser[name][4] then
+			DPSMateUser[name][4] = false
+			DPSMateUser[name][5] = ""
 		end
 		if fac == DPSMate.L["alliance"] then
 			DPSMateUser[name][3] = 1
@@ -752,7 +745,7 @@ end
 function DPSMate.DB:PlayerTargetChanged()
 	if UnitIsPlayer("target") then
 		local name = UnitName("target")
-		local a, class = UnitClass("target")
+		local _, class = UnitClass("target")
 		local fac = UnitFactionGroup("target") or ""
 		local level = UL("target")
 		if DPSMateUser[name] then
@@ -767,6 +760,10 @@ function DPSMate.DB:PlayerTargetChanged()
 		end
 		if level and level>0 then
 			DPSMateUser[name][8] = level
+		end
+		if DPSMateUser[name][4] then
+			DPSMateUser[name][4] = false
+			DPSMateUser[name][5] = ""
 		end
 	end
 end
@@ -821,39 +818,39 @@ function DPSMate.DB:BuildAbility(name, kind, school)
 end
 
 -- KTMHOOK
-local specialAbTrans = {
-	["heroicstrike"] = DPSMate.BabbleSpell:GetTranslation("Heroic Strike"),
-	["maul"] = DPSMate.BabbleSpell:GetTranslation("Maul"),	
-	["swipe"] = DPSMate.BabbleSpell:GetTranslation("Swipe"),
-	["shieldslam"] = DPSMate.BabbleSpell:GetTranslation("Shield Slam"),
-	["revenge"] = DPSMate.BabbleSpell:GetTranslation("Revenge"),
-	["shieldbash"] = DPSMate.BabbleSpell:GetTranslation("Shield Bash"),
-	["sunder"] = DPSMate.BabbleSpell:GetTranslation("Sunder Armor"),
-	["cleave"] = DPSMate.BabbleSpell:GetTranslation("Cleave"),
-	--["feint"] = DPSMate.BabbleSpell:GetTranslation("Feint"),
-	--["cower"] = DPSMate.BabbleSpell:GetTranslation("Cower"),
-	["searingpain"] = DPSMate.BabbleSpell:GetTranslation("Searing Pain"),
-	["earthshock"] = DPSMate.BabbleSpell:GetTranslation("Earth Shock"),
-	["mindblast"] = DPSMate.BabbleSpell:GetTranslation("Mind Blast"),
-	["holyshield"] = DPSMate.BabbleSpell:GetTranslation("Holy Shield"),
-	--["distractingshot"] = DPSMate.BabbleSpell:GetTranslation("Distracting Shot"),
-	["heroicstrike"] = DPSMate.BabbleSpell:GetTranslation("Heroic Strike"),
-	["thunderfury"] = DPSMate.BabbleSpell:GetTranslation("Thunderfury"),
-	["graceofearth"] = DPSMate.BabbleSpell:GetTranslation("Grace of Earth"),
-	["blackamnesty"] = DPSMate.BabbleSpell:GetTranslation("Black Amnesty"),
-	["whitedamage"] = DPSMate.BabbleSpell:GetTranslation("AutoAttack"),
+DPSMate.DB.specialAbTrans = {
+	["heroicstrike"] = "Heroic Strike",
+	["maul"] = "Maul",	
+	["swipe"] = "Swipe",
+	["shieldslam"] = "Shield Slam",
+	["revenge"] = "Revenge",
+	["shieldbash"] = "Shield Bash",
+	["sunder"] = "Sunder Armor",
+	["cleave"] = "Cleave",
+	--["feint"] = "Feint",
+	--["cower"] = "Cower",
+	["searingpain"] = "Searing Pain",
+	["earthshock"] = "Earth Shock",
+	["mindblast"] = "Mind Blast",
+	["holyshield"] = "Holy Shield",
+	--["distractingshot"] = "Distracting Shot",
+	["heroicstrike"] = "Heroic Strike",
+	["thunderfury"] = "Thunderfury",
+	["graceofearth"] = "Grace of Earth",
+	["blackamnesty"] = "Black Amnesty",
+	["whitedamage"] = "AutoAttack",
 }
 
 if klhtm then
 	local oldModSpecialAttack = klhtm.combat.specialattack
 	klhtm.combat.specialattack = function(abilityid, target, damage, iscrit, spellschool)
 		oldModSpecialAttack(abilityid, target, damage, iscrit, spellschool)
-		if specialAbTrans[abilityid] then
-			if not DPSMate.DB.KTMHOOK[specialAbTrans[abilityid]] then
-				DPSMate.DB.KTMHOOK[specialAbTrans[abilityid]] = {}
+		if DPSMate.DB.specialAbTrans[abilityid] then
+			if not DPSMate.DB.KTMHOOK[DPSMate.DB.specialAbTrans[abilityid]] then
+				DPSMate.DB.KTMHOOK[DPSMate.DB.specialAbTrans[abilityid]] = {}
 			end
-			tinsert(DPSMate.DB.KTMHOOK[specialAbTrans[abilityid]], {target, klhtm.combat.event.threat})
-			DPSMate.DB:Threat(player, specialAbTrans[abilityid], target, klhtm.combat.event.threat, 1)
+			tinsert(DPSMate.DB.KTMHOOK[DPSMate.DB.specialAbTrans[abilityid]], {target, klhtm.combat.event.threat})
+			DPSMate.DB:Threat(player, DPSMate.DB.specialAbTrans[abilityid], target, klhtm.combat.event.threat, 1)
 		end
 	end
 
@@ -925,6 +922,7 @@ end
 
 function DPSMate.DB:Threat(cause, spellname, target, value, amount)
 	if self:BuildUser(target, nil) or self:BuildUser(cause, nil) or self:BuildAbility(spellname, nil) or value==0 or cause=="" or spellname=="" or target=="" then return end
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["threat"] then return end
 	for cat, val in pairs({[1]="total", [2]="current"}) do
 		if not DPSMateThreat[cat][DPSMateUser[cause][1]] then
 			DPSMateThreat[cat][DPSMateUser[cause][1]] = {}
@@ -950,11 +948,27 @@ function DPSMate.DB:Threat(cause, spellname, target, value, amount)
 		if path[3]<value then
 			path[3] = value
 		end
-		if path["i"][DPSMateCombatTime[val]] then
-			path["i"][DPSMateCombatTime[val]] = path["i"][DPSMateCombatTime[val]] + value
+		
+		if value>0 then
+			local time = floor(DPSMateCombatTime[val])
+			if path["i"][time] then
+				path["i"][time] = path["i"][time] + value
+			else
+				path["i"][time] = value
+			end
+		end		
+		--[[
+		if path["i"][3]>DPSMateCombatTime[val] then
+			path["i"][4] = path["i"][4] + value
 		else
-			path["i"][DPSMateCombatTime[val]] = value
+			if path["i"][4]>0 then
+				path["i"][1] = path["i"][1]..strformat("%.1f", path["i"][3]-self.precision)..","
+				path["i"][2] = path["i"][2]..path["i"][4]..","
+			end
+			path["i"][3] = DPSMateCombatTime[val]+self.precision
+			path["i"][4] = value
 		end
+		--]]
 	end
 	self.NeedUpdate = true
 end
@@ -981,6 +995,7 @@ function DPSMate.DB:WeightedAverage(a, b, c, d)
 end
 
 local spellSchoolNames = {
+	-- enUS
 	["fire"] = true,
 	["nature"] = true,
 	["shadow"] = true,
@@ -988,15 +1003,84 @@ local spellSchoolNames = {
 	["frost"] = true,
 	["arcane"] = true,
 	
+	-- deDE
 	["feuer"] = true,
 	["natur"] = true,
 	["schatten"] = true,
 	["arkan"] = true,
 	["frost"] = true,
-	["heilig"] = true
+	["heilig"] = true,
+	
+	--frFR
+	["ombre"] = true,
+	["feu"] = true,
+	["nature"] = true,
+	["givre"] = true,
+	["arcane"] = true,
+	["sacré"] = true,
+	["d'ombre"] = true,
+	["d'feu"] = true,
+	["d'nature"] = true,
+	["d'givre"] = true,
+	["d'arcane"] = true,
+	["d'sacré"] = true,
+	["de ombre"] = true,
+	["de feu"] = true,
+	["de givre"] = true,
+	["de nature"] = true,
+	["de arcane"] = true,
+	["de sacré"] = true,
+	["physique"] = true,
+	["d'physique"] = true,
+	["de physique"] = true,
+
+	-- ruRU
+	["огонь"] = true,
+	["обычный"] = true,
+	["тайная магия"] = true,
+	["тьма"] = true,
+	["природа"] = true,
+	["лед"] = true,
+	["физический урон"] = true,
+	
+	-- zhCN
+	["火焰"] = true,
+	["神圣"] = true,
+	["奥术"] = true,
+	["暗影"] = true,
+	["自然"] = true,
+	["冰霜"] = true,
+	["物理"] = true,
+}
+
+local frenchConv = {
+	["ombre"] = "ombre",
+	["feu"] = "feu",
+	["nature"] = "nature",
+	["givre"] = "givre",
+	["arcane"] = "aracane",
+	["sacré"] = "sacré",
+	["d'ombre"] = "ombre",
+	["d'feu"] = "feu",
+	["d'nature"] = "nature",
+	["d'givre"] = "givre",
+	["d'arcane"] = "aracane",
+	["d'sacré"] = "sacré",
+	["de ombre"] = "ombre",
+	["de feu"] = "feu",
+	["de givre"] = "givre",
+	["de nature"] = "nature",
+	["de arcane"] = "aracane",
+	["de sacré"] = "sacré",
+	["physique"] = "physique",
+	["d'physique"] = "physique",
+	["de physique"] = "physique",
 }
 function DPSMate.DB:AddSpellSchool(ab, school)
 	school = slower(school)
+	if frenchConv[school] then
+		school = frenchConv[school]
+	end
 	local sc
 	if spellSchoolNames[school] then
 		sc = school
@@ -1019,23 +1103,23 @@ end
 
 -- First crit/hit av value will be half if it is not the first hit actually. Didnt want to add an exception for it though. Maybe later :/
 local CastsBuffer = {[1]={[1]={},[2]={}},[2]={[1]={},[2]={}},[3]={[1]={},[2]={}}}
-local AAttack = DPSMate.BabbleSpell:GetTranslation("AutoAttack")
+DPSMate.DB.AAttack = "AutoAttack"
 local hackOrder, hackOrder2 = {}, {}
 function DPSMate.DB:DamageDone(Duser, Dname, Dhit, Dcrit, Dmiss, Dparry, Ddodge, Dresist, Damount, Dglance, Dblock)
 	if self:BuildUser(Duser, nil) or self:BuildAbility(Dname, nil) then return end -- Attempt to fix this problem?
 	
-	if (not CombatState and cheatCombat+10<GetTime()) then
+	if (not CombatState and cheatCombat+10<GT()) then
 		DPSMate.Options:NewSegment()
 	end
 	CombatState, CombatTime = true, 0
 	
 	-- Part to take extra swings as abilities into account
 	if self.NextSwing[Duser] then
-		if Dname == AAttack and self.NextSwing[Duser][1]>0 and ((hackOrder[Duser] and windfuryab[self.NextSwing[Duser][2]]) or not windfuryab[self.NextSwing[Duser][2]]) then
+		if Dname == self.AAttack and self.NextSwing[Duser][1]>0 and ((hackOrder[Duser] and self.windfuryab[self.NextSwing[Duser][2]]) or not self.windfuryab[self.NextSwing[Duser][2]]) then
 			Dname = self.NextSwing[Duser][2]
 			self.NextSwing[Duser][1] = self.NextSwing[Duser][1] - 1
 			hackOrder[Duser] = true
-		elseif Dname == AAttack and self.NextSwing[Duser][1]>0 and not hackOrder[Duser] and windfuryab[self.NextSwing[Duser][2]] then
+		elseif Dname == self.AAttack and self.NextSwing[Duser][1]>0 and not hackOrder[Duser] and self.windfuryab[self.NextSwing[Duser][2]] then
 			hackOrder[Duser] = true
 		else
 			hackOrder[Duser] = false
@@ -1121,7 +1205,7 @@ function DPSMate.DB:DamageDone(Duser, Dname, Dhit, Dcrit, Dmiss, Dparry, Ddodge,
 		end
 		DPSMateDamageDone[cat][DPSMateUser[Duser][1]]["i"] = DPSMateDamageDone[cat][DPSMateUser[Duser][1]]["i"] + Damount
 		if Damount > 0 then 
-			local time = floor(DPSMateCombatTime[val])
+			time = floor(DPSMateCombatTime[val])
 			if path["i"][time] then
 				path["i"][time] = path["i"][time] + Damount
 			else
@@ -1136,6 +1220,7 @@ end
 -- Fall damage
 function DPSMate.DB:DamageTaken(Duser, Dname, Dhit, Dcrit, Dmiss, Dparry, Ddodge, Dresist, Damount, cause, Dcrush, Dblock)
 	if self:BuildUser(Duser, nil) or self:BuildUser(cause, nil) or self:BuildAbility(Dname, nil) then return end
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["damagetaken"] then return end
 	for cat, val in pairs({[1]="total", [2]="current"}) do 
 		if not DPSMateDamageTaken[cat][DPSMateUser[Duser][1]] then
 			DPSMateDamageTaken[cat][DPSMateUser[Duser][1]] = {
@@ -1220,7 +1305,7 @@ function DPSMate.DB:DamageTaken(Duser, Dname, Dhit, Dcrit, Dmiss, Dparry, Ddodge
 		DPSMateDamageTaken[cat][DPSMateUser[Duser][1]]["i"] = DPSMateDamageTaken[cat][DPSMateUser[Duser][1]]["i"] + Damount
 		if Damount > 0 then 
 			path[14] = (path[14] + Damount)/2
-			local time = floor(DPSMateCombatTime[val])
+			time = floor(DPSMateCombatTime[val])
 			if path["i"][time] then
 				path["i"][time] = path["i"][time] + Damount
 			else
@@ -1237,18 +1322,25 @@ function DPSMate.DB:EnemyDamage(mode, arr, Duser, Dname, Dhit, Dcrit, Dmiss, Dpa
 	if self:BuildUser(Duser, nil) or self:BuildUser(cause, nil) or self:BuildAbility(Dname, nil) then return end
 	ActiveMob[cause] = true
 	
-	if mode then
+	if mode then -- EDD
+		if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["enemydamagedone"] then
+			return
+		end
 		-- Part to take extra swings as abilities into account
 		if self.NextSwingEDD[Duser] then
-			if Dname == AAttack and self.NextSwingEDD[Duser][1]>0 and ((hackOrder2[Duser] and windfuryab[self.NextSwingEDD[Duser][2]]) or not windfuryab[self.NextSwingEDD[Duser][2]]) then
+			if Dname == self.AAttack and self.NextSwingEDD[Duser][1]>0 and ((hackOrder2[Duser] and self.windfuryab[self.NextSwingEDD[Duser][2]]) or not self.windfuryab[self.NextSwingEDD[Duser][2]]) then
 				Dname = self.NextSwingEDD[Duser][2]
 				self.NextSwingEDD[Duser][1] = self.NextSwingEDD[Duser][1] - 1
-			elseif Dname == AAttack and self.NextSwingEDD[Duser][1]>0 and not hackOrder2[Duser] and windfuryab[self.NextSwingEDD[Duser][2]] then
+			elseif Dname == self.AAttack and self.NextSwingEDD[Duser][1]>0 and not hackOrder2[Duser] and self.windfuryab[self.NextSwingEDD[Duser][2]] then
 				hackOrder2[Duser] = true
 			else
 				hackOrder2[Duser] = false
 			end
 		end
+	--else -- EDT
+		--if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["casts"] and not DPSMate.RegistredModules["enemydamagetaken"] and not DPSMate.RegistredModules["friendlyfire"] then
+		--	return
+		--end
 	end
 	
 	for cat, val in pairs({[1]="total", [2]="current"}) do 
@@ -1333,7 +1425,7 @@ function DPSMate.DB:EnemyDamage(mode, arr, Duser, Dname, Dhit, Dcrit, Dmiss, Dpa
 		end
 		arr[cat][DPSMateUser[cause][1]][DPSMateUser[Duser][1]]["i"] = arr[cat][DPSMateUser[cause][1]][DPSMateUser[Duser][1]]["i"] + Damount
 		if Damount > 0 then
-			local time = floor(DPSMateCombatTime[val])
+			time = floor(DPSMateCombatTime[val])
 			if path["i"][time] then
 				path["i"][time] = path["i"][time] + Damount
 			else
@@ -1347,6 +1439,7 @@ end
 
 function DPSMate.DB:Healing(mode, arr, Duser, Dname, Dhit, Dcrit, Damount)
 	if self:BuildUser(Duser, nil) or self:BuildAbility(Dname, nil) then return end
+	if not DPSMateSettings["legacylogs"] and ((mode==0 and not DPSMate.RegistredModules["effectivehealing"] and not DPSMate.RegistredModules["healingandabsorbs"]) or (mode==1 and not DPSMate.RegistredModules["healing"]) or (mode==2 and not DPSMate.RegistredModules["overhealing"])) then return end
 	if not CombatState then return end
 	for cat, val in pairs({[1]="total", [2]="current"}) do 
 		if not arr[cat][DPSMateUser[Duser][1]] then
@@ -1412,8 +1505,9 @@ function DPSMate.DB:Healing(mode, arr, Duser, Dname, Dhit, Dcrit, Damount)
 	self.NeedUpdate = true
 end
 
-function DPSMate.DB:HealingTaken(arr, Duser, Dname, Dhit, Dcrit, Damount, target)
+function DPSMate.DB:HealingTaken(mode, arr, Duser, Dname, Dhit, Dcrit, Damount, target)
 	if self:BuildUser(Duser, nil) or self:BuildUser(target, nil) or self:BuildAbility(Dname, nil) then return end
+	if not DPSMateSettings["legacylogs"] and ((mode==0 and not DPSMate.RegistredModules["healingtaken"] and not DPSMate.RegistredModules["healing"]) or (mode==1 and not DPSMate.RegistredModules["effectivehealingtaken"] and not DPSMate.RegistredModules["effectivehealing"] and not DPSMate.RegistredModules["healingandabsorbs"]) or (mode==2 and not DPSMate.RegistredModules["OHealingTaken"] and not DPSMate.RegistredModules["overhealing"])) then return end
 	if not CombatState then return end
 	for cat, val in pairs({[1]="total", [2]="current"}) do 
 		if not arr[cat][DPSMateUser[Duser][1]] then
@@ -1484,23 +1578,23 @@ end
 -- Weasel casts Frostbolt. -> Game: Can FPP absorb the FD? Yes -> Go for it. (The Power Word Shield is ignored until FPP fades)
 -- What if a shield is refreshed
 local Await = {}
-local realAbility = {
-	[DPSMate.BabbleSpell:GetTranslation("Greater Fire Protection Potion")] = DPSMate.BabbleSpell:GetTranslation("Fire Protection"),
-	[DPSMate.BabbleSpell:GetTranslation("Greater Frost Protection Potion")] = DPSMate.BabbleSpell:GetTranslation("Frost Protection"),
-	[DPSMate.BabbleSpell:GetTranslation("Greater Nature Protection Potion")] = DPSMate.BabbleSpell:GetTranslation("Nature Protection"),
-	[DPSMate.BabbleSpell:GetTranslation("Greater Holy Protection Potion")] = DPSMate.BabbleSpell:GetTranslation("Holy Protection"),
-	[DPSMate.BabbleSpell:GetTranslation("Greater Shadow Protection Potion")] = DPSMate.BabbleSpell:GetTranslation("Shadow Protection"),
-	[DPSMate.BabbleSpell:GetTranslation("Greater Arcane Protection Potion")] = DPSMate.BabbleSpell:GetTranslation("Arcane Protection"),
+DPSMate.DB.realAbility = {
+	["Greater Fire Protection Potion"] = "Fire Protection",
+	["Greater Frost Protection Potion"] = "Frost Protection",
+	["Greater Nature Protection Potion"] = "Nature Protection",
+	["Greater Holy Protection Potion"] = "Holy Protection",
+	["Greater Shadow Protection Potion"] = "Shadow Protection",
+	["Greater Arcane Protection Potion"] = "Arcane Protection",
 }
 function DPSMate.DB:AwaitingAbsorbConfirmation(owner, ability, abilityTarget, time)
-	tinsert(Await, {owner, realAbility[ability] or ability, abilityTarget, time})
+	tinsert(Await, {owner, self.realAbility[ability] or ability, abilityTarget, time})
 	--DPSMate:SendMessage(time)
 	--DPSMate:SendMessage("Awaiting confirmation!")
 end
 
 function DPSMate.DB:ClearAwaitAbsorb()
 	for cat, val in pairs(Await) do
-		if (GetTime()-val[4])>=10 then
+		if (GT()-val[4])>=10 then
 			tremove(Await, cat)
 			break
 		end
@@ -1527,6 +1621,7 @@ end
 
 function DPSMate.DB:RegisterAbsorb(owner, ability, abilityTarget)
 	if self:BuildUser(owner, nil) or self:BuildUser(abilityTarget, nil) or self:BuildAbility(ability, nil) then return end
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["absorbs"] and not DPSMate.RegistredModules["absorbstaken"] and not DPSMate.RegistredModules["healingandabsorbs"] then return end
 	for cat, val in pairs({[1]="total", [2]="current"}) do 
 		if not DPSMateAbsorbs[cat][DPSMateUser[abilityTarget][1]] then
 			DPSMateAbsorbs[cat][DPSMateUser[abilityTarget][1]] = {}
@@ -1565,6 +1660,7 @@ function DPSMate.DB:SetUnregisterVariables(broAbsorb, ab, c)
 end
 
 function DPSMate.DB:UnregisterAbsorb(ability, abilityTarget)
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["absorbs"] and not DPSMate.RegistredModules["absorbstaken"] and not DPSMate.RegistredModules["healingandabsorbs"] then return end
 	for cat, val in pairs({[1]="total", [2]="current"}) do 
 		local AbsorbingAbility = self:GetActiveAbsorbAbilityByPlayer(ability, abilityTarget, cat)
 		if AbsorbingAbility[1] then
@@ -1687,6 +1783,7 @@ end
 function DPSMate.DB:Absorb(ability, abilityTarget, incTarget)
 	if self:BuildUser(incTarget, nil) or self:BuildUser(abilityTarget, nil) or self:BuildAbility(ability, nil) then return end
 	--DPSMate:SendMessage("Absorb: "..ability.."/"..abilityTarget.."/"..incTarget)
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["absorbs"] and not DPSMate.RegistredModules["absorbstaken"] and not DPSMate.RegistredModules["healingandabsorbs"] then return end
 	for cat, val in pairs({[1]="total", [2]="current"}) do 
 		local AbsorbingAbility = self:GetAbsorbingShield(ability, abilityTarget, cat)
 		--DPSMate:SendMessage(AbsorbingAbility)
@@ -1711,7 +1808,7 @@ local NextTotemDispel = false
 local TotemDispelTimer = 0
 function DPSMate.DB:AwaitDispel(ability, target, cause, time)
 	if not AwaitDispel[target] then AwaitDispel[target] = {} end
-	tinsert(AwaitDispel[target], {cause, ability, time})
+	tinsert(AwaitDispel[target], {cause, ability, time, 2})
 	--DPSMate:SendMessage("Awaiting Dispel! - "..cause.." - "..target.." - "..ability.." - "..time)
 	self:EvaluateDispel()
 end
@@ -1721,17 +1818,17 @@ end
 -- /script DPSMate.DB:ConfirmDispel("Frostbolt", "Shino", 1.2)
 
 local AwaitHotDispel = {}
-local Restor = DPSMate.BabbleSpell:GetTranslation("Restoration")
-local RPotion = DPSMate.BabbleSpell:GetTranslation("Restorative Potion")
-local PFication = DPSMate.BabbleSpell:GetTranslation("Purification")
-local PPotion = DPSMate.BabbleSpell:GetTranslation("Purification Potion")
+DPSMate.DB.Restor = "Restoration"
+DPSMate.DB.RPotion = "Restorative Potion"
+DPSMate.DB.PFication = "Purification"
+DPSMate.DB.PPotion = "Purification Potion"
 function DPSMate.DB:AwaitHotDispel(ability, target, cause, time)
-	if ability == RPotion then
-		ability = Restor
+	if ability == self.RPotion then
+		ability = self.Restor
 		target = cause
 	end
-	if ability == PPotion then
-		ability = PFication
+	if ability == self.PPotion then
+		ability = self.PFication
 		target = cause
 	end
 	tinsert(AwaitHotDispel, {cause, target, ability, time})
@@ -1767,7 +1864,7 @@ end
 
 function DPSMate.DB:ClearAwaitHotDispel()
 	for cat, val in AwaitHotDispel do
-		if (GetTime()-val[4])>=10 then
+		if (GT()-val[4])>=10 then
 			tremove(AwaitHotDispel, cat)
 		end
 	end
@@ -1783,11 +1880,13 @@ function DPSMate.DB:ConfirmRealDispel(ability, target, time)
 end
 
 function DPSMate.DB:ApplyRemainingDispels()
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["decurses"] and not DPSMate.RegistredModules["curepoison"] and not DPSMate.RegistredModules["liftmagic"] and not DPSMate.RegistredModules["curedisease"] and not DPSMate.RegistredModules["dispels"] then return end
+	if playerfaction~="Horde" then NextTotemDispel = false; return end
 	local num = 0
 	for cat, val in ConfirmedDispel do
 		for ca, va in val do
 			num = num + 1
-			if (GetTime()-va[2])>10 then
+			if (GT()-va[2])>10 and (GT()-va[2])<40 then
 				local type = "party"
 				local num = GetNumPartyMembers()
 				if num <= 0 then
@@ -1830,6 +1929,7 @@ end
 
 -- Deprecated time component
 function DPSMate.DB:EvaluateDispel()
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["decurses"] and not DPSMate.RegistredModules["curepoison"] and not DPSMate.RegistredModules["liftmagic"] and not DPSMate.RegistredModules["curedisease"] and not DPSMate.RegistredModules["dispels"] then return end
 	for cat, val in ActiveHotDispel do
 		for ca, va in val do
 			if ConfirmedDispel[cat] then
@@ -1854,32 +1954,34 @@ function DPSMate.DB:EvaluateDispel()
 	end
 	for cat, val in AwaitDispel do
 		for ca, va in val do
-			if (GetTime()-(va[3] or 0))<=10 then
+			if (GT()-(va[3] or 0))<=10 then
 				if ConfirmedDispel[cat] then
 					if va[2]~=Restor then
 						if ConfirmedDispel[cat][1] then
 							self:Dispels(va[1], va[2], cat, ConfirmedDispel[cat][1][1])
 							tremove(ConfirmedDispel[cat], 1)
+							AwaitDispel[cat][ca][4] = AwaitDispel[cat][ca][4] - 1
+							if AwaitDispel[cat][ca][4]<=0 then
+								tremove(AwaitDispel[cat], ca)
+							end
 							self:EvaluateDispel()
-							--tremove(AwaitDispel[cat], ca)
-							--lastDispel = nil;
 							return
 						end
 					end
 				end
-				--DPSMate:SendMessage("Test 1")
 				if cat == DPSMate.L["unknown"] and lastDispel then
-					--DPSMate:SendMessage("Test 2")
+					-- Commented out for now, because of too much uncertainity
+					--[[
 					if ConfirmedDispel[lastDispel] then
 						if ConfirmedDispel[lastDispel][1] then
 							self:Dispels(va[1], va[2], lastDispel, ConfirmedDispel[lastDispel][1][1])
 							tremove(ConfirmedDispel[lastDispel], 1)
 							self:EvaluateDispel()
 							--tremove(AwaitDispel[cat], ca)
-							--lastDispel = nil;
 							return
 						end
 					end
+					--]]
 				end
 			end
 		end
@@ -1900,6 +2002,7 @@ end
 function DPSMate.DB:Dispels(cause, Dname, target, ability)
 	if self:BuildUser(cause, nil) or self:BuildUser(target, nil) or self:BuildAbility(Dname, nil) or self:BuildAbility(ability, nil) then return end
 	--DPSMate:SendMessage("Cause: "..cause.." Dname: "..Dname.." Target: "..target.." Ability: "..ability)
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["decurses"] and not DPSMate.RegistredModules["curepoison"] and not DPSMate.RegistredModules["liftmagic"] and not DPSMate.RegistredModules["curedisease"] and not DPSMate.RegistredModules["dispels"] then return end
 	for cat, val in pairs({[1]="total", [2]="current"}) do 
 		if not DPSMateDispels[cat][DPSMateUser[cause][1]] then
 			DPSMateDispels[cat][DPSMateUser[cause][1]] = {
@@ -1920,18 +2023,19 @@ function DPSMate.DB:Dispels(cause, Dname, target, ability)
 		end
 		DPSMateDispels[cat][DPSMateUser[cause][1]][DPSMateAbility[Dname][1]][DPSMateUser[target][1]][DPSMateAbility[ability][1]] = DPSMateDispels[cat][DPSMateUser[cause][1]][DPSMateAbility[Dname][1]][DPSMateUser[target][1]][DPSMateAbility[ability][1]]+1
 		DPSMateDispels[cat][DPSMateUser[cause][1]]["i"][1] = DPSMateDispels[cat][DPSMateUser[cause][1]]["i"][1]+1
-		tinsert(DPSMateDispels[cat][DPSMateUser[cause][1]]["i"][2], {DPSMateCombatTime[val], DPSMateAbility[ability][1], DPSMateUser[target][1], GameTime_GetTime()})
+		tinsert(DPSMateDispels[cat][DPSMateUser[cause][1]]["i"][2], {DPSMateCombatTime[val], DPSMateAbility[ability][1], DPSMateUser[target][1], GameTime_GT()})
 	end
 	self.NeedUpdate = true
 end
 
 function DPSMate.DB:UnregisterDeath(target)
 	if self:BuildUser(target, nil) then return end
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["deaths"] then return end
 	if strfind(target, "%s") then return end
 	for cat, val in pairs({[1]="total", [2]="current"}) do 
 		if DPSMateDeaths[cat][DPSMateUser[target][1]] then
 			DPSMateDeaths[cat][DPSMateUser[target][1]][1]["i"][1]=1
-			DPSMateDeaths[cat][DPSMateUser[target][1]][1]["i"][2]=GameTime_GetTime()
+			DPSMateDeaths[cat][DPSMateUser[target][1]][1]["i"][2]=GameTime_GT()
 			if cat==1 and DPSMate.Parser.TargetParty[target] then 
 				local p = DPSMateDeaths[cat][DPSMateUser[target][1]][1][1]
 				DPSMate:Broadcast(4, target, DPSMate:GetUserById(p[1]), DPSMate:GetAbilityById(p[2]), p[3]) 
@@ -1942,6 +2046,7 @@ end
 
 function DPSMate.DB:DeathHistory(target, cause, ability, amount, hit, crit, type, crush)
 	if self:BuildUser(target, nil) or self:BuildUser(cause, nil) or self:BuildAbility(ability, nil) then return end
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["deaths"] then return end
 	for cat, val in pairs({[1]="total", [2]="current"}) do 
 		if not DPSMateDeaths[cat][DPSMateUser[target][1]] then
 			DPSMateDeaths[cat][DPSMateUser[target][1]] = {}
@@ -1966,7 +2071,7 @@ function DPSMate.DB:DeathHistory(target, cause, ability, amount, hit, crit, type
 			[4] = hitCritCrush,
 			[5] = type,
 			[6] = DPSMateCombatTime[val],
-			[7] = GameTime_GetTime(),
+			[7] = GameTime_GT(),
 		})
 		if DPSMateDeaths[cat][DPSMateUser[target][1]][1][21] then
 			tremove(DPSMateDeaths[cat][DPSMateUser[target][1]][1], 21)
@@ -2029,7 +2134,7 @@ end
 
 function DPSMate.DB:UpdateKicks()
 	for cat, val in AwaitKick do
-		if (GetTime()-val[3])>=2.5 then
+		if (GT()-val[3])>=2.5 then
 			if val[4] then
 				self:Kick(val[4][1], val[1], val[4][2], val[2])
 			end
@@ -2040,6 +2145,7 @@ end
 
 function DPSMate.DB:Kick(cause, target, causeAbility, targetAbility)
 	if self:BuildUser(target, nil) or self:BuildUser(cause, nil) or self:BuildAbility(causeAbility, nil) or self:BuildAbility(targetAbility, nil) then return end
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["interrupts"] then return end
 	for cat, val in pairs({[1]="total", [2]="current"}) do 
 		if not DPSMateInterrupts[cat][DPSMateUser[cause][1]] then
 			DPSMateInterrupts[cat][DPSMateUser[cause][1]] = {
@@ -2059,7 +2165,7 @@ function DPSMate.DB:Kick(cause, target, causeAbility, targetAbility)
 			DPSMateInterrupts[cat][DPSMateUser[cause][1]][DPSMateAbility[causeAbility][1]][DPSMateUser[target][1]][DPSMateAbility[targetAbility][1]] = 0
 		end
 		DPSMateInterrupts[cat][DPSMateUser[cause][1]]["i"][1] = DPSMateInterrupts[cat][DPSMateUser[cause][1]]["i"][1] + 1
-		tinsert(DPSMateInterrupts[cat][DPSMateUser[cause][1]]["i"][2], {DPSMateCombatTime[val], GameTime_GetTime(), DPSMateAbility[targetAbility][1], DPSMateUser[target][1]})
+		tinsert(DPSMateInterrupts[cat][DPSMateUser[cause][1]]["i"][2], {DPSMateCombatTime[val], GameTime_GT(), DPSMateAbility[targetAbility][1], DPSMateUser[target][1]})
 		DPSMateInterrupts[cat][DPSMateUser[cause][1]][DPSMateAbility[causeAbility][1]][DPSMateUser[target][1]][DPSMateAbility[targetAbility][1]]=DPSMateInterrupts[cat][DPSMateUser[cause][1]][DPSMateAbility[causeAbility][1]][DPSMateUser[target][1]][DPSMateAbility[targetAbility][1]]+1
 	end
 end
@@ -2070,16 +2176,16 @@ function DPSMate.DB:AwaitingBuff(cause, ability, target, time)
 	--DPSMate:SendMessage("Awaiting buff!"..ability)
 end
 
--- deprecated function cause of gettime??
+-- deprecated function cause of GT??
 function DPSMate.DB:ClearAwaitBuffs()
 	for cat, val in AwaitBuff do
-		if (GetTime()-(val[4] or 0))>=5 then
+		if (GT()-(val[4] or 0))>=5 then
 			tremove(AwaitBuff, cat)
 		end
 	end
 end
 
--- deprecated function cause of gettime??
+-- deprecated function cause of GT??
 function DPSMate.DB:ConfirmBuff(target, ability, time)
 	for cat, val in AwaitBuff do
 		if val[4]<=(time or 0) then
@@ -2100,6 +2206,7 @@ end
 
 function DPSMate.DB:BuildBuffs(cause, target, ability, bool)
 	if self:BuildUser(target, nil) or self:BuildUser(cause, nil) or self:BuildAbility(ability, nil) then return end
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["aurasgained"] then return end
 	--if windfuryab[ability] then
 	--	self.NextSwing[target] = {
 	--		[1] = 1,
@@ -2142,6 +2249,7 @@ end
 -- Lag machine!
 function DPSMate.DB:DestroyBuffs(target, ability)
 	if self:BuildUser(target, nil) or self:BuildAbility(ability, nil) then return end
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["aurasgained"] then return end
 	for cat, val in pairs({[1]="total", [2]="current"}) do 
 		if not DPSMateAurasGained[cat][DPSMateUser[target][1]] then
 			DPSMateAurasGained[cat][DPSMateUser[target][1]] = {}
@@ -2231,10 +2339,21 @@ function DPSMate.DB:UpdatePlayerCBT(cbt)
 	return notInCombat
 end
 
+local reportdelay = 0.5
+local reportuptime = 0
 function DPSMate.DB:CombatTime()
 	if not CombatFrame then
 		local f = CreateFrame("Frame", "CombatFrame", UIParent)
 		f:SetScript("OnUpdate", function(self, elapsed)
+			-- Adding a small part for delayed posting
+			if DPSMateSettings["reportdelay"] and DPSMate.DelayMsg[1] then
+				reportuptime = reportuptime + arg1
+				if reportuptime>reportdelay then
+					SendChatMessage(DPSMate.DelayMsg[1][1], DPSMate.DelayMsg[1][2], nil, DPSMate.DelayMsg[1][3])
+					tremove(DPSMate.DelayMsg, 1)
+					reportuptime = 0
+				end
+			end
 			if (CombatState) then
 				local notInCombat = false
 				LastUpdate = LastUpdate + arg1
@@ -2310,7 +2429,26 @@ function DPSMate.DB:CombatTime()
 	end
 end
 
+local cheatDeathTable = {
+	["Interface\\Icons\\Ability_Vanish"] = true,
+	["Interface\\Icons\\Ability_Rogue_Feighdeath"] = true,
+	["Interface\\Icons\\ability_vanish"] = true,
+	["Interface\\Icons\\Ability_vanish"] = true,
+	["Interface\\Icons\\ability_rogue_feighdeath"] = true,
+	["Interface\\Icons\\Ability_rogue_feighdeath"] = true,
+}
 function DPSMate.DB:hasVanishedFeignDeath()
+	local tex
+	for i=1, 32 do
+		tex = UnitBuff("player", i)
+		if not tex then break end
+		if cheatDeathTable[tex] then
+			cheatCombat = GT()
+			break
+		end
+	end
+
+	--[[
 	for i=0, 31 do
 		DPSMate_Tooltip:SetOwner(UIParent, "ANCHOR_NONE")
 		DPSMate_Tooltip:ClearLines()
@@ -2318,11 +2456,12 @@ function DPSMate.DB:hasVanishedFeignDeath()
 		local buff = DPSMate_TooltipTextLeft1:GetText()
 		if (not buff) then break end
 		if (strfind(buff, DPSMate.L["vanish"]) or strfind(buff, DPSMate.L["feigndeath"])) then
-			cheatCombat = GetTime()
+			cheatCombat = GT()
 			return true
 		end
 		DPSMate_Tooltip:Hide()
 	end
+	--]]
 end
 
 local oldRepopMe = RepopMe
@@ -2340,12 +2479,25 @@ RepopMe = NewRepopMe
 -- No idea how this error occours.
 function DPSMate.DB:Attempt(mode, check, tar)
 	local zone = GetRealZoneText()
-	if self.Zones[zone] then -- Need to find a solution for world bosses.
+	if self.Zones[zone] and DPSMateSettings["legacylogs"] then -- Need to find a solution for world bosses.
 		if not DPSMateAttempts[zone] then DPSMateAttempts[zone] = {} end
 		if mode then
 			if DPSMateAttempts[zone][1] and not DPSMateAttempts[zone][1][4] then
-				local _,_,a = DPSMate.Modules.EDT:GetSortedTable(DPSMateEDT[2])
-				local name = DPSMate:GetUserById(a[1])
+				local max, a = 0, 0
+				-- Get name of this session
+				for c, v in pairs(DPSMateEDT[2]) do
+					local CV = 0
+					for cat, val in pairs(v) do
+						if cat~="i" then
+							CV = CV+val["i"]
+						end
+					end
+					if max<CV then
+						max = CV
+						a = c
+					end
+				end
+				local name = DPSMate:GetUserById(a)
 				if DPSMateAttempts[zone][1][1]=="" or DPSMateAttempts[zone][1][1]==DPSMate.L["unknown"] then
 					if name == "" then
 						DPSMateAttempts[zone][1][1] = DPSMate.L["unknown"]
@@ -2365,7 +2517,7 @@ function DPSMate.DB:Attempt(mode, check, tar)
 				tinsert(DPSMateAttempts[zone], 1, {
 					[1] = DPSMate.L["unknown"],
 					[2] = DPSMateCombatTime["total"],
-					[3] = GameTime_GetTime(),
+					[3] = GameTime_GT(),
 					[6] = {}
 				})
 			end
@@ -2378,7 +2530,7 @@ local banedItems = {
 	[18562] = true
 }
 function DPSMate.DB:Loot(user, quality, itemid)
-	if quality>3 and not banedItems[itemid] then
+	if not DPSMateSettings["legacylogs"] and quality>3 and not banedItems[itemid] then
 		local zone = GetRealZoneText()
 		if not DPSMateLoot[zone] then DPSMateLoot[zone] = {} end
 		if self.Zones[zone] then -- Need to find a solution for world bosses.
@@ -2397,6 +2549,7 @@ function DPSMate.DB:BuildFail(type, user, cause, ability, amount)
 	self:BuildUser(user)
 	self:BuildUser(cause)
 	self:BuildAbility(ability)
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["fails"] then return end
 	for cat, val in {[1] = "total", [2] = "current"} do
 		if not DPSMateFails[cat][DPSMateUser[cause][1]] then
 			DPSMateFails[cat][DPSMateUser[cause][1]] = {}
@@ -2407,7 +2560,7 @@ function DPSMate.DB:BuildFail(type, user, cause, ability, amount)
 			[3] = DPSMateAbility[ability][1],
 			[4] = amount,
 			[5] = DPSMateCombatTime[val],
-			[6] = GameTime_GetTime(),
+			[6] = GameTime_GT(),
 		})
 	end
 	DPSMate:Broadcast(3, user, cause, ability, amount, type)
@@ -2448,6 +2601,7 @@ end
 
 function DPSMate.DB:CCBreaker(target, ability, cause)
 	self:BuildAbility(ability)
+	if not DPSMateSettings["legacylogs"] and not DPSMate.RegistredModules["ccbreaker"] then return end
 	for cat, val in {[1]="total",[2]="current"} do
 		if not DPSMateCCBreaker[cat][DPSMateUser[cause][1]] then
 			DPSMateCCBreaker[cat][DPSMateUser[cause][1]] = {}
@@ -2456,7 +2610,7 @@ function DPSMate.DB:CCBreaker(target, ability, cause)
 			[1] = DPSMateAbility[ability][1],
 			[2] = DPSMateUser[target][1],
 			[3] = DPSMateCombatTime[val],
-			[4] = GameTime_GetTime()
+			[4] = GameTime_GT()
 		})
 	end
 end
