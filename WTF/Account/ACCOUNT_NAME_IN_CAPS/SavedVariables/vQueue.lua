@@ -1,5 +1,5 @@
 
-MinimapPos = 19.09416100027203
+MinimapPos = 20
 vQueueOptions = {
 	["onlylfg"] = true,
 	["general"] = true,
