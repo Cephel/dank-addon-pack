@@ -17,7 +17,7 @@
 	path = Interface/AddOns/VanillaGuide
 	url = https://github.com/rsheep/VanillaGuide
 [submodule "Interface/AddOns/Postal"]
-	path = Interface/AddOns/Postal
+	path = Interface/AddOns/postal
 	url = https://github.com/shirsig/Postal
 [submodule "Interface/AddOns/crafty"]
 	path = Interface/AddOns/crafty
@@ -29,7 +29,7 @@
 	path = Interface/AddOns/Auctioneer
 	url = https://github.com/Zerf/Auctioneer-Vanilla
 [submodule "Interface/AddOns/Aux-Addon"]
-	path = Interface/AddOns/Aux-Addon
+	path = Interface/AddOns/aux-addon
 	url = https://github.com/shirsig/aux-addon
 [submodule "Interface/AddOns/Clean_Up"]
 	path = Interface/AddOns/Clean_Up
