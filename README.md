@@ -18,8 +18,8 @@ The .zip download does not currently include any of the addons listed under "Cre
 
 
 # Credits and also addons that you need to download manually right now
-- [Auctioneer](https://github.com/Zerf/Auctioneer-Vanilla)
 - [Aux](https://github.com/shirsig/aux-addon)
+- [BigWigs](https://github.com/Hosq/BigWigs)
 - [Clean Up](https://github.com/shirsig/Clean_Up)
 - [crafty](https://github.com/shirsig/crafty)
 - [DebuffTimers](https://github.com/Voidmenull/DebuffTimers)
@@ -35,7 +35,6 @@ The .zip download does not currently include any of the addons listed under "Cre
 - [Atlas](https://github.com/Cabro/Atlas)
 - [AtlasLoot](https://github.com/Cabro/Atlas)
 - [AtlasQuest](https://github.com/Cabro/Atlas)
-- [La Vendetta Boss Mods](https://github.com/Zerf/LVBM)
 - [LazyPig](https://github.com/satan666/_LP)
 - [MikScrollingBattleText](https://github.com/AtheneGenesis/Vanilla_MikScrollingBattleText)
 - [SW_Stats](https://github.com/Zerf/SW_Stats-Vanilla)
@@ -44,7 +43,6 @@ The .zip download does not currently include any of the addons listed under "Cre
 ### If your addon is on Github and appears here, contact me so I can add it properly
 - BonusScanner
 - Cartographer
-- EnhTooltip
 - KLHThreatMeter
 - MCP
 - MobHealth
@@ -53,5 +51,4 @@ The .zip download does not currently include any of the addons listed under "Cre
 - Outfitter
 - ShaguDB
 - ShaguQuest
-- Stubby
 - SuperMacro
