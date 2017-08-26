@@ -40,3 +40,6 @@
 [submodule "Interface/AddOns/BigWigs"]
 	path = Interface/AddOns/BigWigs
 	url = https://github.com/Hosq/BigWigs
+[submodule "Interface/AddOns/SimpleCombatLog"]
+	path = Interface/AddOns/SimpleCombatLog
+	url = https://github.com/Road-block/SimpleCombatLog
