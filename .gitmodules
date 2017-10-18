@@ -43,3 +43,6 @@
 [submodule "Interface/AddOns/SimpleCombatLog"]
 	path = Interface/AddOns/SimpleCombatLog
 	url = https://github.com/Road-block/SimpleCombatLog
+[submodule "Interface/AddOns/TotemTimers-Enhanced"]
+	path = Interface/AddOns/TotemTimers
+	url = https://github.com/MOUZU/TotemTimers-Enhanced
