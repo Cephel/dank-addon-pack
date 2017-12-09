@@ -1,9 +1,6 @@
 [submodule "Interface/AddOns/pfUI"]
 	path = Interface/AddOns/pfUI
 	url = git://github.com/shagu/pfUI
-[submodule "Interface/AddOns/HealComm"]
-	path = Interface/AddOns/HealComm
-	url = https://github.com/Aviana/HealComm
 [submodule "Interface/AddOns/WIM"]
 	path = Interface/AddOns/WIM
 	url = https://github.com/shirsig/WIM
@@ -16,9 +13,6 @@
 [submodule "Interface/AddOns/VanillaGuide"]
 	path = Interface/AddOns/VanillaGuide
 	url = https://github.com/rsheep/VanillaGuide
-[submodule "Interface/AddOns/Postal"]
-	path = Interface/AddOns/postal
-	url = https://github.com/shirsig/Postal
 [submodule "Interface/AddOns/crafty"]
 	path = Interface/AddOns/crafty
 	url = https://github.com/shirsig/crafty
@@ -28,9 +22,6 @@
 [submodule "Interface/AddOns/Aux-Addon"]
 	path = Interface/AddOns/aux-addon
 	url = https://github.com/shirsig/aux-addon
-[submodule "Interface/AddOns/Clean_Up"]
-	path = Interface/AddOns/Clean_Up
-	url = https://github.com/shirsig/Clean_Up
 [submodule "Interface/AddOns/WebDKP"]
 	path = Interface/AddOns/WebDKP
 	url = https://github.com/webdkpthroaway/WebDKP_Elysium
@@ -46,3 +37,18 @@
 [submodule "Interface/AddOns/TotemTimers-Enhanced"]
 	path = Interface/AddOns/TotemTimers
 	url = https://github.com/MOUZU/TotemTimers-Enhanced
+[submodule "Interface/AddOns/Mail"]
+	path = Interface/AddOns/Mail
+	url = https://github.com/shirsig/Mail
+[submodule "Interface/AddOns/SortBags"]
+	path = Interface/AddOns/SortBags
+	url = https://github.com/shirsig/SortBags
+[submodule "Interface/AddOns/HealComm"]
+	path = Interface/AddOns/HealComm
+	url = https://github.com/Aviana/HealComm
+[submodule "Interface/AddOns/Banana"]
+	path = Interface/AddOns/Banana
+	url = https://github.com/Hosq/Banana
+[submodule "Interface/AddOns/YaHT"]
+	path = Interface/AddOns/YaHT
+	url = https://github.com/Aviana/YaHT
