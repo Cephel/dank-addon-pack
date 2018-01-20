@@ -7,12 +7,6 @@
 [submodule "Interface/AddOns/LP"]
 	path = Interface/AddOns/LP
 	url = https://github.com/satan666/_LP
-[submodule "Interface/AddOns/vQueue"]
-	path = Interface/AddOns/vQueue
-	url = https://github.com/Devlix/vQueue
-[submodule "Interface/AddOns/VanillaGuide"]
-	path = Interface/AddOns/VanillaGuide
-	url = https://github.com/rsheep/VanillaGuide
 [submodule "Interface/AddOns/crafty"]
 	path = Interface/AddOns/crafty
 	url = https://github.com/shirsig/crafty
@@ -55,3 +49,9 @@
 [submodule "Interface/AddOns/unitscan"]
 	path = Interface/AddOns/unitscan
 	url = https://github.com/shirsig/unitscan
+[submodule "Interface/AddOns/VanillaGuide"]
+	path = Interface/AddOns/VanillaGuide
+	url = https://github.com/rsheep/VanillaGuide
+[submodule "Interface/AddOns/vQueue"]
+	path = Interface/AddOns/vQueue
+	url = https://github.com/laytya/vQueue
