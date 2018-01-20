@@ -52,3 +52,6 @@
 [submodule "Interface/AddOns/YaHT"]
 	path = Interface/AddOns/YaHT
 	url = https://github.com/Aviana/YaHT
+[submodule "Interface/AddOns/unitscan"]
+	path = Interface/AddOns/unitscan
+	url = https://github.com/shirsig/unitscan
