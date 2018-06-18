@@ -61,3 +61,6 @@
 [submodule "Interface/AddOns/RABuffs"]
 	path = Interface/AddOns/RABuffs
 	url = https://github.com/TheRealYasri/RABuffs
+[submodule "Interface/AddOns/pfUI-eliteoverlay"]
+	path = Interface/AddOns/pfUI-eliteoverlay
+	url = https://gitlab.com/shagu/pfUI-eliteoverlay/
