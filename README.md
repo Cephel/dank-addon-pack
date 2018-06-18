@@ -28,6 +28,13 @@ The .zip download **does not include many of the addons**. If you choose to down
 Optional: You can skip this entire step if you want to set up the addons yourself.
 
 
+## Update
+The following command updates everything in place:
+```
+git pull && git submodule update --checkout
+```
+
+
 ## Credits and content
 ### Manual download required
 - [Aux](https://github.com/shirsig/aux-addon)
