@@ -58,3 +58,6 @@
 [submodule "Interface/AddOns/ShaguInventory"]
 	path = Interface/AddOns/ShaguInventory
 	url = https://gitlab.com/shagu/ShaguInventory
+[submodule "Interface/AddOns/RABuffs"]
+	path = Interface/AddOns/RABuffs
+	url = https://github.com/TheRealYasri/RABuffs
