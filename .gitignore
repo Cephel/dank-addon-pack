@@ -1,3 +1,53 @@
+# =========================
+# WoW related files
+# =========================
+
+# Exclude everything
+*
+
+# Retroactively include files
+!README.md
+!WTF
+!WTF/*
+WTF/Config.wtf
+
+!WTF/Account/ACCOUNT_NAME_IN_CAPS
+WTF/Account/ACCOUNT_NAME_IN_CAPS/*
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/
+WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/*
+
+# Global config files
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/MikScrollingBattleText.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/Opium.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/SuperMacro.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/vQueue.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/WIM.lua
+
+# Character based config files
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name
+WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/*
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/*/
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/AddOns.txt
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/layout-cache.txt
+
+WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/*
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/Atlas.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/AtlasLoot.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/KLHThreatMeter.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/Outfitter.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/pfUI.lua
+!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/VanillaGuide.lua
+
+# Addon files
+!Interface
+!Interface/AddOns
+!Interface/AddOns/**
+Interface/AddOns/Blizzard_*
+Interface/AddOns/VF_*
+Interface/AddOns/WebDKP
+Interface/AddOns/RPLLVanilla
+
+
 # Created by https://www.gitignore.io/api/osx,linux,windows
 
 ### Linux ###
@@ -64,52 +114,3 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/osx,linux,windows
-
-
-# =========================
-# WoW related files
-# =========================
-
-# Exclude everything
-*
-
-# Retroactively include files
-!README.md
-!WTF
-!WTF/*
-WTF/Config.wtf
-
-!WTF/Account/ACCOUNT_NAME_IN_CAPS
-WTF/Account/ACCOUNT_NAME_IN_CAPS/*
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/*/
-WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/*
-
-# Global config files
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/MikScrollingBattleText.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/Opium.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/SuperMacro.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/vQueue.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/SavedVariables/WIM.lua
-
-# Character based config files
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name
-WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/*
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/*/
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/AddOns.txt
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/layout-cache.txt
-
-WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/*
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/Atlas.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/AtlasLoot.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/KLHThreatMeter.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/Outfitter.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/pfUI.lua
-!WTF/Account/ACCOUNT_NAME_IN_CAPS/Realm_Name/Character_Name/SavedVariables/VanillaGuide.lua
-
-# Addon files
-!Interface
-!Interface/AddOns
-!Interface/AddOns/**
-Interface/AddOns/Blizzard_*
-Interface/AddOns/VF_*
-Interface/AddOns/WebDKP
