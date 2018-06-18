@@ -1,6 +1,3 @@
-[submodule "Interface/AddOns/pfUI"]
-	path = Interface/AddOns/pfUI
-	url = git://github.com/shagu/pfUI
 [submodule "Interface/AddOns/WIM"]
 	path = Interface/AddOns/WIM
 	url = https://github.com/shirsig/WIM
@@ -51,7 +48,22 @@
 	url = https://github.com/shirsig/unitscan
 [submodule "Interface/AddOns/VanillaGuide"]
 	path = Interface/AddOns/VanillaGuide
-	url = https://github.com/rsheep/VanillaGuide
+	url = https://github.com/osthoma/VanillaGuide
 [submodule "Interface/AddOns/vQueue"]
 	path = Interface/AddOns/vQueue
 	url = https://github.com/laytya/vQueue
+[submodule "Interface/AddOns/RABuff"]
+	path = Interface/AddOns/RABuffs/
+	url = https://github.com/TheRealYasri/RABuffs
+[submodule "Interface/AddOns/WhoKicksNow"]
+	path = Interface/AddOns/WhoKicksNow
+	url = https://github.com/yutsuku/WhoKicksNow
+[submodule "Interface/AddOns/TankBuddyEnh"]
+	path = Interface/AddOns/TankBuddyEnh
+	url = https://github.com/Hosq/TankBuddyEnh
+[submodule "Interface/AddOns/pfUI"]
+	path = Interface/AddOns/pfUI
+	url = https://gitlab.com/shagu/pfUI
+[submodule "Interface/AddOns/ShaguInventory"]
+	path = Interface/AddOns/ShaguInventory
+	url = https://gitlab.com/shagu/ShaguInventory
