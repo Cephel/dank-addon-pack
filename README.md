@@ -45,6 +45,7 @@ git pull && git submodule update --checkout
 - [HealComm](https://github.com/Aviana/HealComm)
 - [Mail](https://github.com/shirsig/Mail)
 - [pfUI](https://gitlab.com/shagu/pfUI)
+- [pfUI-eliteoverlay](https://gitlab.com/shagu/pfUI-eliteoverlay)
 - [RABuffs](https://github.com/TheRealYasri/RABuffs)
 - [ShaguInventory](https://gitlab.com/shagu/ShaguInventory)
 - [SimpleCombatLog](https://github.com/Road-block/SimpleCombatLog)
