@@ -65,7 +65,7 @@ AtlasLootBattlegrounds = {
 		"";
 		"";
 		"";
-		"";
+		"AVIvus";
 		"";
 		"";
 		"";
@@ -94,7 +94,7 @@ AtlasLootBattlegrounds = {
 		"";
 		"";
 		"";
-		"";
+		"AVLokholar";
 		"";
 		"";
 		"";
@@ -165,6 +165,24 @@ AtlasLootBattlegrounds = {
 ----------------------
 AtlasLoot_Data["AtlasLootBGItems"] = {
 	EmptyInstance = {};
+	AVIvus = {
+		{ 0, "", "", "" },
+		{ 19105, "INV_Helmet_61", "=q3=Frost Runed Headdress", "=ds=#s1#, #a1#", "24.56%" },
+		{ 19111, "INV_Shoulder_12", "=q3=Winteraxe Epaulets", "=ds=#s3#, #a3#", "18.79%" },
+		{ 19113, "INV_Bracer_08", "=q3=Yeti Hide Bracers", "=ds=#s8#, #a2#", "22.28%" },
+		{ 19112, "INV_Bracer_18", "=q3=Frozen Steel Vambraces", "=ds=#s8#, #a4#", "19.60%" },
+		{ 19109, "INV_Jewelry_Ring_35", "=q3=Deep Rooted Ring", "=ds=#s13#", "16.38%" },
+		{ 19110, "INV_Sword_47", "=q3=Cold Forged Blade", "=ds=#h1#, #w4#", "20.40%" },
+	};
+	AVLokholar = {
+		{ 0, "", "", "" },
+		{ 19105, "INV_Helmet_61", "=q3=Frost Runed Headdress", "=ds=#s1#, #a1#", "18.47%" },
+		{ 19111, "INV_Shoulder_12", "=q3=Winteraxe Epaulets", "=ds=#s3#, #a3#", "14.38%" },
+		{ 19113, "INV_Bracer_08", "=q3=Yeti Hide Bracers", "=ds=#s8#, #a2#", "15.04%" },
+		{ 19112, "INV_Bracer_18", "=q3=Frozen Steel Vambraces", "=ds=#s8#, #a4#", "24.80%" },
+		{ 19109, "INV_Jewelry_Ring_35", "=q3=Deep Rooted Ring", "=ds=#s13#", "12.93%" },
+		{ 19110, "INV_Sword_47", "=q3=Cold Forged Blade", "=ds=#h1#, #w4#", "17.28%" },
+	};
 	AVRepFriendly = {
 		{ 0, "INV_BannerPVP_02", "=q8=#m7#", "=q7=#b1#" },
 		{ 0, "", "", "" },
@@ -183,7 +201,7 @@ AtlasLoot_Data["AtlasLootBGItems"] = {
 		{ 0, "", "", "" },
 		{ 0, "INV_BannerPVP_01", "=q6=#m6#", "=q5=#b2#" },
 		{ 0, "", "", "" },
-		{ 19318, "INV_Drink_11", "=q1= Spring Water", "=ds=#e3#" },
+		{ 19318, "INV_Drink_11", "=q1=Spring Water", "=ds=#e3#" },
 		{ 19307, "INV_Misc_Bandage_12", "=q1=Alterac Heavy Runecloth Bandage", "=ds=#e4#" },
 		{ 17349, "INV_Potion_39", "=q1=Superior Healing Draught", "=ds=#e1#" },
 		{ 17352, "INV_Potion_81", "=q1=Superior Mana Draught", "=ds=#e1#" },
@@ -711,10 +729,10 @@ AtlasLoot_Data["AtlasLootBGItems"] = {
 		{ 0, "", "", "" },
 		{ 0, "INV_BannerPVP_01", "=q6=#m6#", "=q5=#b4#" },
 		{ 0, "", "", "" },
-		{ 20444, "INV_Jewelry_Necklace_13", "=q3=Sentinel's Medallion", "=ds=#s2#" },
-		{ 20428, "INV_Misc_Cape_13", "=q3=Caretaker's Cape", "=ds=#s4#" },
-		{ 20431, "INV_Jewelry_Ring_28", "=q3=Lorekeeper's Ring", "=ds=#s13#" },
-		{ 20439, "INV_Jewelry_Ring_10", "=q3=Protector's Band", "=ds=#s13#" },
+		{ 20442, "INV_Jewelry_Necklace_14", "=q3=Scout's Medallion", "=ds=#s2#" },
+		{ 20427, "INV_Misc_Cape_18", "=q3=Battle Healer's Cloak", "=ds=#s4#" },
+		{ 20426, "INV_Jewelry_Ring_20", "=q3=Advisor's Ring", "=ds=#s13#" },
+		{ 20429, "INV_Jewelry_Ring_21", "=q3=Legionnaire's Band", "=ds=#s13#" },
 	};
 	WSGRepHonored2029 = {
 		{ 0, "", "", "" },
@@ -735,10 +753,10 @@ AtlasLoot_Data["AtlasLootBGItems"] = {
 		{ 0, "", "", "" },
 		{ 0, "INV_BannerPVP_01", "=q6=#m6#", "=q5=#b4#" },
 		{ 0, "", "", "" },
-		{ 19541, "INV_Jewelry_Necklace_13", "=q3=Sentinel's Medallion", "=ds=#s2#" },
-		{ 19533, "INV_Misc_Cape_13", "=q3=Caretaker's Cape", "=ds=#s4#" },
-		{ 19525, "INV_Jewelry_Ring_28", "=q3=Lorekeeper's Ring", "=ds=#s13#" },
-		{ 19517, "INV_Jewelry_Ring_10", "=q3=Protector's Band", "=ds=#s13#" },
+		{ 19537, "INV_Jewelry_Necklace_14", "=q3=Scout's Medallion", "=ds=#s2#" },
+		{ 19529, "INV_Misc_Cape_18", "=q3=Battle Healer's Cloak", "=ds=#s4#" },
+		{ 19521, "INV_Jewelry_Ring_20", "=q3=Advisor's Ring", "=ds=#s13#" },
+		{ 19513, "INV_Jewelry_Ring_21", "=q3=Legionnaire's Band", "=ds=#s13#" },
 	};
 	WSGRepHonored3039 = {
 		{ 0, "", "", "" },
@@ -759,10 +777,10 @@ AtlasLoot_Data["AtlasLootBGItems"] = {
 		{ 0, "", "", "" },
 		{ 0, "INV_BannerPVP_01", "=q6=#m6#", "=q5=#b4#" },
 		{ 0, "", "", "" },
-		{ 19540, "INV_Jewelry_Necklace_13", "=q3=Sentinel's Medallion", "=ds=#s2#" },
-		{ 19532, "INV_Misc_Cape_13", "=q3=Caretaker's Cape", "=ds=#s4#" },
-		{ 19524, "INV_Jewelry_Ring_28", "=q3=Lorekeeper's Ring", "=ds=#s13#" },
-		{ 19515, "INV_Jewelry_Ring_10", "=q3=Protector's Band", "=ds=#s13#" },
+		{ 19536, "INV_Jewelry_Necklace_14", "=q3=Scout's Medallion", "=ds=#s2#" },
+		{ 19528, "INV_Misc_Cape_18", "=q3=Battle Healer's Cloak", "=ds=#s4#" },
+		{ 19520, "INV_Jewelry_Ring_20", "=q3=Advisor's Ring", "=ds=#s13#" },
+		{ 19512, "INV_Jewelry_Ring_21", "=q3=Legionnaire's Band", "=ds=#s13#" },
 	};
 	WSGRepHonored4049 = {
 		{ 0, "", "", "" },
@@ -783,10 +801,10 @@ AtlasLoot_Data["AtlasLootBGItems"] = {
 		{ 0, "", "", "" },
 		{ 0, "INV_BannerPVP_01", "=q6=#m6#", "=q5=#b4#" },
 		{ 0, "", "", "" },
-		{ 19539, "INV_Jewelry_Necklace_13", "=q3=Sentinel's Medallion", "=ds=#s2#" },
-		{ 19531, "INV_Misc_Cape_13", "=q3=Caretaker's Cape", "=ds=#s4#" },
-		{ 19523, "INV_Jewelry_Ring_28", "=q3=Lorekeeper's Ring", "=ds=#s13#" },
-		{ 19516, "INV_Jewelry_Ring_10", "=q3=Protector's Band", "=ds=#s13#" },
+		{ 19535, "INV_Jewelry_Necklace_14", "=q3=Scout's Medallion", "=ds=#s2#" },
+		{ 19527, "INV_Misc_Cape_18", "=q3=Battle Healer's Cloak", "=ds=#s4#" },
+		{ 19519, "INV_Jewelry_Ring_20", "=q3=Advisor's Ring", "=ds=#s13#" },
+		{ 19511, "INV_Jewelry_Ring_21", "=q3=Legionnaire's Band", "=ds=#s13#" },
 		{ 0, "", "", "" },
 		{ 17348, "INV_Potion_38", "=q1=Major Healing Draught", "=ds=#e1#" },
 		{ 17351, "INV_Potion_80", "=q1=Major Mana Draught", "=ds=#e1#" },
@@ -810,10 +828,10 @@ AtlasLoot_Data["AtlasLootBGItems"] = {
 		{ 0, "", "", "" },
 		{ 0, "INV_BannerPVP_01", "=q6=#m6#", "=q5=#b4#" },
 		{ 0, "", "", "" },
-		{ 19538, "INV_Jewelry_Necklace_13", "=q3=Sentinel's Medallion", "=ds=#s2#" },
-		{ 19530, "INV_Misc_Cape_13", "=q3=Caretaker's Cape", "=ds=#s4#" },
-		{ 19522, "INV_Jewelry_Ring_28", "=q3=Lorekeeper's Ring", "=ds=#s13#" },
-		{ 19514, "INV_Jewelry_Ring_10", "=q3=Protector's Band", "=ds=#s13#" },
+		{ 19534, "INV_Jewelry_Necklace_14", "=q3=Scout's Medallion", "=ds=#s2#" },
+		{ 19526, "INV_Misc_Cape_18", "=q3=Battle Healer's Cloak", "=ds=#s4#" },
+		{ 19518, "INV_Jewelry_Ring_20", "=q3=Advisor's Ring", "=ds=#s13#" },
+		{ 19510, "INV_Jewelry_Ring_21", "=q3=Legionnaire's Band", "=ds=#s13#" },
 	};
 	WSGRepRevered1019 = {
 		{ 0, "", "", "" },

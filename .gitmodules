@@ -16,9 +16,6 @@
 [submodule "Interface/AddOns/WebDKP"]
 	path = Interface/AddOns/WebDKP
 	url = https://github.com/webdkpthroaway/WebDKP_Elysium
-[submodule "Interface/AddOns/DebuffTimers"]
-	path = Interface/AddOns/DebuffTimers
-	url = https://github.com/Voidmenull/DebuffTimers
 [submodule "Interface/AddOns/BigWigs"]
 	path = Interface/AddOns/BigWigs
 	url = https://github.com/Hosq/BigWigs
@@ -40,9 +37,6 @@
 [submodule "Interface/AddOns/Banana"]
 	path = Interface/AddOns/Banana
 	url = https://github.com/Hosq/Banana
-[submodule "Interface/AddOns/YaHT"]
-	path = Interface/AddOns/YaHT
-	url = https://github.com/Aviana/YaHT
 [submodule "Interface/AddOns/unitscan"]
 	path = Interface/AddOns/unitscan
 	url = https://github.com/shirsig/unitscan
@@ -55,9 +49,6 @@
 [submodule "Interface/AddOns/RABuff"]
 	path = Interface/AddOns/RABuffs/
 	url = https://github.com/TheRealYasri/RABuffs
-[submodule "Interface/AddOns/WhoKicksNow"]
-	path = Interface/AddOns/WhoKicksNow
-	url = https://github.com/yutsuku/WhoKicksNow
 [submodule "Interface/AddOns/TankBuddyEnh"]
 	path = Interface/AddOns/TankBuddyEnh
 	url = https://github.com/Hosq/TankBuddyEnh

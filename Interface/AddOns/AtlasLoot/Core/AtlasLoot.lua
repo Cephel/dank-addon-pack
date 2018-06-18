@@ -69,7 +69,7 @@ local AL = AceLibrary("AceLocale-2.2"):new("AtlasLoot");
 --Establish version number and compatible version of Atlas
 local VERSION_MAJOR = "4";
 local VERSION_MINOR = "06";
-local VERSION_BOSSES = "05";
+local VERSION_BOSSES = "06";
 ATLASLOOT_VERSION = "|cffFF8400AtlasLoot Enhanced v"..VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES.."|r";
 ATLASLOOT_CURRENT_ATLAS = "1.12.0";
 ATLASLOOT_PREVIEW_ATLAS = "1.12.1";
@@ -181,6 +181,7 @@ AtlasLoot_MenuList = {
 	"T1SET",
 	"T0SET",
 	"WORLDEPICS",
+	"WORLDBLUES",
 	"REPMENU",
 	"WORLDEVENTMENU",
 	"AbyssalCouncil",
@@ -199,7 +200,7 @@ AtlasLoot_MenuList = {
 --entrance maps to instance maps NOT NEEDED FOR ATLAS 1.12
 local EntToInstMatches = {
 	["BlackfathomDeepsEnt"] =		{"BlackfathomDeeps"};
-	["BlackrockMountainEnt"] =			{"BlackrockSpireLower","BlackrockSpireUpper","BlackwingLair","BlackrockDepths","MoltenCore"};
+	["BlackrockMountainEnt"] =		{"BlackrockSpireLower","BlackrockSpireUpper","BlackwingLair","BlackrockDepths","MoltenCore"};
 	["GnomereganEnt"] =				{"Gnomeregan"};
 	["MaraudonEnt"] =				{"Maraudon"};
 	["TheDeadminesEnt"] =			{"TheDeadmines"};
@@ -1147,6 +1148,8 @@ function AtlasLoot_ShowItemsFrame(dataID, dataSource, boss, pFrame)
 		AtlasLootSetMenu();
 	elseif(dataID=="WORLDEPICS") then
 		AtlasLootWorldEpicsMenu();
+	elseif(dataID=="WORLDBLUES") then
+		AtlasLootWorldBluesMenu();
 	elseif(dataID=="WORLDEVENTMENU") then
 		AtlasLootWorldEventMenu();
 	elseif(dataID=="AbyssalCouncil") then
@@ -2318,6 +2321,9 @@ AtlasLoot_DewDropDown = {
 			[15] = {
 				{ AL["World Epics"], "BoEWorldEpics", "Submenu" },
 			},
+			[16] = {
+				{ AL["World Blues"], "BoEWorldBlues", "Submenu" },
+			},
 		},
 	},
 	[5] = {
@@ -2822,6 +2828,36 @@ AtlasLoot_DewDropDown_SubTables = {
 		{ AtlasLoot_TableNames["WorldEpics2"][1], "WorldEpics2" },
 		{ AtlasLoot_TableNames["WorldEpics1"][1], "WorldEpics1" },
 	},
+	["BoEWorldBlues"] = {
+		{ AtlasLoot_TableNames["WorldBluesHead"][1], "WorldBluesHead" },
+		{ AtlasLoot_TableNames["WorldBluesNeck"][1], "WorldBluesNeck" },
+		{ AtlasLoot_TableNames["WorldBluesShoulder"][1], "WorldBluesShoulder" },
+		{ AtlasLoot_TableNames["WorldBluesBack"][1], "WorldBluesBack" },
+		{ AtlasLoot_TableNames["WorldBluesChest"][1], "WorldBluesChest" },
+		{ AtlasLoot_TableNames["WorldBluesWrist"][1], "WorldBluesWrist" },
+		{ AtlasLoot_TableNames["WorldBluesHands"][1], "WorldBluesHands" },
+		{ AtlasLoot_TableNames["WorldBluesWaist"][1], "WorldBluesWaist" },
+		{ AtlasLoot_TableNames["WorldBluesLegs"][1], "WorldBluesLegs" },
+		{ AtlasLoot_TableNames["WorldBluesFeet"][1], "WorldBluesFeet" },
+		{ AtlasLoot_TableNames["WorldBluesRing"][1], "WorldBluesRing" },
+		{ AtlasLoot_TableNames["WorldBluesTrinket"][1], "WorldBluesTrinket" },
+		{ AtlasLoot_TableNames["WorldBluesWand"][1], "WorldBluesWand" },
+		{ AtlasLoot_TableNames["WorldBluesHeldInOffhand"][1], "WorldBluesHeldInOffhand" },
+		{ AtlasLoot_TableNames["WorldBlues1HAxes"][1], "WorldBlues1HAxes" },
+		{ AtlasLoot_TableNames["WorldBlues1HMaces"][1], "WorldBlues1HMaces" },
+		{ AtlasLoot_TableNames["WorldBlues1HSwords"][1], "WorldBlues1HSwords" },
+		{ AtlasLoot_TableNames["WorldBlues2HAxes"][1], "WorldBlues2HAxes" },
+		{ AtlasLoot_TableNames["WorldBlues2HMaces"][1], "WorldBlues2HMaces" },
+		{ AtlasLoot_TableNames["WorldBlues2HSwords"][1], "WorldBlues2HSwords" },
+		{ AtlasLoot_TableNames["WorldBluesDaggers"][1], "WorldBluesDaggers" },
+		{ AtlasLoot_TableNames["WorldBluesFistWeapons"][1], "WorldBluesFistWeapons" },
+		{ AtlasLoot_TableNames["WorldBluesPolearms"][1], "WorldBluesPolearms" },
+		{ AtlasLoot_TableNames["WorldBluesStaves"][1], "WorldBluesStaves" },
+		{ AtlasLoot_TableNames["WorldBluesBows"][1], "WorldBluesBows" },
+		{ AtlasLoot_TableNames["WorldBluesCrossbows"][1], "WorldBluesCrossbows" },
+		{ AtlasLoot_TableNames["WorldBluesGuns"][1], "WorldBluesGuns" },
+		{ AtlasLoot_TableNames["WorldBluesShields"][1], "WorldBluesShields" },
+	},
 	["CraftSetBlacksmith"] = {
 		{ AL["Imperial Plate"], "ImperialPlate" },
 		{ AL["The Darksoul"], "TheDarksoul" },
@@ -2936,6 +2972,8 @@ AtlasLoot_DewDropDown_SubTables = {
 		{ AL["Zul'Gurub Rings"], "ZGRings" },
 	},
 	["AVRewards"] = {
+		{ AL["Ivus the Forest Lord"], "AVIvus" },
+		{ AL["Lokholar the Ice Lord"], "AVLokholar" },
 		{ AL["Exalted Reputation Rewards"], "AVRepExalted" },
 		{ AL["Revered Reputation Rewards"], "AVRepRevered" },
 		{ AL["Honored Reputation Rewards"], "AVRepHonored" },
@@ -3276,6 +3314,12 @@ function AtlasLootItem_OnClick(arg1)
 				DEFAULT_CHAT_FRAME:AddMessage(itemName..AL[" is safe."]);
 			end
 		elseif IsShiftKeyDown() and not iteminfo and this.itemID ~= 0 then
+			if not itemName then
+				if AtlasLootCharDB.SafeLinks then
+					DEFAULT_CHAT_FRAME:AddMessage(BLUE..AL["AtlasLoot"]..": "..RED..AL["The specified item does not exist or is not cached!"])
+					return
+				end
+			end
 			if AtlasLootCharDB.SafeLinks then
 				if ChatFrameEditBox:IsVisible() then
 					ChatFrameEditBox:Insert("["..name.."]");
@@ -3335,6 +3379,11 @@ function AtlasLootItem_OnClick(arg1)
 		end
 	elseif isSpell then
 		if IsShiftKeyDown() then
+			local itemexistance = GetItemInfo(GetSpellInfoVanillaDB["craftspells"][tonumber(string.sub(this.itemID, 2))]["craftItem"])
+			if not itemexistance then
+				DEFAULT_CHAT_FRAME:AddMessage(BLUE..AL["AtlasLoot"]..": "..RED..AL["The specified item does not exist or is not cached!"])
+				return
+			end
 			if tonumber(string.sub(this.itemID, 2)) < 100000 then
 				if ChatFrameEditBox:IsVisible() then
 					local craftitem = GetSpellInfoVanillaDB["craftspells"][tonumber(string.sub(this.itemID, 2))]["craftItem"]
@@ -3462,22 +3511,42 @@ function AtlasLoot_SayItemReagents(id, color, name, safe)
 					craftnumber = craftnumber..qtyMin.."x"
 				end
 			end
-			SendChatMessage(AL["To craft "]..craftnumber..AtlasLoot_GetChatLink(craftitem)..AL[" the following reagents are needed:"],channel,nil,chatnumber);
-			for j = 1, table.getn(GetSpellInfoVanillaDB["craftspells"][tonumber(spellid)]["reagents"]) do
-				local tempnumber = GetSpellInfoVanillaDB["craftspells"][tonumber(spellid)]["reagents"][j][2]
-				if not tempnumber or tempnumber == nil or tempnumber == "" then
-					tempnumber = 1;
+			if craftnumber ~= "" then
+				SendChatMessage(AL["To craft "]..craftnumber..AtlasLoot_GetChatLink(craftitem)..AL[" the following reagents are needed:"],channel,nil,chatnumber);
+				for j = 1, table.getn(GetSpellInfoVanillaDB["craftspells"][tonumber(spellid)]["reagents"]) do
+					local tempnumber = GetSpellInfoVanillaDB["craftspells"][tonumber(spellid)]["reagents"][j][2]
+					if not tempnumber or tempnumber == nil or tempnumber == "" then
+						tempnumber = 1;
+					end
+					chatline = chatline..tempnumber.."x"..AtlasLoot_GetChatLink(GetSpellInfoVanillaDB["craftspells"][tonumber(spellid)]["reagents"][j][1]).." ";
+					itemCount = itemCount + 1;
+					if itemCount == 4 then
+						SendChatMessage(chatline, channel, nil, chatnumber);
+						chatline = "";
+						itemCount = 0;
+					end
 				end
-				chatline = chatline..tempnumber.."x"..AtlasLoot_GetChatLink(GetSpellInfoVanillaDB["craftspells"][tonumber(spellid)]["reagents"][j][1]).." ";
-				itemCount = itemCount + 1;
-				if itemCount == 4 then
+				if itemCount > 0 then
 					SendChatMessage(chatline, channel, nil, chatnumber);
-					chatline = "";
-					itemCount = 0;
 				end
-			end
-			if itemCount > 0 then
-				SendChatMessage(chatline, channel, nil, chatnumber);
+			else
+				SendChatMessage(AL["To craft "]..AtlasLoot_GetChatLink(craftitem)..AL[" the following reagents are needed:"],channel,nil,chatnumber);
+				for j = 1, table.getn(GetSpellInfoVanillaDB["craftspells"][tonumber(spellid)]["reagents"]) do
+					local tempnumber = GetSpellInfoVanillaDB["craftspells"][tonumber(spellid)]["reagents"][j][2]
+					if not tempnumber or tempnumber == nil or tempnumber == "" then
+						tempnumber = 1;
+					end
+					chatline = chatline..tempnumber.."x"..AtlasLoot_GetChatLink(GetSpellInfoVanillaDB["craftspells"][tonumber(spellid)]["reagents"][j][1]).." ";
+					itemCount = itemCount + 1;
+					if itemCount == 4 then
+						SendChatMessage(chatline, channel, nil, chatnumber);
+						chatline = "";
+						itemCount = 0;
+					end
+				end
+				if itemCount > 0 then
+					SendChatMessage(chatline, channel, nil, chatnumber);
+				end
 			end
 		else
 			SendChatMessage(AL["To cast "]..GetSpellInfoVanillaDB["craftspells"][tonumber(spellid)]["name"]..AL[" the following items are needed:"],channel,nil,chatnumber);
