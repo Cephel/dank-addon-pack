@@ -243,7 +243,7 @@ function pfDatabase:SearchMobID(id, meta, maps)
 
       meta["level"] = units[id]["lvl"] or UNKNOWN
       meta["spawntype"] = "Unit"
-      meta["respawn"] = respawn and SecondsToTime(respawn)
+      meta["respawn"] = respawn > 0 and SecondsToTime(respawn)
 
       maps[zone] = maps[zone] and maps[zone] + 1 or 1
       pfMap:AddNode(meta)
@@ -527,12 +527,11 @@ function pfDatabase:SearchQuestID(id, meta, maps)
   }
 
   -- If QuestLogID is given, scan and add all finished objectives to blacklist
-  local complete
   if meta["qlogid"] then
     local objectives = GetNumQuestLeaderBoards(meta["qlogid"])
-    _, _, _, _, _, complete = GetQuestLogTitle(meta["qlogid"])
+    local _, _, _, _, _, complete = GetQuestLogTitle(meta["qlogid"])
 
-    if objectives then
+    if objectives and not complete then
       for i=1, objectives, 1 do
         local text, type, done = GetQuestLogLeaderBoard(i, meta["qlogid"])
 
@@ -540,21 +539,19 @@ function pfDatabase:SearchQuestID(id, meta, maps)
         if type == "monster" then
           local i, j, monsterName, objNum, objNeeded = strfind(text, pfUI.api.SanitizePattern(QUEST_MONSTERS_KILLED))
           for id in pairs(pfDatabase:GetIDByName(monsterName, "units")) do
-            parse_obj["U"][id] = ( objNUm == objNeeded or done ) and "DONE" or "PROG"
+            parse_obj["U"][id] = ( objNum + 0 >= objNeeded + 0 or done ) and "DONE" or "PROG"
           end
 
           for id in pairs(pfDatabase:GetIDByName(monsterName, "objects")) do
-            parse_obj["O"][id] = ( objNUm == objNeeded or done ) and "DONE" or "PROG"
+            parse_obj["O"][id] = ( objNum + 0 >= objNeeded + 0 or done ) and "DONE" or "PROG"
           end
         end
 
         -- item data
         if type == "item" then
           local i, j, itemName, objNum, objNeeded = strfind(text, pfUI.api.SanitizePattern(QUEST_OBJECTS_FOUND))
-          if objNUm == objNeeded or done then
-            for id in pairs(pfDatabase:GetIDByName(itemName, "items")) do
-              parse_obj["I"][id] = ( objNUm == objNeeded or done ) and "DONE" or "PROG"
-            end
+          for id in pairs(pfDatabase:GetIDByName(itemName, "items")) do
+            parse_obj["I"][id] = ( objNum + 0 >= objNeeded + 0 or done ) and "DONE" or "PROG"
           end
         end
       end
@@ -562,7 +559,13 @@ function pfDatabase:SearchQuestID(id, meta, maps)
   end
 
   -- search quest-objectives
-  if quests[id]["obj"] and not complete then
+  if quests[id]["obj"] then
+
+    if meta["qlogid"] then
+      local _, _, _, _, _, complete = GetQuestLogTitle(meta["qlogid"])
+      if complete then return maps end
+    end
+
     -- units
     if quests[id]["obj"]["U"] then
       for _, unit in pairs(quests[id]["obj"]["U"]) do

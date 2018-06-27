@@ -4,11 +4,7 @@ pfQuest.queue = {}
 pfQuest.abandon = ""
 pfQuest.questlog = {}
 pfQuest.questlog_tmp = {}
-pfQuest.debugmode  = false
 
-pfQuest:RegisterEvent("QUEST_WATCH_UPDATE")
-pfQuest:RegisterEvent("QUEST_LOG_UPDATE")
-pfQuest:RegisterEvent("QUEST_FINISHED")
 pfQuest:RegisterEvent("PLAYER_LEVEL_UP")
 pfQuest:RegisterEvent("PLAYER_ENTERING_WORLD")
 pfQuest:RegisterEvent("SKILL_LINES_CHANGED")
@@ -17,7 +13,7 @@ pfQuest:SetScript("OnEvent", function()
   if event == "ADDON_LOADED" then
     if arg1 == "pfQuest" then
       if tostring(GetAddOnMetadata("pfQuest", "Version")) == "NORELEASE" then
-        DEFAULT_CHAT_FRAME:AddMessage("|cff33ffccWARNING:|r You're using a development snapshot of pfQuest which leads to a higher RAM-Usage and increased loading times. Please choose an official release instead: https://github.com/shagu/pfQuest/releases")
+        DEFAULT_CHAT_FRAME:AddMessage("|cff33ffccWARNING:|r You're using a development snapshot of pfQuest which leads to a higher RAM-Usage and increased loading times. Please choose an official release instead: https://shagu.org/pfQuest")
       end
 
       pfQuest:AddQuestLogIntegration()
@@ -27,24 +23,17 @@ pfQuest:SetScript("OnEvent", function()
     end
   elseif event == "PLAYER_LEVEL_UP" or event == "PLAYER_ENTERING_WORLD" or event == "SKILL_LINES_CHANGED" then
     pfQuest.updateQuestGivers = true
-  else
-    pfQuest.updateQuestLog = true
   end
 end)
 
 pfQuest:SetScript("OnUpdate", function()
   if ( this.tick or .2) > GetTime() then return else this.tick = GetTime() + .2 end
 
-  if this.updateQuestLog == true then
-    QuestLog_Update()
-    pfQuest:UpdateQuestlog()
-    this.updateQuestLog = false
-  end
+  pfQuest:UpdateQuestlog()
 
   if this.updateQuestGivers == true then
     if pfQuest_config["trackingmethod"] == 4 then return end
     if pfQuest_config["allquestgivers"] == "1" then
-      pfQuest.debug("Loading Questgivers")
       local meta = { ["addon"] = "PFQUEST" }
       pfDatabase:SearchQuests(meta)
       pfMap:UpdateNodes()
@@ -62,7 +51,6 @@ pfQuest:SetScript("OnUpdate", function()
 
     if pfQuest_config["trackingmethod"] ~= 3 and (pfQuest_config["trackingmethod"] ~= 2 or IsQuestWatched(entry[3])) then
       pfMap:DeleteNode("PFQUEST", entry[1])
-      pfQuest.debug("Loading |cff33ffcc" .. entry[1])
       local meta = { ["addon"] = "PFQUEST", ["qlogid"] = entry[3] }
       for _, id in entry[2] do
         pfDatabase:SearchQuestID(id, meta)
@@ -102,10 +90,10 @@ function pfQuest:UpdateQuestlog()
       if objectives then
         local state = watched and "trck" or ""
         for i=1, objectives, 1 do
-          local text, _, finished = GetQuestLogLeaderBoard(i, qlogid)
-          local _, _, itemName, numItems, numNeeded = strfind(text, "(.*):%s*([%d]+)%s*/%s*([%d]+)")
-          if itemName then
-            state = state .. i .. ( finished and "done" or "todo" )
+          local text, _, done = GetQuestLogLeaderBoard(i, qlogid)
+          local _, _, obj, objNum, objNeeded = strfind(text, "(.*):%s*([%d]+)%s*/%s*([%d]+)")
+          if obj then
+            state = state .. i .. (((objNum + 0 >= objNeeded + 0) or done ) and "done" or "todo")
           end
         end
         pfQuest.questlog_tmp[title].state = state
@@ -150,7 +138,6 @@ function pfQuest:ResetAll()
   -- force reload all quests
   pfMap:DeleteNode("PFQUEST")
   pfQuest.questlog = {}
-  pfQuest.updateQuestLog = true
   pfQuest.updateQuestGivers = true
   pfMap:UpdateNodes()
 end
@@ -302,12 +289,6 @@ function pfQuest:AddWorldMapIntegration()
   end
 end
 
-function pfQuest.debug(msg)
-  if pfQuest.debugmode  == true then
-    UIErrorsFrame:AddMessage("|cff33ffccpf|cffffffffQuest: " .. msg)
-  end
-end
-
 -- [[ Hook UI Functions ]] --
 -- Set certain events on quest watch
 local pfHookRemoveQuestWatch = RemoveQuestWatch
@@ -315,7 +296,6 @@ RemoveQuestWatch = function(questIndex)
   local ret = pfHookRemoveQuestWatch(questIndex)
   local title, _, _, header, _, complete = GetQuestLogTitle(questIndex)
   pfMap:DeleteNode("PFQUEST", title)
-  pfQuest.updateQuestLog = true
   pfQuest.updateQuestGivers = true
   return ret
 end
@@ -324,7 +304,6 @@ end
 local pfHookAddQuestWatch = AddQuestWatch
 AddQuestWatch = function(questIndex)
   local ret = pfHookAddQuestWatch(questIndex)
-  pfQuest.updateQuestLog = true
   pfQuest.updateQuestGivers = true
   return ret
 end
