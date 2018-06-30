@@ -463,11 +463,13 @@ function pfMap:DeleteNode(addon, title)
 end
 
 function pfMap:NodeClick()
-  if IsShiftKeyDown() and this.questid then
+  if IsShiftKeyDown() and this.questid and this.layer > 1 and this.layer < 5 then
+    -- mark questnode as done
     pfMap:DeleteNode(this.node[this.title].addon, this.title)
     pfQuest_history[this.questid] = true
     pfMap:UpdateNodes()
   else
+    -- switch color
     pfQuest_colors[this.color] = { str2rgb(this.color .. GetTime()) }
     pfMap:UpdateNodes()
   end
@@ -553,6 +555,7 @@ end
 
 function pfMap:UpdateNodes()
   local color = pfQuest_config["colorbyspawn"] == "1" and "spawn" or "title"
+  local alpha = pfQuest_config["worldmaptransp"] + 0
   local map = pfMap:GetMapID(GetCurrentMapContinent(), GetCurrentMapZone())
   local i = 0
 
@@ -571,12 +574,6 @@ function pfMap:UpdateNodes()
 
         pfMap:UpdateNode(pfMap.pins[i], node, color)
 
-        if node.translucent then
-          pfMap.pins[i]:SetAlpha((tonumber(pfQuest_config["worldmaptransp"]) or 1)/2)
-        else
-          pfMap.pins[i]:SetAlpha((tonumber(pfQuest_config["worldmaptransp"]) or 1))
-        end
-
         -- set position
         local _, _, x, y = strfind(coords, "(.*)|(.*)")
         x = ( x / 100 * WorldMapButton:GetWidth() ) - pfMap.pins[i]:GetWidth()/2
@@ -584,6 +581,7 @@ function pfMap:UpdateNodes()
 
         pfMap.pins[i]:ClearAllPoints()
         pfMap.pins[i]:SetPoint("TOPLEFT", x, -y)
+        pfMap.pins[i]:SetAlpha(alpha)
         pfMap.pins[i]:Show()
 
         i = i + 1
@@ -615,6 +613,7 @@ function pfMap:UpdateMinimap()
   end
 
   local color = pfQuest_config["colorbyspawn"] == "1" and "spawn" or "title"
+  local alpha = pfQuest_config["minimaptransp"] + 0
   local mapID = pfMap:GetMapIDByName(GetZoneText())
   local mapZoom = minimap_zoom[minimap_indoor()][mZoom]
   local mapWidth = minimap_sizes[mapID] and minimap_sizes[mapID][1] or 0
@@ -629,7 +628,7 @@ function pfMap:UpdateMinimap()
     if pfMap.nodes[addon][mapID] then
       for coords, node in pairs(pfMap.nodes[addon][mapID]) do
         local _, _, x, y = strfind(coords, "(.*)|(.*)")
-        x, y = tonumber(x), tonumber(y)
+        x, y = x + 0, y + 0
 
         local xScale = mapZoom / mapWidth
         local yScale = mapZoom / mapHeight
@@ -653,15 +652,10 @@ function pfMap:UpdateMinimap()
 
           pfMap:UpdateNode(pfMap.mpins[i], node, color, "minimap")
 
-          if node.translucent then
-            pfMap.mpins[i]:SetAlpha((tonumber(pfQuest_config["minimaptransp"]) or 1)/2)
-          else
-            pfMap.mpins[i]:SetAlpha((tonumber(pfQuest_config["minimaptransp"]) or 1))
-          end
-
           pfMap.mpins[i]:ClearAllPoints()
           pfMap.mpins[i]:SetPoint("CENTER", pfMap.drawlayer, "CENTER", -xPos, yPos)
           pfMap.mpins[i]:SetFrameLevel(2)
+          pfMap.mpins[i]:SetAlpha(alpha)
           if IsShiftKeyDown() and MouseIsOver(pfMap.drawlayer) then
             pfMap.mpins[i]:Hide()
           else
