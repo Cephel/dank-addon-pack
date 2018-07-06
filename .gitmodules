@@ -37,9 +37,6 @@
 [submodule "Interface/AddOns/Banana"]
 	path = Interface/AddOns/Banana
 	url = https://github.com/Hosq/Banana
-[submodule "Interface/AddOns/unitscan"]
-	path = Interface/AddOns/unitscan
-	url = https://github.com/shirsig/unitscan
 [submodule "Interface/AddOns/VanillaGuide"]
 	path = Interface/AddOns/VanillaGuide
 	url = https://github.com/osthoma/VanillaGuide
