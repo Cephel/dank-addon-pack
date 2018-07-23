@@ -177,9 +177,14 @@ function pfDatabase:GetIDByName(name, db, partial)
   for id, loc in pairs(pfDB[db]["loc"]) do
     if db == "quests" then loc = loc["T"] end
 
-    -- if the partial variable was passed, use strfind, otherwise compare the strings
-    if loc and name and ((partial and strfind(strlower(loc), strlower(name))) or strlower(loc) == strlower(name)) then
-      ret[id] = loc
+    if loc and name then
+      if partial == true and strfind(strlower(loc), strlower(name)) then
+        ret[id] = loc
+      elseif partial == "LOWER" and strlower(loc) == strlower(name) then
+        ret[id] = loc
+      elseif loc == name then
+        ret[id] = loc
+      end
     end
   end
   return ret
@@ -284,10 +289,10 @@ end
 -- SearchMob
 -- Scans for all mobs with a specified name
 -- Adds map nodes for each and returns its map table
-function pfDatabase:SearchMob(mob, meta, show)
+function pfDatabase:SearchMob(mob, meta, partial)
   local maps = {}
 
-  for id in pairs(pfDatabase:GetIDByName(mob, "units")) do
+  for id in pairs(pfDatabase:GetIDByName(mob, "units", partial)) do
     if units[id] and units[id]["coords"] then
       maps = pfDatabase:SearchMobID(id, meta, maps)
     end
@@ -332,10 +337,10 @@ end
 -- SearchObject
 -- Scans for all objects with a specified name
 -- Adds map nodes for each and returns its map table
-function pfDatabase:SearchObject(obj, meta)
+function pfDatabase:SearchObject(obj, meta, partial)
   local maps = {}
 
-  for id in pairs(pfDatabase:GetIDByName(obj, "objects")) do
+  for id in pairs(pfDatabase:GetIDByName(obj, "objects", partial)) do
     if objects[id] and objects[id]["coords"] then
       maps = pfDatabase:SearchObjectID(id, meta, maps)
     end
@@ -401,11 +406,11 @@ end
 -- Scans for all items with a specified name
 -- Adds map nodes for each drop and vendor
 -- Returns its map table
-function pfDatabase:SearchItem(item, meta)
+function pfDatabase:SearchItem(item, meta, partial)
   local maps = {}
   local bestmap, bestscore = nil, 0
 
-  for id in pairs(pfDatabase:GetIDByName(item, "items")) do
+  for id in pairs(pfDatabase:GetIDByName(item, "items", partial)) do
     maps = pfDatabase:SearchItemID(id, meta, maps)
   end
 
@@ -609,10 +614,10 @@ end
 -- Scans for all quests with a specified name
 -- Adds map nodes for each objective and involved unit
 -- Returns its map table
-function pfDatabase:SearchQuest(quest, meta)
+function pfDatabase:SearchQuest(quest, meta, partial)
   local maps = {}
 
-  for id in pairs(pfDatabase:GetIDByName(quest, "quests")) do
+  for id in pairs(pfDatabase:GetIDByName(quest, "quests", partial)) do
     maps = pfDatabase:SearchQuestID(id, meta, maps)
   end
 
@@ -650,39 +655,8 @@ function pfDatabase:SearchQuests(meta, maps)
   end
 
   for id in pairs(quests) do
-    meta["quest"] = ( pfDB.quests.loc[id] and pfDB.quests.loc[id].T ) or UNKNOWN
-    meta["questid"] = id
-    meta["texture"] = "Interface\\AddOns\\pfQuest\\img\\available_c"
-
     minlvl = quests[id]["min"] or quests[id]["lvl"]
     maxlvl = quests[id]["lvl"]
-
-    meta["qlvl"] = quests[id]["lvl"]
-    meta["qmin"] = quests[id]["min"]
-
-    meta["vertex"] = { 0, 0, 0 }
-    meta["layer"] = 3
-
-    -- tint high level quests red
-    if minlvl > plevel then
-      meta["texture"] = "Interface\\AddOns\\pfQuest\\img\\available"
-      meta["vertex"] = { 1, .6, .6 }
-      meta["layer"] = 2
-    end
-
-    -- tint low level quests grey
-    if maxlvl + 9 < plevel then
-      meta["texture"] = "Interface\\AddOns\\pfQuest\\img\\available"
-      meta["vertex"] = { 1, 1, 1 }
-      meta["layer"] = 2
-    end
-
-    -- treat big difference in level requirements as daily quests
-    if math.abs(minlvl - maxlvl) >= 30 then
-      meta["texture"] = "Interface\\AddOns\\pfQuest\\img\\available"
-      meta["vertex"] = { .2, .8, 1 }
-      meta["layer"] = 2
-    end
 
     if pfDB.quests.loc[id] and currentQuests[pfDB.quests.loc[id].T] then
       -- hide active quest
@@ -705,6 +679,38 @@ function pfDatabase:SearchQuests(meta, maps)
     elseif quests[id]["skill"] and not pfDatabase:PlayerHasSkill(quests[id]["skill"]) then
       -- hide non-available quests for your class
     else
+      -- set metadata
+      meta["quest"] = ( pfDB.quests.loc[id] and pfDB.quests.loc[id].T ) or UNKNOWN
+      meta["questid"] = id
+      meta["texture"] = "Interface\\AddOns\\pfQuest\\img\\available_c"
+
+      meta["qlvl"] = quests[id]["lvl"]
+      meta["qmin"] = quests[id]["min"]
+
+      meta["vertex"] = { 0, 0, 0 }
+      meta["layer"] = 3
+
+      -- tint high level quests red
+      if minlvl > plevel then
+        meta["texture"] = "Interface\\AddOns\\pfQuest\\img\\available"
+        meta["vertex"] = { 1, .6, .6 }
+        meta["layer"] = 2
+      end
+
+      -- tint low level quests grey
+      if maxlvl + 9 < plevel then
+        meta["texture"] = "Interface\\AddOns\\pfQuest\\img\\available"
+        meta["vertex"] = { 1, 1, 1 }
+        meta["layer"] = 2
+      end
+
+      -- treat big difference in level requirements as daily quests
+      if math.abs(minlvl - maxlvl) >= 30 then
+        meta["texture"] = "Interface\\AddOns\\pfQuest\\img\\available"
+        meta["vertex"] = { .2, .8, 1 }
+        meta["layer"] = 2
+      end
+
       -- iterate over all questgivers
       if quests[id]["start"] then
         -- units
@@ -727,8 +733,6 @@ function pfDatabase:SearchQuests(meta, maps)
       end
     end
   end
-
-  return num
 end
 
 function pfDatabase:FormatQuestText(questText)

@@ -463,10 +463,13 @@ function pfMap:DeleteNode(addon, title)
 end
 
 function pfMap:NodeClick()
-  if IsShiftKeyDown() and this.questid and this.layer > 1 and this.layer < 5 then
+  if IsShiftKeyDown() and this.questid and this.texture and this.layer < 5 then
     -- mark questnode as done
     pfMap:DeleteNode(this.node[this.title].addon, this.title)
     pfQuest_history[this.questid] = true
+    pfMap:UpdateNodes()
+  elseif IsShiftKeyDown() then
+    pfMap:DeleteNode(this.node[this.title].addon, this.title)
     pfMap:UpdateNodes()
   else
     -- switch color
@@ -523,6 +526,7 @@ function pfMap:UpdateNode(frame, node, color, obj)
       frame.level     = tab.level
       frame.color     = tab[color] or tab.title
       frame.questid   = tab.questid
+      frame.texture   = tab.texture
       frame.title     = title
 
       if tab.texture then
@@ -613,7 +617,7 @@ function pfMap:UpdateMinimap()
   end
 
   local color = pfQuest_config["colorbyspawn"] == "1" and "spawn" or "title"
-  local alpha = pfQuest_config["minimaptransp"] + 0
+  local alpha = tonumber(pfQuest_config["minimaptransp"]) or 1
   local mapID = pfMap:GetMapIDByName(GetZoneText())
   local mapZoom = minimap_zoom[minimap_indoor()][mZoom]
   local mapWidth = minimap_sizes[mapID] and minimap_sizes[mapID][1] or 0
